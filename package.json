@@ -13,7 +13,8 @@
 		"flow-bin": "^0.78.0",
 		"prettier": "^1.14.2",
 		"react": "16.0.0-alpha.6",
-		"react-native": "^0.44.0"
+		"react-native": "^0.44.0",
+		"react-native-vector-icons": "^5.0.0"
 	},
 	"devDependencies": {
 		"babel-eslint": "^8.2.6",
