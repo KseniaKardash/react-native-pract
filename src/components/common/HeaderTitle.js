@@ -14,7 +14,7 @@ const HeaderTitle = (props: Props) => {
 const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
-    color: '#000000',
+    color: '#3f3f4b',
     fontSize: 40
   }
 });

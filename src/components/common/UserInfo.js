@@ -8,7 +8,8 @@ type Props = {
 
 const UserInfo = (props: Props) => {
   const {userName} = props;
-  return (<View style={styles.container}>
+  return (
+  <View style={styles.container}>
     <Image style={styles.img} source={{uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png'}}/>
     <Text style={styles.userName}>{userName}</Text>
   </View>);
@@ -28,7 +29,8 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   userName: {
-    fontSize: 18
+    fontSize: 18,
+    // fontFamily: 'Caviar_Dreams_Bold'
   }
 });
 

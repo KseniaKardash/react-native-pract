@@ -1,18 +1,13 @@
 /* @flow */
 import React from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  View
-} from 'react-native';
-import FullPost from './components/common/FullPost';
+import {AppRegistry, StyleSheet, View} from 'react-native';
+import FullPost from './src/components/common/FullPost';
 
 const myapp = () => {
-    return (
-      <View style={styles.container}>
-        <FullPost likes="123" description="Fdkfiojfi gkgijf oi ijgfi" userName="Ksenia Kardash"/>
-      </View>
-    );
+  return (
+  <View style={styles.container}>
+    <FullPost userName="Ksenia Kardash" likes="123" description="Some text"/>
+  </View>);
 };
 
 export default myapp;
@@ -22,7 +17,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF'
   }
 });
 

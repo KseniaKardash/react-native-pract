@@ -16,7 +16,8 @@ type uri = {
 
 const UserPost = (props: Props) => {
   const {uri, children, userName} = props;
-  return (<View style={styles.container}>
+  return (
+  <View style={styles.container}>
     <UserInfo userName={userName}/>
     <Image style={styles.img} source={uri}/>
     {children}
@@ -36,7 +37,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     borderColor: '#ddd',
     borderWidth: 1,
-    borderRadius: 2
+    borderRadius: 5,
+    elevation: 5,
   },
   text: {
     fontSize: 18

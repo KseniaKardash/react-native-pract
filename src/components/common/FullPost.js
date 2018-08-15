@@ -11,12 +11,13 @@ type Props = {
 
 const FullPost = (props: Props) => {
   const {likes, description, userName} = props;
-  return (<View style={styles.container}>
+  return (
+  <View style={styles.container}>
     <UserPost uri={{
         uri: 'https://i.pinimg.com/564x/ee/bd/23/eebd23a588c8199faa099124ba5f099f.jpg'
       }} userName={userName}>
       <View style={styles.likes}>
-        <Image style={styles.img} source={require('../../img/likes.png')}/>
+        <Image style={styles.img} source={require('../../assets/img/likes.png')}/>
         <Text style={styles.text}>
           {likes}
         </Text>
@@ -45,12 +46,12 @@ const styles = StyleSheet.create({
   likes: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   description: {
     marginLeft: 10,
     marginTop: 5,
-    fontSize: 16
+    fontSize: 16,
   }
 });
 

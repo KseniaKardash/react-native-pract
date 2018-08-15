@@ -5,29 +5,28 @@ import {TextInput, StyleSheet} from 'react-native';
 type Props = {
   value: string
 }
-
-const TextArea = (props: Props) => {
+const TagInput = (props: Props) => {
   const {value} = props;
-  return (<TextInput
+  return (
+  <TextInput
     underlineColorAndroid="transparent"
     multiline
-    numberOfLines={4}
     value={value}
-    style={styles.textarea}
-    placeholder="Description"/>);
+    style={styles.taginput}
+    placeholder="Tag"/>);
 };
 
 const styles = StyleSheet.create({
-  textarea: {
+  taginput: {
     textAlign: 'center',
     fontSize: 20,
     borderColor: '#757575',
     borderWidth: 1,
-    height: 120,
-    width: 300,
+    height: 60,
+    width: 150,
     borderRadius: 5,
     margin: 10
   }
 });
 
-export default TextArea;
+export default TagInput;
