@@ -3,14 +3,18 @@ import React from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 
 type Props = {
-  userName: string
+  userName: string,
+  uriPhoto: uri
 };
 
+type uri = {
+  uri: string
+}
+
 const UserInfo = (props: Props) => {
-  const {userName} = props;
-  return (
-  <View style={styles.container}>
-    <Image style={styles.img} source={{uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png'}}/>
+  const {userName, uriPhoto} = props;
+  return (<View style={styles.container}>
+    <Image style={styles.img} source={uriPhoto}/>
     <Text style={styles.userName}>{userName}</Text>
   </View>);
 };
@@ -21,7 +25,7 @@ const styles = StyleSheet.create({
     height: 30,
     borderRadius: 50,
     marginRight: 10
-    },
+  },
   container: {
     display: 'flex',
     flexDirection: 'row',
@@ -29,8 +33,7 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   userName: {
-    fontSize: 18,
-    // fontFamily: 'Caviar_Dreams_Bold'
+    fontSize: 18
   }
 });
 

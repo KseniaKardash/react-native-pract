@@ -15,7 +15,8 @@ module.exports = {
     "semi": 2,
     "react/jsx-filename-extension": [1, {
       "extensions": [".js", ".jsx"]
-    }]
+    }],
+    "react/require-default-props": 0
   },
   "env": {
     "react-native/react-native": true,

@@ -1,7 +1,9 @@
 /* @flow */
 import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import UserPost from './UserPost';
+import {MAIN_COLOR} from '../../constants/colors';
 
 type uri = {
   uri: string
@@ -11,16 +13,19 @@ type Props = {
   uri: uri,
   likes: string,
   description: string,
-  userName: string
+  userName: string,
+  uriPhoto: uri
 };
 
 const FullPost = (props: Props) => {
-  const {likes, description, userName, uri} = props;
+  const {likes, description, userName, uri, uriPhoto} = props;
   return (
   <View style={styles.container}>
-    <UserPost uri={uri} userName={userName}>
+    <UserPost uri={uri} userName={userName} uriPhoto={uriPhoto}>
       <View style={styles.likes}>
-        <Image style={styles.img} source={require('../../assets/img/likes.png')}/>
+        <TouchableOpacity style={styles.like}>
+             <Icon name="heart" color={MAIN_COLOR} size={27}/>
+     </TouchableOpacity>
         <Text style={styles.text}>
           {likes}
         </Text>
@@ -31,9 +36,7 @@ const FullPost = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
-  img: {
-    width: 27,
-    height: 27,
+  like: {
     marginLeft: 10,
     marginRight: 3,
     marginTop: 3

@@ -2,13 +2,13 @@
 import React from 'react';
 import {TextInput, StyleSheet} from 'react-native';
 
-const TagInput = () => {
+const InputText = () => {
   return (
   <TextInput
     underlineColorAndroid="transparent"
-    multiline
     style={styles.taginput}
-    placeholder="Tag"/>);
+    placeholder="Tag"/>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -27,4 +27,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default TagInput;
+export default InputText;

@@ -2,6 +2,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import ConfirmButton from './ConfirmButton';
+import {MAIN_COLOR} from '../../constants/colors';
 
 type Props = {
   titlePost: string,
@@ -20,11 +21,10 @@ const PostSuccesful = (props: Props) => {
 
 const styles = StyleSheet.create({
   titlePost: {
-    color: '#fb6885',
+    color: MAIN_COLOR,
     fontSize: 25,
     fontWeight: 'bold',
-    paddingBottom: 10,
-    // fontFamily: 'Caviar_Dreams_Bold'
+    paddingBottom: 10
     },
   container: {
     display: 'flex',

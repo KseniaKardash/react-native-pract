@@ -6,7 +6,8 @@ import UserInfo from './UserInfo';
 
 type Props = {
   uri: uri,
-  children: Node,
+  uriPhoto: uri,
+  children?: Node,
   userName: string
 };
 
@@ -15,11 +16,11 @@ type uri = {
 }
 
 const UserPost = (props: Props) => {
-  const {uri, children, userName} = props;
+  const {uri, uriPhoto, children, userName} = props;
 
   return (
   <View style={styles.container}>
-    <UserInfo userName={userName}/>
+    <UserInfo userName={userName} uriPhoto={uriPhoto}/>
     {children ? (
       <Image style={styles.imgFull} source={uri}/>
     ) : (
