@@ -3,19 +3,22 @@ import React from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import UserPost from './UserPost';
 
+type uri = {
+  uri: string
+}
+
 type Props = {
+  uri: uri,
   likes: string,
   description: string,
   userName: string
 };
 
 const FullPost = (props: Props) => {
-  const {likes, description, userName} = props;
+  const {likes, description, userName, uri} = props;
   return (
   <View style={styles.container}>
-    <UserPost uri={{
-        uri: 'https://i.pinimg.com/564x/ee/bd/23/eebd23a588c8199faa099124ba5f099f.jpg'
-      }} userName={userName}>
+    <UserPost uri={uri} userName={userName}>
       <View style={styles.likes}>
         <Image style={styles.img} source={require('../../assets/img/likes.png')}/>
         <Text style={styles.text}>

@@ -11,8 +11,8 @@ const NextButton = () => {
 
 const styles = StyleSheet.create({
   img: {
-    width: 60,
-    height: 60
+    width: 50,
+    height: 50
   },
   button: {
     padding: 5

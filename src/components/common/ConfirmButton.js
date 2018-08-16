@@ -26,14 +26,15 @@ const СonfirmButton = (props: Props) => {
 const styles = StyleSheet.create({
   buttonContainer: {
       width: 200,
-      alignItems: 'center',
+      alignItems: 'center'
   },
   button: {
     height: 48,
     width: 200,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 50
+    borderRadius: 50,
+    margin: 10
   },
   buttonText: {
         textAlign: 'center',

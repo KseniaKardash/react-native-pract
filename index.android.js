@@ -1,12 +1,12 @@
 /* @flow */
 import React from 'react';
 import {AppRegistry, StyleSheet, View} from 'react-native';
-import FullPost from './src/components/common/FullPost';
+import PrimitivesTestScreen from './src/components/screens/PrimitivesTestScreen/PrimitivesTestScreen';
 
 const myapp = () => {
   return (
   <View style={styles.container}>
-    <FullPost userName="Ksenia Kardash" likes="123" description="Some text"/>
+    <PrimitivesTestScreen/>
   </View>);
 };
 
@@ -14,6 +14,7 @@ export default myapp;
 
 const styles = StyleSheet.create({
   container: {
+    width: '100%',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

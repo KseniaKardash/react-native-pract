@@ -20,7 +20,7 @@ const PostSuccesful = (props: Props) => {
 
 const styles = StyleSheet.create({
   titlePost: {
-    color: '#ed569b',
+    color: '#fb6885',
     fontSize: 25,
     fontWeight: 'bold',
     paddingBottom: 10,
@@ -36,7 +36,11 @@ const styles = StyleSheet.create({
     padding: 30,
     margin: 10,
     borderRadius: 5,
-    elevation: 8,
+    shadowColor: "#000",
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 1.5,
+    elevation: 3
   },
   textPost: {
     fontSize: 20,
