@@ -1,7 +1,6 @@
 package com.myapp;
 
 import com.facebook.react.ReactActivity;
-
 public class MainActivity extends ReactActivity {
 
     /**
