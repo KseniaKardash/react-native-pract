@@ -15,7 +15,11 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     color: '#3f3f4b',
-    fontSize: 40
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginLeft: 20,
+    marginBottom: 20,
+    marginTop: 10,
   }
 });
 

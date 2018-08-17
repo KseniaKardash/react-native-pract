@@ -12,11 +12,12 @@ type Props = {
 const PostSuccesful = (props: Props) => {
   const {titlePost, textPost} = props;
   return (
-  <View style={styles.container}>
-    <Text style={styles.titlePost}>{titlePost}</Text>
-    <Text style={styles.textPost}>{textPost}</Text>
-    <ConfirmButton text="DONE"/>
-  </View>);
+    <View style={styles.container}>
+      <Text style={styles.titlePost}>{titlePost}</Text>
+      <Text style={styles.textPost}>{textPost}</Text>
+      <ConfirmButton text="DONE"/>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -25,19 +26,23 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     paddingBottom: 10
-    },
+  },
   container: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center',
-    width: 300,
-    height: 300,
+    backgroundColor: '#ffffff',
+    width: 320,
+    height: 320,
     padding: 30,
     margin: 10,
     borderRadius: 5,
     shadowColor: "#000",
-    shadowOffset: { width: 2, height: 2 },
+    shadowOffset: {
+      width: 2,
+      height: 2
+    },
     shadowOpacity: 0.1,
     shadowRadius: 1.5,
     elevation: 3

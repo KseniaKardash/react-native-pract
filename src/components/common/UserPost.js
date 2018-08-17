@@ -1,6 +1,7 @@
 /* @flow */
 import React from 'react';
-import type {Node} from 'react';
+import type {Node}
+from 'react';
 import {View, Image, StyleSheet} from 'react-native';
 import UserInfo from './UserInfo';
 
@@ -19,37 +20,46 @@ const UserPost = (props: Props) => {
   const {uri, uriPhoto, children, userName} = props;
 
   return (
-  <View style={styles.container}>
+    <View style={styles.container}>
     <UserInfo userName={userName} uriPhoto={uriPhoto}/>
-    {children ? (
-      <Image style={styles.imgFull} source={uri}/>
-    ) : (
-      <Image style={styles.imgSmall} source={uri}/>)}
+    {
+      children
+        ? (<Image style={styles.imgFull} source={uri}/>)
+        : (<Image style={styles.imgSmall} source={uri}/>)
+    }
     {children}
-  </View>);
+  </View>
+);
 };
 
 const styles = StyleSheet.create({
   imgFull: {
     width: 320,
     height: 320,
-    margin: 10
-    },
-    imgSmall: {
-      width: 320,
-      height: 200,
-      margin: 10
-      },
+    margin: 10,
+    alignSelf: 'center'
+  },
+  imgSmall: {
+    width: '100%',
+    height: 200,
+    margin: 10,
+    alignSelf: 'center'
+  },
   container: {
-    width: 360,
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    margin: 10,
-    padding: 8,
+    marginBottom: 10,
+    paddingBottom: 10,
+    paddingLeft: 15,
+    paddingRight: 15,
     paddingTop: 15,
     borderRadius: 5,
     shadowColor: "#000",
-    shadowOffset: { width: 2, height: 2 },
+    shadowOffset: {
+      width: 2,
+      height: 2
+    },
     shadowOpacity: 0.1,
     shadowRadius: 1.5,
     elevation: 3

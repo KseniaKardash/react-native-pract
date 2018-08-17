@@ -1,4 +1,3 @@
-
 /* @flow */
 import Icon from 'react-native-vector-icons/FontAwesome';
 import React from 'react';
@@ -13,15 +12,16 @@ const ButtonIcon = (props: Props) => {
   const {iconName} = props;
   return (
     <TouchableHighlight>
-         <Icon name={iconName} style={styles.icon} color={MAIN_COLOR} size={40}/>
- </TouchableHighlight>
-
-);};
+      <Icon name={iconName} style={styles.icon} color={MAIN_COLOR} size={40}/>
+    </TouchableHighlight>);
+};
 export default ButtonIcon;
 
 const styles = StyleSheet.create({
   icon: {
     margin: 5,
-    padding: 10
+    padding: 5,
+    marginBottom: 20,
+    marginTop: 10
   }
 });
