@@ -7,11 +7,12 @@ import InfoModal from './src/components/screens/InfoModal/ InfoModal';
 import SelectPhoto from './src/components/screens/SelectPhoto/SelectPhoto';
 import Post from './src/components/screens/Post/Post';
 import PostsFeed from './src/components/screens/PostsFeed/PostsFeed';
+import posts from './src/constants/testObjects';
 
 const myapp = () => {
   return (
   <View style={styles.container}>
-    <PostsFeed/>
+    <PostsFeed posts={posts}/>
     {/* <PrimitivesTestScreen/> */}
     {/* <FinishPost/> */}
     {/* <InfoModal/> */}

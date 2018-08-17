@@ -4,15 +4,20 @@ import {View, StyleSheet, FlatList} from 'react-native';
 import ButtonIcon from '../../common/ButtonIcon';
 import HeaderTitle from '../../common/HeaderTitle';
 import UserPost from '../../common/UserPost';
-import posts from '../../../constants/testObjects';
 
-class PostsFeed extends React.Component {
-  state = {
-    posts: posts
-  }
+type Props = {
+  posts: Array<Posts>
+}
 
-  render() {
-    const {posts} = this.state;
+type Posts = {
+  uri: string,
+  uriPhoto: string,
+  userName: string
+}
+
+const PostsFeed = (props: Props) => {
+
+    const {posts} = props;
     return (<View style={styles.container}>
       <View style={styles.header}>
         <ButtonIcon iconName="search"/>
@@ -28,7 +33,6 @@ class PostsFeed extends React.Component {
         </View>} keyExtractor={item => item.userName}/>
     </View>);
   };
-}
 
 const styles = StyleSheet.create({
   container: {
