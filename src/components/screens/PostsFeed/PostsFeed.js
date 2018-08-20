@@ -10,19 +10,26 @@ type Props = {
 }
 
 type Posts = {
+  _id: string,
+  index: number,
   uri: string,
   uriPhoto: string,
   userName: string
 }
 
-class PostsFeed extends PureComponent<Props> {
+type State = {
+  searchName: string,
+  toggleSearch: boolean
+}
 
-  state = {
+class PostsFeed extends PureComponent<Props, State> {
+
+  state: State = {
     searchName: '',
     toggleSearch: false
   };
 
-  filtering = (posts, query) => {
+  filtering = (posts: Array<Posts>, query: string): Array<Posts> => {
     return posts.filter((post) => {
       const userName = post.userName.toUpperCase();
       const queryData = query.toUpperCase();
@@ -30,9 +37,11 @@ class PostsFeed extends PureComponent<Props> {
     });
   };
 
-  _setToggle = () => this.setState(state => ({
-    toggleSearch: !state.toggleSearch
-  }));
+  _setToggle = () => {
+    this.setState(prevState => {
+      return { toggleSearch: !prevState.toggleSearch };
+    });
+  };
 
   render() {
     let filter;
@@ -51,6 +60,7 @@ class PostsFeed extends PureComponent<Props> {
         toggleSearch
           ? (<TextInput style={styles.textInput}
             placeholder="Search"
+            value={searchName}
             onChangeText={searchName => this.setState({searchName})}/>)
           : (<View/>)
       }

@@ -6,7 +6,7 @@ import {MAIN_COLOR} from '../../constants/colors';
 
 type Props = {
   iconName: string,
-  setToggle: Function
+  setToggle?: Function
 };
 
 const ButtonIcon = (props: Props) => {
