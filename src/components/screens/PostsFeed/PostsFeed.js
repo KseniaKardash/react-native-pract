@@ -1,5 +1,5 @@
 /* @flow */
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {View, StyleSheet, FlatList} from 'react-native';
 import ButtonIcon from '../../common/ButtonIcon';
 import HeaderTitle from '../../common/HeaderTitle';
@@ -15,24 +15,35 @@ type Posts = {
   userName: string
 }
 
-const PostsFeed = (props: Props) => {
-
-    const {posts} = props;
-    return (<View style={styles.container}>
+class PostsFeed extends PureComponent<Props>{
+  render(){
+      const {posts} = this.props;
+    return (
+    <View style={styles.container}>
       <View style={styles.header}>
         <ButtonIcon iconName="search"/>
         <HeaderTitle text="FEED"/>
         <ButtonIcon iconName="plus"/>
       </View>
-      <FlatList data={posts} showsVerticalScrollIndicator={false} renderItem={({item}) => <View>
+      <FlatList
+        removeClippedSubviews={false}
+        disableVirtualization
+        showsVerticalScrollIndicator={false}
+        initialNumToRender={15}
+        maxToRenderPerBatch={10}
+        data={posts}
+        keyExtractor={item => item._id}
+        renderItem={({item}) =>
+        <View>
           <UserPost userName={item.userName} uri={{
               uri: item.uri
             }} uriPhoto={{
               uri: item.uriPhoto
             }}/>
-        </View>} keyExtractor={item => item.userName}/>
+        </View>}/>
     </View>);
   };
+}
 
 const styles = StyleSheet.create({
   container: {
