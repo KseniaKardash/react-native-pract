@@ -5,14 +5,15 @@ import {TouchableHighlight, StyleSheet} from 'react-native';
 import {MAIN_COLOR} from '../../constants/colors';
 
 type Props = {
-  iconName: string
+  iconName: string,
+  setToggle?: Function
 };
 
 const ButtonIcon = (props: Props) => {
-  const {iconName} = props;
+  const {iconName, setToggle} = props;
   return (
     <TouchableHighlight>
-      <Icon name={iconName} style={styles.icon} color={MAIN_COLOR} size={40}/>
+      <Icon name={iconName} style={styles.icon} color={MAIN_COLOR} size={40} onPress={setToggle}/>
     </TouchableHighlight>);
 };
 export default ButtonIcon;
