@@ -1,9 +1,8 @@
 /* @flow */
-import React from 'react';
-import type {Node}
-from 'react';
-import {View, Image, StyleSheet} from 'react-native';
-import UserInfo from './UserInfo';
+import React from "react";
+import type { Node } from "react";
+import { View, Image, StyleSheet } from "react-native";
+import UserInfo from "./UserInfo";
 
 type Props = {
   uri: uri,
@@ -14,22 +13,22 @@ type Props = {
 
 type uri = {
   uri: string
-}
+};
 
 const UserPost = (props: Props) => {
-  const {uri, uriPhoto, children, userName} = props;
+  const { uri, uriPhoto, children, userName } = props;
 
   return (
     <View style={styles.container}>
-    <UserInfo userName={userName} uriPhoto={uriPhoto}/>
-    {
-      children
-        ? (<Image style={styles.imgFull} source={uri}/>)
-        : (<Image style={styles.imgSmall} source={uri}/>)
-    }
-    {children}
-  </View>
-);
+      <UserInfo userName={userName} uriPhoto={uriPhoto} />
+      {children ? (
+        <Image style={styles.imgFull} source={uri} />
+      ) : (
+        <Image style={styles.imgSmall} source={uri} />
+      )}
+      {children}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -37,18 +36,18 @@ const styles = StyleSheet.create({
     width: 320,
     height: 320,
     margin: 10,
-    alignSelf: 'center'
+    alignSelf: "center"
   },
   imgSmall: {
-    width: '100%',
+    width: "100%",
     height: 200,
     margin: 10,
-    alignSelf: 'center'
+    alignSelf: "center"
   },
   container: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
     marginBottom: 10,
     paddingBottom: 10,
     paddingLeft: 15,

@@ -1,19 +1,20 @@
 /* @flow */
-import Icon from 'react-native-vector-icons/FontAwesome';
-import React from 'react';
-import {TouchableHighlight, StyleSheet} from 'react-native';
-import {MAIN_COLOR} from '../../constants/colors';
+import Icon from "react-native-vector-icons/FontAwesome";
+import React from "react";
+import { TouchableHighlight, StyleSheet } from "react-native";
+import { MAIN_COLOR } from "../../constants/colors";
 
 type Props = {
   iconName: string
 };
 
 const ButtonIcon = (props: Props) => {
-  const {iconName} = props;
+  const { iconName } = props;
   return (
     <TouchableHighlight>
-      <Icon name={iconName} style={styles.icon} color={MAIN_COLOR} size={40}/>
-    </TouchableHighlight>);
+      <Icon name={iconName} style={styles.icon} color={MAIN_COLOR} size={40} />
+    </TouchableHighlight>
+  );
 };
 export default ButtonIcon;
 

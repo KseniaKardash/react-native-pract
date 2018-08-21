@@ -1,19 +1,20 @@
 /* @flow */
-import React from 'react';
-import {TextInput, StyleSheet} from 'react-native';
+import React from "react";
+import { TextInput, StyleSheet } from "react-native";
 
 const InputText = () => {
   return (
-  <TextInput
-    underlineColorAndroid="transparent"
-    style={styles.taginput}
-    placeholder="Tag"/>
+    <TextInput
+      underlineColorAndroid="transparent"
+      style={styles.taginput}
+      placeholder="Tag"
+    />
   );
 };
 
 const styles = StyleSheet.create({
   taginput: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 20,
     height: 60,
     flex: 1,
