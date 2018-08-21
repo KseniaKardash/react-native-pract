@@ -1,20 +1,22 @@
 /* @flow */
-import React from 'react';
-import {TextInput, StyleSheet} from 'react-native';
+import React from "react";
+import { TextInput, StyleSheet } from "react-native";
 
 const TextArea = () => {
   return (
     <TextInput
-    underlineColorAndroid="transparent"
-    multiline
-    numberOfLines={4}
-    style={styles.textarea}
-    placeholder="Description"/>);
+      underlineColorAndroid="transparent"
+      multiline
+      numberOfLines={4}
+      style={styles.textarea}
+      placeholder="Description"
+    />
+  );
 };
 
 const styles = StyleSheet.create({
   textarea: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 20,
     height: 120,
     width: 300,

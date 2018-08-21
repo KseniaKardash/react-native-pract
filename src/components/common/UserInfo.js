@@ -1,6 +1,6 @@
 /* @flow */
-import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import React from "react";
+import { View, Text, Image, StyleSheet } from "react-native";
 
 type Props = {
   userName: string,
@@ -9,14 +9,16 @@ type Props = {
 
 type uri = {
   uri: string
-}
+};
 
 const UserInfo = (props: Props) => {
-  const {userName, uriPhoto} = props;
-  return (<View style={styles.container}>
-    <Image style={styles.img} source={uriPhoto}/>
-    <Text style={styles.userName}>{userName}</Text>
-  </View>);
+  const { userName, uriPhoto } = props;
+  return (
+    <View style={styles.container}>
+      <Image style={styles.img} source={uriPhoto} />
+      <Text style={styles.userName}>{userName}</Text>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -27,9 +29,9 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   container: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
     marginLeft: 10
   },
   userName: {

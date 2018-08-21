@@ -1,13 +1,14 @@
 /* @flow */
-import React, {PureComponent} from 'react';
-import {View, StyleSheet, FlatList, TextInput} from 'react-native';
-import ButtonIcon from '../../common/ButtonIcon';
-import HeaderTitle from '../../common/HeaderTitle';
-import UserPost from '../../common/UserPost';
+
+import React, { PureComponent } from 'react';
+import { View, StyleSheet, FlatList, TextInput } from 'react-native';
+import ButtonIcon from "../../common/ButtonIcon";
+import HeaderTitle from "../../common/HeaderTitle";
+import UserPost from "../../common/UserPost";
 
 type Props = {
   posts: Array<Posts>
-}
+};
 
 type Posts = {
   _id: string,
@@ -15,7 +16,7 @@ type Posts = {
   uri: string,
   uriPhoto: string,
   userName: string
-}
+};
 
 type State = {
   searchName: string,
@@ -83,15 +84,15 @@ class PostsFeed extends PureComponent<Props, State> {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    width: "100%",
     flex: 1,
     padding: 20,
     paddingBottom: 0
   },
   header: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between"
   },
   textInput: {
     marginBottom: 10,
