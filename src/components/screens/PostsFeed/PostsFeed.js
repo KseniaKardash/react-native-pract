@@ -1,10 +1,10 @@
 /* @flow */
-
-import React, { PureComponent } from 'react';
-import { View, StyleSheet, FlatList, TextInput } from 'react-native';
+import React, { PureComponent } from "react";
+import { View, StyleSheet, FlatList, TextInput } from "react-native";
 import ButtonIcon from "../../common/ButtonIcon";
 import HeaderTitle from "../../common/HeaderTitle";
 import UserPost from "../../common/UserPost";
+import FadeWrapper from "../../common/FadeWrapper";
 
 type Props = {
   posts: Array<Posts>
@@ -21,17 +21,16 @@ type Posts = {
 type State = {
   searchName: string,
   toggleSearch: boolean
-}
+};
 
 class PostsFeed extends PureComponent<Props, State> {
-
   state: State = {
-    searchName: '',
+    searchName: "",
     toggleSearch: false
   };
 
   filtering = (posts: Array<Posts>, query: string): Array<Posts> => {
-    return posts.filter((post) => {
+    return posts.filter(post => {
       const userName = post.userName.toUpperCase();
       const queryData = query.toUpperCase();
       return userName.indexOf(queryData) > -1;
@@ -46,40 +45,49 @@ class PostsFeed extends PureComponent<Props, State> {
 
   render() {
     let filter;
-    const {posts} = this.props;
-    const {searchName, toggleSearch} = this.state;
-    (searchName !== '')
-      ? filter = this.filtering(posts, searchName)
-      : filter = posts;
-    return (<View style={styles.container}>
-      <View style={styles.header}>
-        <ButtonIcon iconName="search" setToggle={this._setToggle}/>
-        <HeaderTitle text="FEED"/>
-        <ButtonIcon iconName="plus"/>
-      </View>
-      {
-        toggleSearch
-          ? (<TextInput style={styles.textInput}
+    const { posts } = this.props;
+    const { searchName, toggleSearch } = this.state;
+    searchName !== ""
+      ? (filter = this.filtering(posts, searchName))
+      : (filter = posts);
+    return (
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <ButtonIcon iconName="search" setToggle={this._setToggle} />
+          <HeaderTitle text="FEED" />
+          <ButtonIcon iconName="plus" />
+        </View>
+        {toggleSearch ? (
+          <TextInput
+            style={styles.textInput}
             placeholder="Search"
             value={searchName}
-            onChangeText={searchName => this.setState({searchName})}/>)
-          : (<View/>)
-      }
-      <FlatList removeClippedSubviews={false}
-        disableVirtualization="disableVirtualization"
-        showsVerticalScrollIndicator={false}
-        initialNumToRender={15}
-        maxToRenderPerBatch={10}
-        data={filter}
-        keyExtractor={item => item._id}
-        renderItem={({item}) => <View>
-          <UserPost
-            userName={item.userName}
-            uri={{ uri: item.uri }}
-            uriPhoto={{ uri: item.uriPhoto }}/>
-        </View>}/>
-    </View>);
-  };
+            onChangeText={searchName => this.setState({ searchName })}
+          />
+        ) : (
+          <View />
+        )}
+        <FlatList
+          removeClippedSubviews={false}
+          showsVerticalScrollIndicator={false}
+          initialNumToRender={15}
+          maxToRenderPerBatch={20}
+          data={filter}
+          windowSize={21}
+          keyExtractor={item => item._id}
+          renderItem={({ item }) => (
+            <FadeWrapper>
+              <UserPost
+                userName={item.userName}
+                uri={{ uri: item.uri }}
+                uriPhoto={{ uri: item.uriPhoto }}
+              />
+            </FadeWrapper>
+          )}
+        />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -97,7 +105,8 @@ const styles = StyleSheet.create({
   textInput: {
     marginBottom: 10,
     fontSize: 18
-  }
+  },
+  animatedView: {}
 });
 
 export default PostsFeed;
