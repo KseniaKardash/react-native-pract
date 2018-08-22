@@ -29,6 +29,16 @@ class PostsFeed extends PureComponent<Props, State> {
     toggleSearch: false
   };
 
+  _onChangeText = (text: string) => {
+    this.setState({ searchName: text });
+  };
+
+  _setToggle = () => {
+    this.setState(prevState => {
+      return { toggleSearch: !prevState.toggleSearch };
+    });
+  };
+
   filtering = (posts: Array<Posts>, query: string): Array<Posts> => {
     return posts.filter(post => {
       const userName = post.userName.toUpperCase();
@@ -37,10 +47,18 @@ class PostsFeed extends PureComponent<Props, State> {
     });
   };
 
-  _setToggle = () => {
-    this.setState(prevState => {
-      return { toggleSearch: !prevState.toggleSearch };
-    });
+  _keyExtractor = (item: Posts) => item._id;
+
+  _renderItem = ({ item }: Object) => {
+    return (
+      <FadeWrapper>
+        <UserPost
+          userName={item.userName}
+          uri={{ uri: item.uri }}
+          uriPhoto={{ uri: item.uriPhoto }}
+        />
+      </FadeWrapper>
+    );
   };
 
   render() {
@@ -62,7 +80,7 @@ class PostsFeed extends PureComponent<Props, State> {
             style={styles.textInput}
             placeholder="Search"
             value={searchName}
-            onChangeText={searchName => this.setState({ searchName })}
+            onChangeText={this._onChangeText}
           />
         ) : (
           <View />
@@ -74,16 +92,8 @@ class PostsFeed extends PureComponent<Props, State> {
           maxToRenderPerBatch={20}
           data={filter}
           windowSize={21}
-          keyExtractor={item => item._id}
-          renderItem={({ item }) => (
-            <FadeWrapper>
-              <UserPost
-                userName={item.userName}
-                uri={{ uri: item.uri }}
-                uriPhoto={{ uri: item.uriPhoto }}
-              />
-            </FadeWrapper>
-          )}
+          keyExtractor={this._keyExtractor}
+          renderItem={this._renderItem}
         />
       </View>
     );
@@ -105,8 +115,7 @@ const styles = StyleSheet.create({
   textInput: {
     marginBottom: 10,
     fontSize: 18
-  },
-  animatedView: {}
+  }
 });
 
 export default PostsFeed;
