@@ -13,7 +13,13 @@ const ButtonIcon = (props: Props) => {
   const { iconName, setToggle } = props;
   return (
     <TouchableHighlight>
-      <Icon name={iconName} style={styles.icon} color={MAIN_COLOR} size={40} onPress={setToggle}/>
+      <Icon
+        name={iconName}
+        style={styles.icon}
+        color={MAIN_COLOR}
+        size={40}
+        onPress={setToggle}
+      />
     </TouchableHighlight>
   );
 };
@@ -27,4 +33,3 @@ const styles = StyleSheet.create({
     marginTop: 10
   }
 });
-

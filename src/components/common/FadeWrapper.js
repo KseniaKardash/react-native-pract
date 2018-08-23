@@ -25,8 +25,8 @@ class FadeWrapper extends PureComponent<Props, State> {
   }
 
   render() {
-    let { fadeAnimation } = this.state;
-    let { children } = this.props;
+    const { fadeAnimation } = this.state;
+    const { children } = this.props;
     return (
       <Animated.View style={{ opacity: fadeAnimation }}>
         {children}

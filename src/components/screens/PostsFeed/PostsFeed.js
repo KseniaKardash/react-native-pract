@@ -49,13 +49,13 @@ class PostsFeed extends PureComponent<Props, State> {
 
   _keyExtractor = (item: Posts) => item._id;
 
-  _renderItem = ({ item }: Object) => {
+  _renderItem = (inboundData: { item: Posts }) => {
     return (
       <FadeWrapper>
         <UserPost
-          userName={item.userName}
-          uri={{ uri: item.uri }}
-          uriPhoto={{ uri: item.uriPhoto }}
+          userName={inboundData.item.userName}
+          uri={{ uri: inboundData.item.uri }}
+          uriPhoto={{ uri: inboundData.item.uriPhoto }}
         />
       </FadeWrapper>
     );
