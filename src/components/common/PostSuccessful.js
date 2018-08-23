@@ -1,25 +1,27 @@
 /* @flow */
-import React from "react";
+import React, { PureComponent } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import ConfirmButton from "./ConfirmButton";
 import { MAIN_COLOR } from "../../constants/colors";
 
 type Props = {
   titlePost: string,
-  textPost: string
+  textPost: string,
+  onPress?: Function
 };
 
-const PostSuccesful = (props: Props) => {
-  const { titlePost, textPost } = props;
-  return (
-    <View style={styles.container}>
-      <Text style={styles.titlePost}>{titlePost}</Text>
-      <Text style={styles.textPost}>{textPost}</Text>
-      <ConfirmButton text="DONE" />
-    </View>
-  );
-};
-
+class PostSuccesful extends PureComponent<Props> {
+  render() {
+    const { titlePost, textPost, onPress } = this.props;
+    return (
+      <View style={styles.container}>
+        <Text style={styles.titlePost}>{titlePost}</Text>
+        <Text style={styles.textPost}>{textPost}</Text>
+        <ConfirmButton text="DONE" onPress={onPress} />
+      </View>
+    );
+  }
+}
 const styles = StyleSheet.create({
   titlePost: {
     color: MAIN_COLOR,

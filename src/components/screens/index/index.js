@@ -13,21 +13,12 @@ function registerScreens() {
   Navigation.registerComponent("FinishPost", () => FinishPost);
   Navigation.registerComponent("PostsFeed", () => PostsFeed);
 
-  Navigation.startTabBasedApp({
-    tabs: [
-      {
-        label: "One",
-        screen: "PostsFeed",
-        icon: require("../../../assets/img/like.png"),
-        title: "PostsFeed"
-      },
-      {
-        label: "Two",
-        screen: "InfoModal",
-        icon: require("../../../assets/img/like.png"),
-        title: "InfoModal"
-      }
-    ]
+  Navigation.startSingleScreenApp({
+    screen: {
+      screen: "PostsFeed",
+      title: "PostsFeed"
+    },
+    animationType: "fade"
   });
 }
 

@@ -1,14 +1,15 @@
 /* @flow */
 import React from "react";
 import type { Node } from "react";
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, TouchableHighlight } from "react-native";
 import UserInfo from "./UserInfo";
 
 type Props = {
   uri: uri,
   uriPhoto: uri,
   children?: Node,
-  userName: string
+  userName: string,
+  onPress?: Function
 };
 
 type uri = {
@@ -16,7 +17,7 @@ type uri = {
 };
 
 const UserPost = (props: Props) => {
-  const { uri, uriPhoto, children, userName } = props;
+  const { uri, uriPhoto, children, userName, onPress } = props;
 
   return (
     <View style={styles.container}>
@@ -24,7 +25,9 @@ const UserPost = (props: Props) => {
       {children ? (
         <Image style={styles.imgFull} source={uri} />
       ) : (
-        <Image style={styles.imgSmall} source={uri} />
+        <TouchableHighlight style={styles.touch} onPress={onPress}>
+          <Image style={styles.imgSmall} source={uri} />
+        </TouchableHighlight>
       )}
       {children}
     </View>
@@ -35,13 +38,16 @@ const styles = StyleSheet.create({
   imgFull: {
     width: 320,
     height: 320,
-    margin: 10,
+    marginLeft: 10,
+    marginBottom: 10,
     alignSelf: "center"
   },
   imgSmall: {
     width: "100%",
     height: 200,
-    margin: 10,
+    marginLeft: 10,
+    marginRight: 10,
+    backgroundColor: "#F5FCFF",
     alignSelf: "center"
   },
   container: {
