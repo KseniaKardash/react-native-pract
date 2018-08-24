@@ -33,16 +33,6 @@ class FinishPost extends PureComponent<Props> {
     });
   };
 
-  _showModal = () => {
-    const { navigator } = this.props;
-    navigator.showModal({
-      screen: "PostsFeed",
-      passProps: { uri: URI },
-      title: "Modal",
-      animationType: "slide-up"
-    });
-  };
-
   render() {
     return (
       <View style={styles.container}>
