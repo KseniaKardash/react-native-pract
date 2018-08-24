@@ -4,7 +4,8 @@ import { View, StyleSheet } from "react-native";
 import ButtonIcon from "../../common/ButtonIcon";
 import FullPost from "../../common/FullPost";
 import HeaderTitle from "../../common/HeaderTitle";
-import type Post from "../../../types/types";
+import type { Post } from "../../../types/types";
+import { SHADOW_COLOR } from "../../../constants/colors";
 
 type Props = {
   navigator: Object,
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "space-between",
-    backgroundColor: "#F5FCFF",
+    backgroundColor: SHADOW_COLOR,
     alignItems: "center",
     padding: 20,
     paddingBottom: 100

@@ -6,7 +6,7 @@ import PostSuccessful from "../../common/PostSuccessful";
 import { SHADOW_COLOR } from "../../../constants/colors";
 
 type Props = {
-  navigator?: Object
+  navigator: Object
 };
 
 class InfoModal extends PureComponent<Props> {

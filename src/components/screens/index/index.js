@@ -5,8 +5,10 @@ import SelectPhoto from "../SelectPhoto/SelectPhoto";
 import FinishPost from "../FinishPost/FinishPost";
 import InfoModal from "../InfoModal/ InfoModal";
 import PostsFeed from "../PostsFeed/PostsFeed";
+import InitialScreen from "../InitialScreen/InitialScreen";
 
 function registerScreens() {
+  Navigation.registerComponent("InitialScreen", () => InitialScreen);
   Navigation.registerComponent("Post", () => Post);
   Navigation.registerComponent("InfoModal", () => InfoModal);
   Navigation.registerComponent("SelectPhoto", () => SelectPhoto);
@@ -15,8 +17,8 @@ function registerScreens() {
 
   Navigation.startSingleScreenApp({
     screen: {
-      screen: "PostsFeed",
-      title: "PostsFeed"
+      screen: "InitialScreen",
+      title: "InitialScreen"
     },
     animationType: "fade"
   });

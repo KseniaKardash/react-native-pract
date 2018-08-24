@@ -7,3 +7,5 @@ export const GRADIENT_COLORS = [
 ];
 export const MAIN_COLOR = "#D14DAE";
 export const SHADOW_COLOR = "#eaeaea";
+export const BACKGROUND_COLOR = "#fefefe";
+export const BORDER_SHADOW_COLOR = "#000";

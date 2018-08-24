@@ -5,6 +5,7 @@ import ButtonIcon from "../../common/ButtonIcon";
 import ConfirmButton from "../../common/ConfirmButton";
 import HeaderTitle from "../../common/HeaderTitle";
 import { URI } from "../../../constants/URI";
+import { BACKGROUND_COLOR } from "../../../constants/colors";
 
 type Props = {
   navigator: Object
@@ -52,14 +53,13 @@ class SelectPhoto extends PureComponent<Props> {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    backgroundColor: "#F5FCFF",
+    backgroundColor: BACKGROUND_COLOR,
     flex: 1,
     flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
     padding: 20,
-    paddingBottom: 50,
-    marginTop: 20
+    paddingBottom: 50
   },
   img: {
     width: 300,

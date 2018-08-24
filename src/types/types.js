@@ -1,5 +1,5 @@
 /* @flow */
-type Post = {
+export type Post = {
   _id: string,
   index: number,
   uri: string,
@@ -7,4 +7,6 @@ type Post = {
   userName: string
 };
 
-export default Post;
+export type Uri = {
+  uri: string
+};

@@ -7,6 +7,7 @@ import HeaderTitle from "../../common/HeaderTitle";
 import InputText from "../../common/InputText";
 import TextArea from "../../common/TextArea";
 import { URI } from "../../../constants/URI";
+import { BACKGROUND_COLOR } from "../../../constants/colors";
 
 type Props = {
   navigator: Object
@@ -29,6 +30,16 @@ class FinishPost extends PureComponent<Props> {
       backButtonHidden: true,
       animated: true,
       animationType: "fade"
+    });
+  };
+
+  _showModal = () => {
+    const { navigator } = this.props;
+    navigator.showModal({
+      screen: "PostsFeed",
+      passProps: { uri: URI },
+      title: "Modal",
+      animationType: "slide-up"
     });
   };
 
@@ -57,11 +68,10 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "space-between",
-    backgroundColor: "#F5FCFF",
+    backgroundColor: BACKGROUND_COLOR,
     alignItems: "center",
     padding: 20,
-    paddingBottom: 50,
-    marginTop: 20
+    paddingBottom: 50
   },
   img: {
     width: 60,

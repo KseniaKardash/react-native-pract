@@ -2,7 +2,11 @@
 import React, { PureComponent } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import ConfirmButton from "./ConfirmButton";
-import { MAIN_COLOR } from "../../constants/colors";
+import {
+  MAIN_COLOR,
+  BACKGROUND_COLOR,
+  BORDER_SHADOW_COLOR
+} from "../../constants/colors";
 
 type Props = {
   titlePost: string,
@@ -34,13 +38,13 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-around",
     alignItems: "center",
-    backgroundColor: "#ffffff",
+    backgroundColor: BACKGROUND_COLOR,
     width: 320,
     height: 320,
     padding: 30,
     margin: 10,
     borderRadius: 5,
-    shadowColor: "#000",
+    shadowColor: BORDER_SHADOW_COLOR,
     shadowOffset: {
       width: 2,
       height: 2

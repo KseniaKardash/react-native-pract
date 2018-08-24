@@ -5,7 +5,7 @@ import ButtonIcon from "../../common/ButtonIcon";
 import HeaderTitle from "../../common/HeaderTitle";
 import UserPost from "../../common/UserPost";
 import posts from "../../../constants/testObjects";
-import type Post from "../../../types/types";
+import type { Post } from "../../../types/types";
 
 type Props = {
   navigator: Object
@@ -36,7 +36,7 @@ class PostsFeed extends PureComponent<Props, State> {
     });
   };
 
-  _showSelectedPost = _id => {
+  _showSelectedPost = (_id: string) => {
     const selectedPost = posts.find(post => {
       return post._id === _id;
     });
@@ -107,7 +107,8 @@ class PostsFeed extends PureComponent<Props, State> {
                 userName={item.userName}
                 uri={{ uri: item.uri }}
                 uriPhoto={{ uri: item.uriPhoto }}
-                onPress={() => this._showSelectedPost(item._id)}
+                _id={item._id}
+                _showSelectedPost={this._showSelectedPost}
               />
             </View>
           )}
@@ -123,7 +124,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     paddingLeft: 20,
-    paddingRight: 20
+    paddingRight: 20,
+    backgroundColor: "#eaeaea"
   },
   header: {
     display: "flex",
