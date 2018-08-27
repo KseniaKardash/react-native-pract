@@ -1,3 +1,4 @@
+/* @flow */
 export const URI = {
   uri: "https://i.pinimg.com/564x/91/81/40/918140ddb6a8d706dadeb86517188498.jpg"
 };

@@ -7,6 +7,7 @@ import UserPost from "../../common/UserPost";
 import posts from "../../../constants/testObjects";
 import type { Post } from "../../../types/types";
 import FadeWrapper from "../../common/FadeWrapper";
+import { SHADOW_COLOR } from "../../../constants/colors";
 
 type Props = {
   navigator: Object
@@ -77,8 +78,8 @@ class PostsFeed extends PureComponent<Props, State> {
   _nextPage = () => {
     const { navigator } = this.props;
     navigator.push({
-      screen: "SelectPhoto",
-      title: "SelectPhoto",
+      screen: "ImagePickerScreen",
+      title: "ImagePickerScreen",
       backButtonHidden: true,
       animated: true,
       animationType: "fade"
@@ -123,6 +124,7 @@ class PostsFeed extends PureComponent<Props, State> {
           windowSize={21}
           keyExtractor={this._keyExtractor}
           renderItem={this._renderItem}
+          style={styles.flatList}
         />
       </View>
     );
@@ -133,10 +135,9 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     flex: 1,
-    padding: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
-    backgroundColor: "#eaeaea"
+    padding: 20,
+    paddingTop: 10,
+    backgroundColor: SHADOW_COLOR
   },
   header: {
     display: "flex",
@@ -146,6 +147,9 @@ const styles = StyleSheet.create({
   textInput: {
     marginBottom: 10,
     fontSize: 18
+  },
+  flatList: {
+    width: "100%"
   }
 });
 

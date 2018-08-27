@@ -41,16 +41,13 @@ const styles = StyleSheet.create({
   imgFull: {
     height: 300,
     width: "100%",
-    marginLeft: 10,
-    marginRight: 10,
+    marginHorizontal: 10,
     marginBottom: 10,
     alignSelf: "center"
   },
   imgSmall: {
-    width: "100%",
     height: 200,
-    marginLeft: 10,
-    marginRight: 10,
+    width: "100%",
     backgroundColor: BACKGROUND_COLOR,
     alignSelf: "center"
   },
@@ -60,8 +57,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: BACKGROUND_COLOR,
     marginBottom: 10,
-    margin: 3,
-    marginRight: 5,
     paddingBottom: 10,
     paddingLeft: 15,
     paddingRight: 15,

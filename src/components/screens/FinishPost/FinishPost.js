@@ -6,11 +6,12 @@ import ConfirmButton from "../../common/ConfirmButton";
 import HeaderTitle from "../../common/HeaderTitle";
 import InputText from "../../common/InputText";
 import TextArea from "../../common/TextArea";
-import { URI } from "../../../constants/URI";
 import { BACKGROUND_COLOR } from "../../../constants/colors";
+import type { Uri } from "../../../types/types";
 
 type Props = {
-  navigator: Object
+  navigator: Object,
+  uri: Uri
 };
 
 class FinishPost extends PureComponent<Props> {
@@ -34,6 +35,7 @@ class FinishPost extends PureComponent<Props> {
   };
 
   render() {
+    const { uri } = this.props;
     return (
       <View style={styles.container}>
         <View>
@@ -42,7 +44,7 @@ class FinishPost extends PureComponent<Props> {
             <HeaderTitle text="FINISH POST" />
           </View>
           <View style={styles.tag}>
-            <Image style={styles.img} source={URI} />
+            <Image style={styles.img} source={uri} />
             <InputText />
           </View>
           <TextArea />
@@ -65,7 +67,8 @@ const styles = StyleSheet.create({
   },
   img: {
     width: 60,
-    height: 60
+    height: 60,
+    borderRadius: 5
   },
   header: {
     display: "flex",
