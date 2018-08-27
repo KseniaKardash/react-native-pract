@@ -41,6 +41,8 @@ const styles = StyleSheet.create({
     marginTop: 3
   },
   container: {
+    flex: 1,
+    width: "100%",
     display: "flex",
     flexDirection: "column"
   },

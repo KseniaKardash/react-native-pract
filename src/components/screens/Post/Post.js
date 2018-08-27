@@ -52,11 +52,10 @@ const styles = StyleSheet.create({
     backgroundColor: SHADOW_COLOR,
     alignItems: "center",
     padding: 20,
-    paddingBottom: 100
+    paddingTop: 10
   },
   header: {
     alignSelf: "flex-start",
-    marginBottom: 10,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",

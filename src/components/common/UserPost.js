@@ -21,6 +21,7 @@ const UserPost = (props: Props) => {
   const onUserPostsPress = () => {
     if (_showSelectedPost) _showSelectedPost(_id);
   };
+
   return (
     <View style={styles.container}>
       <UserInfo userName={userName} uriPhoto={uriPhoto} />
@@ -38,8 +39,10 @@ const UserPost = (props: Props) => {
 
 const styles = StyleSheet.create({
   imgFull: {
-    width: 320,
-    height: 320,
+    height: 300,
+    width: "100%",
+    marginLeft: 10,
+    marginRight: 10,
     marginBottom: 10,
     alignSelf: "center"
   },
