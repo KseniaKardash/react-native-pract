@@ -6,6 +6,7 @@ import HeaderTitle from "../../common/HeaderTitle";
 import UserPost from "../../common/UserPost";
 import posts from "../../../constants/testObjects";
 import type { Post } from "../../../types/types";
+import FadeWrapper from "../../common/FadeWrapper";
 
 type Props = {
   navigator: Object
@@ -22,6 +23,16 @@ class PostsFeed extends PureComponent<Props, State> {
     toggleSearch: false
   };
 
+  _onChangeText = (text: string) => {
+    this.setState({ searchName: text });
+  };
+
+  _setToggle = () => {
+    this.setState(prevState => {
+      return { toggleSearch: !prevState.toggleSearch };
+    });
+  };
+
   filtering = (posts: Array<Post>, query: string): Array<Post> => {
     return posts.filter(post => {
       const userName = post.userName.toUpperCase();
@@ -30,10 +41,18 @@ class PostsFeed extends PureComponent<Props, State> {
     });
   };
 
-  _setToggle = () => {
-    this.setState(prevState => {
-      return { toggleSearch: !prevState.toggleSearch };
-    });
+  _keyExtractor = (item: Posts) => item._id;
+
+  _renderItem = (inboundData: { item: Posts }) => {
+    return (
+      <FadeWrapper>
+        <UserPost
+          userName={inboundData.item.userName}
+          uri={{ uri: inboundData.item.uri }}
+          uriPhoto={{ uri: inboundData.item.uriPhoto }}
+        />
+      </FadeWrapper>
+    );
   };
 
   _showSelectedPost = (_id: string) => {
@@ -101,17 +120,7 @@ class PostsFeed extends PureComponent<Props, State> {
           data={filter}
           windowSize={21}
           keyExtractor={this._keyExtractor}
-          renderItem={({ item }) => (
-            <View>
-              <UserPost
-                userName={item.userName}
-                uri={{ uri: item.uri }}
-                uriPhoto={{ uri: item.uriPhoto }}
-                _id={item._id}
-                _showSelectedPost={this._showSelectedPost}
-              />
-            </View>
-          )}
+          renderItem={this._renderItem}
         />
       </View>
     );
