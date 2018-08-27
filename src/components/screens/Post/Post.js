@@ -1,30 +1,47 @@
 /* @flow */
-import React from "react";
+import React, { PureComponent } from "react";
 import { View, StyleSheet } from "react-native";
 import ButtonIcon from "../../common/ButtonIcon";
 import FullPost from "../../common/FullPost";
 import HeaderTitle from "../../common/HeaderTitle";
-import { URI, URI_PHOTO } from "../../../constants/URI";
+import type { Post } from "../../../types/types";
+import { SHADOW_COLOR } from "../../../constants/colors";
 
-const FinishPost = () => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.header}>
-          <ButtonIcon iconName="chevron-left" />
-          <HeaderTitle text="POST" />
-        </View>
-      </View>
-      <FullPost
-        userName="Ksenia Kardash"
-        likes="123"
-        description="Some text"
-        uri={URI}
-        uriPhoto={URI_PHOTO}
-      />
-    </View>
-  );
+type Props = {
+  navigator: Object,
+  post: Post
 };
+
+class FinishPost extends PureComponent<Props> {
+  _previousPage = () => {
+    const { navigator } = this.props;
+    navigator.pop({
+      animated: true,
+      animationType: "fade"
+    });
+  };
+
+  render() {
+    const { post } = this.props;
+    return (
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <View style={styles.header}>
+            <ButtonIcon iconName="chevron-left" onPress={this._previousPage} />
+            <HeaderTitle text="POST" />
+          </View>
+        </View>
+        <FullPost
+          userName={post.userName}
+          likes="123"
+          description="Some text"
+          uri={{ uri: post.uri }}
+          uriPhoto={{ uri: post.uriPhoto }}
+        />
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -32,13 +49,14 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "space-between",
+    backgroundColor: SHADOW_COLOR,
     alignItems: "center",
     padding: 20,
-    paddingBottom: 100,
-    marginTop: 20
+    paddingBottom: 100
   },
   header: {
     alignSelf: "flex-start",
+    marginBottom: 10,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",

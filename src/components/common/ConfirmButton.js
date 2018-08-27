@@ -5,13 +5,14 @@ import LinearGradient from "react-native-linear-gradient";
 import { GRADIENT_COLORS } from "../../constants/colors";
 
 type Props = {
-  text: string
+  text: string,
+  onPress?: Function
 };
 
 const СonfirmButton = (props: Props) => {
-  const { text } = props;
+  const { text, onPress } = props;
   return (
-    <TouchableOpacity style={styles.buttonContainer}>
+    <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
       <LinearGradient
         colors={GRADIENT_COLORS}
         start={{ x: 0.0, y: 1.0 }}

@@ -4,18 +4,12 @@ import { View, StyleSheet, FlatList, TextInput } from "react-native";
 import ButtonIcon from "../../common/ButtonIcon";
 import HeaderTitle from "../../common/HeaderTitle";
 import UserPost from "../../common/UserPost";
+import posts from "../../../constants/testObjects";
+import type { Post } from "../../../types/types";
 import FadeWrapper from "../../common/FadeWrapper";
 
 type Props = {
-  posts: Array<Posts>
-};
-
-type Posts = {
-  _id: string,
-  index: number,
-  uri: string,
-  uriPhoto: string,
-  userName: string
+  navigator: Object
 };
 
 type State = {
@@ -39,7 +33,7 @@ class PostsFeed extends PureComponent<Props, State> {
     });
   };
 
-  filtering = (posts: Array<Posts>, query: string): Array<Posts> => {
+  filtering = (posts: Array<Post>, query: string): Array<Post> => {
     return posts.filter(post => {
       const userName = post.userName.toUpperCase();
       const queryData = query.toUpperCase();
@@ -61,9 +55,42 @@ class PostsFeed extends PureComponent<Props, State> {
     );
   };
 
+  _showSelectedPost = (_id: string) => {
+    const selectedPost = posts.find(post => {
+      return post._id === _id;
+    });
+    const { navigator } = this.props;
+    navigator.push({
+      screen: "Post",
+      title: selectedPost.userName,
+      passProps: {
+        post: selectedPost
+      },
+      backButtonHidden: true,
+      animated: true,
+      animationType: "fade"
+    });
+  };
+
+  _nextPage = () => {
+    const { navigator } = this.props;
+    navigator.push({
+      screen: "SelectPhoto",
+      title: "SelectPhoto",
+      backButtonHidden: true,
+      animated: true,
+      animationType: "fade"
+    });
+  };
+
+  _keyExtractor = (item: Post) => item._id;
+
+  _onChangeText = (text: string) => {
+    this.setState({ searchName: text });
+  };
+
   render() {
     let filter;
-    const { posts } = this.props;
     const { searchName, toggleSearch } = this.state;
     searchName !== ""
       ? (filter = this.filtering(posts, searchName))
@@ -71,9 +98,9 @@ class PostsFeed extends PureComponent<Props, State> {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <ButtonIcon iconName="search" setToggle={this._setToggle} />
+          <ButtonIcon iconName="search" onPress={this._setToggle} />
           <HeaderTitle text="FEED" />
-          <ButtonIcon iconName="plus" />
+          <ButtonIcon iconName="plus" onPress={this._nextPage} />
         </View>
         {toggleSearch ? (
           <TextInput
@@ -104,8 +131,10 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     flex: 1,
-    padding: 20,
-    paddingBottom: 0
+    padding: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: "#eaeaea"
   },
   header: {
     display: "flex",

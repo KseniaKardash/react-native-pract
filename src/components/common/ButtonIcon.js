@@ -6,11 +6,11 @@ import { MAIN_COLOR } from "../../constants/colors";
 
 type Props = {
   iconName: string,
-  setToggle?: Function
+  onPress?: Function
 };
 
 const ButtonIcon = (props: Props) => {
-  const { iconName, setToggle } = props;
+  const { iconName, onPress } = props;
   return (
     <TouchableHighlight>
       <Icon
@@ -18,7 +18,7 @@ const ButtonIcon = (props: Props) => {
         style={styles.icon}
         color={MAIN_COLOR}
         size={40}
-        onPress={setToggle}
+        onPress={onPress}
       />
     </TouchableHighlight>
   );
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   icon: {
     margin: 5,
     padding: 5,
-    marginBottom: 20,
+    marginBottom: 10,
     marginTop: 10
   }
 });
