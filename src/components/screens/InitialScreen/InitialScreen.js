@@ -9,7 +9,7 @@ type Props = {
 };
 
 class InitialScreen extends PureComponent<Props> {
-  _nextPage = () => {
+  nextPage = () => {
     const { navigator } = this.props;
     navigator.push({
       screen: "PostsFeed",
@@ -23,7 +23,7 @@ class InitialScreen extends PureComponent<Props> {
   render() {
     return (
       <View style={styles.container}>
-        <ConfirmButton text="START" onPress={this._nextPage} />
+        <ConfirmButton text="START" onPress={this.nextPage} />
       </View>
     );
   }

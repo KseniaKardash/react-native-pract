@@ -14,7 +14,7 @@ type Props = {
 };
 
 class SelectPhoto extends PureComponent<Props> {
-  _previousPage = () => {
+  previousPage = () => {
     const { navigator } = this.props;
     navigator.pop({
       animated: true,
@@ -22,7 +22,7 @@ class SelectPhoto extends PureComponent<Props> {
     });
   };
 
-  _nextPage = () => {
+  nextPage = () => {
     const { navigator, uri } = this.props;
     navigator.push({
       screen: "FinishPost",
@@ -40,7 +40,7 @@ class SelectPhoto extends PureComponent<Props> {
       <View style={styles.container}>
         <View>
           <View style={styles.header}>
-            <ButtonIcon iconName="chevron-left" onPress={this._previousPage} />
+            <ButtonIcon iconName="chevron-left" onPress={this.previousPage} />
             <HeaderTitle text="CONFIRM PHOTO" />
           </View>
           <Image style={styles.img} source={uri} />
@@ -48,7 +48,7 @@ class SelectPhoto extends PureComponent<Props> {
         <ConfirmButton
           style={styles.button}
           text="NEXT"
-          onPress={this._nextPage}
+          onPress={this.nextPage}
         />
       </View>
     );

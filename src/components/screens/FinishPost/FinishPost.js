@@ -15,7 +15,7 @@ type Props = {
 };
 
 class FinishPost extends PureComponent<Props> {
-  _previousPage = () => {
+  previousPage = () => {
     const { navigator } = this.props;
     navigator.pop({
       animated: true,
@@ -23,7 +23,7 @@ class FinishPost extends PureComponent<Props> {
     });
   };
 
-  _nextPage = () => {
+  nextPage = () => {
     const { navigator } = this.props;
     navigator.push({
       screen: "InfoModal",
@@ -40,7 +40,7 @@ class FinishPost extends PureComponent<Props> {
       <View style={styles.container}>
         <View>
           <View style={styles.header}>
-            <ButtonIcon iconName="chevron-left" onPress={this._previousPage} />
+            <ButtonIcon iconName="chevron-left" onPress={this.previousPage} />
             <HeaderTitle text="FINISH POST" />
           </View>
           <View style={styles.tag}>
@@ -49,7 +49,7 @@ class FinishPost extends PureComponent<Props> {
           </View>
           <TextArea />
         </View>
-        <ConfirmButton text="DONE" onPress={this._nextPage} />
+        <ConfirmButton text="DONE" onPress={this.nextPage} />
       </View>
     );
   }

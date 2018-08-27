@@ -25,7 +25,7 @@ class ImagePickerScreen extends PureComponent<Props, State> {
     pickedImage: null
   };
 
-  _previousPage = () => {
+  previousPage = () => {
     const { navigator } = this.props;
     navigator.pop({
       animated: true,
@@ -33,7 +33,7 @@ class ImagePickerScreen extends PureComponent<Props, State> {
     });
   };
 
-  _nextPage = () => {
+  nextPage = () => {
     const { navigator } = this.props;
     const { pickedImage } = this.state;
     if (pickedImage == null) {
@@ -67,9 +67,9 @@ class ImagePickerScreen extends PureComponent<Props, State> {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <ButtonIcon iconName="chevron-left" onPress={this._previousPage} />
+          <ButtonIcon iconName="chevron-left" onPress={this.previousPage} />
           <HeaderTitle text="CREATE POST" />
-          <ButtonIcon iconName="chevron-right" onPress={this._nextPage} />
+          <ButtonIcon iconName="chevron-right" onPress={this.nextPage} />
         </View>
         <View style={styles.imgContainer}>
           <Image source={pickedImage} style={styles.img} />

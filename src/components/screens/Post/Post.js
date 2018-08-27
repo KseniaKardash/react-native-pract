@@ -13,7 +13,7 @@ type Props = {
 };
 
 class FinishPost extends PureComponent<Props> {
-  _previousPage = () => {
+  previousPage = () => {
     const { navigator } = this.props;
     navigator.pop({
       animated: true,
@@ -27,7 +27,7 @@ class FinishPost extends PureComponent<Props> {
       <View style={styles.container}>
         <View style={styles.header}>
           <View style={styles.header}>
-            <ButtonIcon iconName="chevron-left" onPress={this._previousPage} />
+            <ButtonIcon iconName="chevron-left" onPress={this.previousPage} />
             <HeaderTitle text="POST" />
           </View>
         </View>

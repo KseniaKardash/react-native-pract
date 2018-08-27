@@ -11,15 +11,15 @@ type Props = {
   uriPhoto: Uri,
   children?: Node,
   userName: string,
-  _showSelectedPost?: Function,
+  onShowSelectedPost?: Function,
   _id?: string
 };
 
 const UserPost = (props: Props) => {
-  const { uri, uriPhoto, children, userName, _showSelectedPost, _id } = props;
+  const { uri, uriPhoto, children, userName, onShowSelectedPost, _id } = props;
 
   const onUserPostsPress = () => {
-    if (_showSelectedPost) _showSelectedPost(_id);
+    if (onShowSelectedPost) onShowSelectedPost(_id);
   };
 
   return (
