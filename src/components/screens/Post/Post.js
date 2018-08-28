@@ -13,7 +13,7 @@ type Props = {
 };
 
 class FinishPost extends PureComponent<Props> {
-  _previousPage = () => {
+  navigateToPreviousPage = () => {
     const { navigator } = this.props;
     navigator.pop({
       animated: true,
@@ -27,7 +27,10 @@ class FinishPost extends PureComponent<Props> {
       <View style={styles.container}>
         <View style={styles.header}>
           <View style={styles.header}>
-            <ButtonIcon iconName="chevron-left" onPress={this._previousPage} />
+            <ButtonIcon
+              iconName="chevron-left"
+              onPress={this.navigateToPreviousPage}
+            />
             <HeaderTitle text="POST" />
           </View>
         </View>
@@ -59,7 +62,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    width: "75%",
+    width: "82%",
     justifyContent: "space-between"
   }
 });

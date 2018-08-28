@@ -7,6 +7,7 @@ import UserPost from "../../common/UserPost";
 import posts from "../../../constants/testObjects";
 import type { Post } from "../../../types/types";
 import FadeWrapper from "../../common/FadeWrapper";
+import { SHADOW_COLOR } from "../../../constants/colors";
 
 type Props = {
   navigator: Object
@@ -23,41 +24,11 @@ class PostsFeed extends PureComponent<Props, State> {
     toggleSearch: false
   };
 
-  _onChangeText = (text: string) => {
+  onChangeText = (text: string) => {
     this.setState({ searchName: text });
   };
 
-  _setToggle = () => {
-    this.setState(prevState => {
-      return { toggleSearch: !prevState.toggleSearch };
-    });
-  };
-
-  filtering = (posts: Array<Post>, query: string): Array<Post> => {
-    return posts.filter(post => {
-      const userName = post.userName.toUpperCase();
-      const queryData = query.toUpperCase();
-      return userName.indexOf(queryData) > -1;
-    });
-  };
-
-  _keyExtractor = (item: Posts) => item._id;
-
-  _renderItem = (inboundData: { item: Post }) => {
-    return (
-      <FadeWrapper>
-        <UserPost
-          userName={inboundData.item.userName}
-          uri={{ uri: inboundData.item.uri }}
-          uriPhoto={{ uri: inboundData.item.uriPhoto }}
-          _id={inboundData.item._id}
-          _showSelectedPost={this._showSelectedPost}
-        />
-      </FadeWrapper>
-    );
-  };
-
-  _showSelectedPost = (_id: string) => {
+  onShowSelectedPost = (_id: string) => {
     const selectedPost = posts.find(post => {
       return post._id === _id;
     });
@@ -74,42 +45,66 @@ class PostsFeed extends PureComponent<Props, State> {
     });
   };
 
-  _nextPage = () => {
+  setToggle = () => {
+    this.setState(prevState => {
+      return { toggleSearch: !prevState.toggleSearch };
+    });
+  };
+
+  getKeyExtractor = (item: Post) => item._id;
+
+  navigateToNextPage = () => {
     const { navigator } = this.props;
     navigator.push({
-      screen: "SelectPhoto",
-      title: "SelectPhoto",
+      screen: "ImagePickerScreen",
+      title: "ImagePickerScreen",
       backButtonHidden: true,
       animated: true,
       animationType: "fade"
     });
   };
 
-  _keyExtractor = (item: Post) => item._id;
+  filterPosts = (posts: Array<Post>, query: string): Array<Post> => {
+    return posts.filter(post => {
+      const userName = post.userName.toUpperCase();
+      const queryData = query.toUpperCase();
+      return userName.indexOf(queryData) > -1;
+    });
+  };
 
-  _onChangeText = (text: string) => {
-    this.setState({ searchName: text });
+  renderItem = (inboundData: { item: Post }) => {
+    return (
+      <FadeWrapper>
+        <UserPost
+          userName={inboundData.item.userName}
+          uri={{ uri: inboundData.item.uri }}
+          uriPhoto={{ uri: inboundData.item.uriPhoto }}
+          _id={inboundData.item._id}
+          onShowSelectedPost={this.onShowSelectedPost}
+        />
+      </FadeWrapper>
+    );
   };
 
   render() {
     let filter;
     const { searchName, toggleSearch } = this.state;
     searchName !== ""
-      ? (filter = this.filtering(posts, searchName))
+      ? (filter = this.filterPosts(posts, searchName))
       : (filter = posts);
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <ButtonIcon iconName="search" onPress={this._setToggle} />
+          <ButtonIcon iconName="search" onPress={this.setToggle} />
           <HeaderTitle text="FEED" />
-          <ButtonIcon iconName="plus" onPress={this._nextPage} />
+          <ButtonIcon iconName="plus" onPress={this.navigateToNextPage} />
         </View>
         {toggleSearch ? (
           <TextInput
             style={styles.textInput}
             placeholder="Search"
             value={searchName}
-            onChangeText={this._onChangeText}
+            onChangeText={this.onChangeText}
           />
         ) : (
           <View />
@@ -121,8 +116,9 @@ class PostsFeed extends PureComponent<Props, State> {
           maxToRenderPerBatch={20}
           data={filter}
           windowSize={21}
-          keyExtractor={this._keyExtractor}
-          renderItem={this._renderItem}
+          keyExtractor={this.getKeyExtractor}
+          renderItem={this.renderItem}
+          style={styles.flatList}
         />
       </View>
     );
@@ -133,10 +129,9 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     flex: 1,
-    padding: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
-    backgroundColor: "#eaeaea"
+    padding: 20,
+    paddingTop: 10,
+    backgroundColor: SHADOW_COLOR
   },
   header: {
     display: "flex",
@@ -146,6 +141,9 @@ const styles = StyleSheet.create({
   textInput: {
     marginBottom: 10,
     fontSize: 18
+  },
+  flatList: {
+    width: "100%"
   }
 });
 

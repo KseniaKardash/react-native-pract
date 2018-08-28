@@ -6,15 +6,16 @@ import ConfirmButton from "../../common/ConfirmButton";
 import HeaderTitle from "../../common/HeaderTitle";
 import InputText from "../../common/InputText";
 import TextArea from "../../common/TextArea";
-import { URI } from "../../../constants/URI";
 import { BACKGROUND_COLOR } from "../../../constants/colors";
+import type { Uri } from "../../../types/types";
 
 type Props = {
-  navigator: Object
+  navigator: Object,
+  uri: Uri
 };
 
 class FinishPost extends PureComponent<Props> {
-  _previousPage = () => {
+  navigateToPreviousPage = () => {
     const { navigator } = this.props;
     navigator.pop({
       animated: true,
@@ -22,7 +23,7 @@ class FinishPost extends PureComponent<Props> {
     });
   };
 
-  _nextPage = () => {
+  navigateToNextPage = () => {
     const { navigator } = this.props;
     navigator.push({
       screen: "InfoModal",
@@ -34,20 +35,24 @@ class FinishPost extends PureComponent<Props> {
   };
 
   render() {
+    const { uri } = this.props;
     return (
       <View style={styles.container}>
         <View>
           <View style={styles.header}>
-            <ButtonIcon iconName="chevron-left" onPress={this._previousPage} />
+            <ButtonIcon
+              iconName="chevron-left"
+              onPress={this.navigateToPreviousPage}
+            />
             <HeaderTitle text="FINISH POST" />
           </View>
           <View style={styles.tag}>
-            <Image style={styles.img} source={URI} />
+            <Image style={styles.img} source={uri} />
             <InputText />
           </View>
           <TextArea />
         </View>
-        <ConfirmButton text="DONE" onPress={this._nextPage} />
+        <ConfirmButton text="DONE" onPress={this.navigateToNextPage} />
       </View>
     );
   }
@@ -65,7 +70,8 @@ const styles = StyleSheet.create({
   },
   img: {
     width: 60,
-    height: 60
+    height: 60,
+    borderRadius: 5
   },
   header: {
     display: "flex",

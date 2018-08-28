@@ -4,15 +4,16 @@ import { View, StyleSheet, Image } from "react-native";
 import ButtonIcon from "../../common/ButtonIcon";
 import ConfirmButton from "../../common/ConfirmButton";
 import HeaderTitle from "../../common/HeaderTitle";
-import { URI } from "../../../constants/URI";
 import { BACKGROUND_COLOR } from "../../../constants/colors";
+import type { Uri } from "../../../types/types";
 
 type Props = {
-  navigator: Object
+  navigator: Object,
+  uri: Uri
 };
 
 class SelectPhoto extends PureComponent<Props> {
-  _previousPage = () => {
+  navigateToPreviousPage = () => {
     const { navigator } = this.props;
     navigator.pop({
       animated: true,
@@ -20,31 +21,36 @@ class SelectPhoto extends PureComponent<Props> {
     });
   };
 
-  _nextPage = () => {
-    const { navigator } = this.props;
+  navigateToNextPage = () => {
+    const { navigator, uri } = this.props;
     navigator.push({
       screen: "FinishPost",
       title: "FinishPost",
       backButtonHidden: true,
       animated: true,
-      animationType: "fade"
+      animationType: "fade",
+      passProps: { uri: uri }
     });
   };
 
   render() {
+    const { uri } = this.props;
     return (
       <View style={styles.container}>
         <View>
           <View style={styles.header}>
-            <ButtonIcon iconName="chevron-left" onPress={this._previousPage} />
+            <ButtonIcon
+              iconName="chevron-left"
+              onPress={this.navigateToPreviousPage}
+            />
             <HeaderTitle text="CONFIRM PHOTO" />
           </View>
-          <Image style={styles.img} source={URI} />
+          <Image style={styles.img} source={uri} />
         </View>
         <ConfirmButton
           style={styles.button}
           text="NEXT"
-          onPress={this._nextPage}
+          onPress={this.navigateToNextPage}
         />
       </View>
     );
@@ -58,13 +64,13 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 20,
-    paddingBottom: 50
+    padding: 20
   },
   img: {
     width: 300,
     height: 300,
-    borderRadius: 3
+    borderRadius: 5,
+    paddingBottom: 10
   },
   header: {
     display: "flex",
@@ -72,18 +78,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 200,
     justifyContent: "space-between",
-    paddingBottom: 30
-  },
-  tag: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 20,
-    justifyContent: "space-between"
-  },
-  tags: {
-    display: "flex",
-    flexGrow: 4
+    paddingBottom: 10
   }
 });
 

@@ -5,10 +5,12 @@ import SelectPhoto from "../SelectPhoto/SelectPhoto";
 import FinishPost from "../FinishPost/FinishPost";
 import InfoModal from "../InfoModal/ InfoModal";
 import PostsFeed from "../PostsFeed/PostsFeed";
+import ImagePickerScreen from "../ImagePickerScreen/ImagePickerScreen";
 import InitialScreen from "../InitialScreen/InitialScreen";
 
 function registerScreens() {
   Navigation.registerComponent("InitialScreen", () => InitialScreen);
+  Navigation.registerComponent("ImagePickerScreen", () => ImagePickerScreen);
   Navigation.registerComponent("Post", () => Post);
   Navigation.registerComponent("InfoModal", () => InfoModal);
   Navigation.registerComponent("SelectPhoto", () => SelectPhoto);
