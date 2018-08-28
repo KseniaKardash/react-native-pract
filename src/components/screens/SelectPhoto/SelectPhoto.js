@@ -6,7 +6,6 @@ import ConfirmButton from "../../common/ConfirmButton";
 import HeaderTitle from "../../common/HeaderTitle";
 import { BACKGROUND_COLOR } from "../../../constants/colors";
 import type { Uri } from "../../../types/types";
-import { URI } from "../../../constants/URI";
 
 type Props = {
   navigator: Object,
@@ -14,7 +13,7 @@ type Props = {
 };
 
 class SelectPhoto extends PureComponent<Props> {
-  previousPage = () => {
+  navigateToPreviousPage = () => {
     const { navigator } = this.props;
     navigator.pop({
       animated: true,
@@ -22,7 +21,7 @@ class SelectPhoto extends PureComponent<Props> {
     });
   };
 
-  nextPage = () => {
+  navigateToNextPage = () => {
     const { navigator, uri } = this.props;
     navigator.push({
       screen: "FinishPost",
@@ -35,12 +34,15 @@ class SelectPhoto extends PureComponent<Props> {
   };
 
   render() {
-    const { uri } = this.props || URI;
+    const { uri } = this.props;
     return (
       <View style={styles.container}>
         <View>
           <View style={styles.header}>
-            <ButtonIcon iconName="chevron-left" onPress={this.previousPage} />
+            <ButtonIcon
+              iconName="chevron-left"
+              onPress={this.navigateToPreviousPage}
+            />
             <HeaderTitle text="CONFIRM PHOTO" />
           </View>
           <Image style={styles.img} source={uri} />
@@ -48,7 +50,7 @@ class SelectPhoto extends PureComponent<Props> {
         <ConfirmButton
           style={styles.button}
           text="NEXT"
-          onPress={this.nextPage}
+          onPress={this.navigateToNextPage}
         />
       </View>
     );

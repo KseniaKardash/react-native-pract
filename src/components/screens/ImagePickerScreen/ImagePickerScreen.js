@@ -25,15 +25,21 @@ class ImagePickerScreen extends PureComponent<Props, State> {
     pickedImage: null
   };
 
-  previousPage = () => {
-    const { navigator } = this.props;
-    navigator.pop({
-      animated: true,
-      animationType: "fade"
+  onPickImage = () => {
+    ImagePicker.showImagePicker({ title: "Pick an Image" }, res => {
+      if (res.didCancel) {
+        console.log("User cancelled!");
+      } else if (res.error) {
+        console.log("Error", res.error);
+      } else {
+        this.setState({
+          pickedImage: { uri: res.uri }
+        });
+      }
     });
   };
 
-  nextPage = () => {
+  navigateToNextPage = () => {
     const { navigator } = this.props;
     const { pickedImage } = this.state;
     if (pickedImage == null) {
@@ -49,32 +55,33 @@ class ImagePickerScreen extends PureComponent<Props, State> {
       });
   };
 
-  pickImageHandler = () => {
-    ImagePicker.showImagePicker({ title: "Pick an Image" }, res => {
-      if (res.didCancel) {
-        console.log("User cancelled!");
-      } else if (res.error) {
-        console.log("Error", res.error);
-      } else {
-        this.setState({
-          pickedImage: { uri: res.uri }
-        });
-      }
+  navigateToPreviousPage = () => {
+    const { navigator } = this.props;
+    navigator.pop({
+      animated: true,
+      animationType: "fade"
     });
   };
+
   render() {
     const { pickedImage } = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <ButtonIcon iconName="chevron-left" onPress={this.previousPage} />
+          <ButtonIcon
+            iconName="chevron-left"
+            onPress={this.navigateToPreviousPage}
+          />
           <HeaderTitle text="CREATE POST" />
-          <ButtonIcon iconName="chevron-right" onPress={this.nextPage} />
+          <ButtonIcon
+            iconName="chevron-right"
+            onPress={this.navigateToNextPage}
+          />
         </View>
         <View style={styles.imgContainer}>
           <Image source={pickedImage} style={styles.img} />
         </View>
-        <ConfirmButton text="PICK IMAGE" onPress={this.pickImageHandler} />
+        <ConfirmButton text="PICK IMAGE" onPress={this.onPickImage} />
       </View>
     );
   }

@@ -10,7 +10,7 @@ type Props = {
 };
 
 class InfoModal extends PureComponent<Props> {
-  rootPage = () => {
+  navigateToRootPage = () => {
     const { navigator } = this.props;
     navigator.popToRoot({
       animated: true,
@@ -26,7 +26,7 @@ class InfoModal extends PureComponent<Props> {
           style={styles.headerTitle}
           titlePost="TITLE"
           textPost="The photo has successfully been posted!"
-          onPress={this.rootPage}
+          onPress={this.navigateToRootPage}
         />
       </View>
     );

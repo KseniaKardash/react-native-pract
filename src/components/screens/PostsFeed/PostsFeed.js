@@ -45,17 +45,15 @@ class PostsFeed extends PureComponent<Props, State> {
     });
   };
 
-  onChangeText = (text: string) => {
-    this.setState({ searchName: text });
-  };
-
   setToggle = () => {
     this.setState(prevState => {
       return { toggleSearch: !prevState.toggleSearch };
     });
   };
 
-  nextPage = () => {
+  getKeyExtractor = (item: Post) => item._id;
+
+  navigateToNextPage = () => {
     const { navigator } = this.props;
     navigator.push({
       screen: "ImagePickerScreen",
@@ -66,15 +64,13 @@ class PostsFeed extends PureComponent<Props, State> {
     });
   };
 
-  filtering = (posts: Array<Post>, query: string): Array<Post> => {
+  filterPosts = (posts: Array<Post>, query: string): Array<Post> => {
     return posts.filter(post => {
       const userName = post.userName.toUpperCase();
       const queryData = query.toUpperCase();
       return userName.indexOf(queryData) > -1;
     });
   };
-
-  keyExtractor = (item: Posts) => item._id;
 
   renderItem = (inboundData: { item: Post }) => {
     return (
@@ -94,14 +90,14 @@ class PostsFeed extends PureComponent<Props, State> {
     let filter;
     const { searchName, toggleSearch } = this.state;
     searchName !== ""
-      ? (filter = this.filtering(posts, searchName))
+      ? (filter = this.filterPosts(posts, searchName))
       : (filter = posts);
     return (
       <View style={styles.container}>
         <View style={styles.header}>
           <ButtonIcon iconName="search" onPress={this.setToggle} />
           <HeaderTitle text="FEED" />
-          <ButtonIcon iconName="plus" onPress={this.nextPage} />
+          <ButtonIcon iconName="plus" onPress={this.navigateToNextPage} />
         </View>
         {toggleSearch ? (
           <TextInput
@@ -120,7 +116,7 @@ class PostsFeed extends PureComponent<Props, State> {
           maxToRenderPerBatch={20}
           data={filter}
           windowSize={21}
-          keyExtractor={this.keyExtractor}
+          keyExtractor={this.getKeyExtractor}
           renderItem={this.renderItem}
           style={styles.flatList}
         />
