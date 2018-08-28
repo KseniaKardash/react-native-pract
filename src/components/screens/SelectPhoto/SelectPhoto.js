@@ -47,11 +47,7 @@ class SelectPhoto extends PureComponent<Props> {
           </View>
           <Image style={styles.img} source={uri} />
         </View>
-        <ConfirmButton
-          style={styles.button}
-          text="NEXT"
-          onPress={this.navigateToNextPage}
-        />
+        <ConfirmButton text="NEXT" onPress={this.navigateToNextPage} />
       </View>
     );
   }
