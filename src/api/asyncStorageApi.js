@@ -13,10 +13,7 @@ export const storeData = async (key: string, value: string) => {
 
 export const retrieveData = async (key: string) => {
   try {
-    const value = await AsyncStorage.getItem(generateKey(key));
-    if (value !== null) {
-      return value;
-    }
+    return await AsyncStorage.getItem(generateKey(key));
   } catch (error) {
     console.log("Error resetting data" + error);
   }
@@ -27,6 +24,14 @@ export const deleteData = async (key: string) => {
     await AsyncStorage.removeItem(generateKey(key));
   } catch (error) {
     console.log("Error deleting data" + error);
+  }
+};
+
+export const getAllKeys = async () => {
+  try {
+    return await AsyncStorage.getAllKeys();
+  } catch (error) {
+    console.log("Error getting all keys" + error);
   }
 };
 
