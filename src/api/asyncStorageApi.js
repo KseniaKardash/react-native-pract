@@ -5,7 +5,7 @@ export const generateKey = (key: string) => `@AsyncStorage:${key}`;
 
 export const storeData = async (key: string, value: string) => {
   try {
-    await AsyncStorage.setItem(generateKey(key), value);
+    await AsyncStorage.setItem(key, value);
   } catch (error) {
     console.log("Error saving data" + error);
   }
@@ -13,7 +13,7 @@ export const storeData = async (key: string, value: string) => {
 
 export const retrieveData = async (key: string) => {
   try {
-    return await AsyncStorage.getItem(generateKey(key));
+    return await AsyncStorage.getItem(key);
   } catch (error) {
     console.log("Error resetting data" + error);
   }

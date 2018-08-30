@@ -1,5 +1,6 @@
 /* @flow */
 import React, { PureComponent } from "react";
+import { connect } from "react-redux";
 import { View, StyleSheet, Image } from "react-native";
 import ButtonIcon from "../../common/ButtonIcon";
 import ConfirmButton from "../../common/ConfirmButton";
@@ -8,13 +9,33 @@ import InputText from "../../common/InputText";
 import TextArea from "../../common/TextArea";
 import { BACKGROUND_COLOR } from "../../../constants/colors";
 import type { Uri } from "../../../types/types";
+import { addPost } from "../../../actions/postsAction";
 
 type Props = {
   navigator: Object,
-  uri: Uri
+  uri: Uri,
+  addPost: Function
 };
 
-class FinishPost extends PureComponent<Props> {
+type State = {
+  tag: string,
+  description: string
+};
+
+class FinishPost extends PureComponent<Props, State> {
+  state = {
+    tag: "",
+    description: ""
+  };
+
+  onChangeTag = (text: string) => {
+    this.setState({ tag: text });
+  };
+
+  onChangeDescription = (text: string) => {
+    this.setState({ description: text });
+  };
+
   navigateToPreviousPage = () => {
     const { navigator } = this.props;
     navigator.pop({
@@ -22,9 +43,9 @@ class FinishPost extends PureComponent<Props> {
       animationType: "fade"
     });
   };
-
   navigateToNextPage = () => {
-    const { navigator } = this.props;
+    const { navigator, addPost, uri } = this.props;
+    const { tag, description } = this.state;
     navigator.push({
       screen: "InfoModal",
       title: "InfoModal",
@@ -32,6 +53,24 @@ class FinishPost extends PureComponent<Props> {
       animated: true,
       animationType: "fade"
     });
+    const post = {
+      id: this.generateId(),
+      userName: "Ks Kardash",
+      likes: this.generateLikes(),
+      description: description,
+      tag: tag,
+      uriPhoto:
+        "https://facebook.github.io/react-native/docs/assets/favicon.png",
+      uri: uri.uri
+    };
+    addPost(post);
+  };
+
+  generateId = () => {
+    return (Math.random() * Math.pow(10, 10)).toFixed(0);
+  };
+  generateLikes = () => {
+    return (Math.random() * Math.pow(10, 2)).toFixed(0);
   };
 
   render() {
@@ -48,9 +87,9 @@ class FinishPost extends PureComponent<Props> {
           </View>
           <View style={styles.tag}>
             <Image style={styles.img} source={uri} />
-            <InputText />
+            <InputText onChangeText={this.onChangeTag} />
           </View>
-          <TextArea />
+          <TextArea onChangeText={this.onChangeDescription} />
         </View>
         <ConfirmButton text="DONE" onPress={this.navigateToNextPage} />
       </View>
@@ -90,4 +129,13 @@ const styles = StyleSheet.create({
   }
 });
 
-export default FinishPost;
+const mapDispatchToProps = dispatch => {
+  return {
+    addPost: post => dispatch(addPost(post))
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(FinishPost);

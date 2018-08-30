@@ -1,22 +1,22 @@
 /* @flow */
 import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
-import ButtonIcon from "../../common/ButtonIcon";
+// import ButtonIcon from "../../common/ButtonIcon";
 import ConfirmButton from "../../common/ConfirmButton";
-import FullPost from "../../common/FullPost";
-import HeaderTitle from "../../common/HeaderTitle";
-import InputText from "../../common/InputText";
-import TextArea from "../../common/TextArea";
-import UserInfo from "../../common/UserInfo";
-import UserPost from "../../common/UserPost";
-import PostSuccessful from "../../common/PostSuccessful";
-import { URI_PHOTO, URI } from "../../../constants/URI";
+// import FullPost from "../../common/FullPost";
+// import HeaderTitle from "../../common/HeaderTitle";
+// import InputText from "../../common/InputText";
+// import TextArea from "../../common/TextArea";
+// import UserInfo from "../../common/UserInfo";
+// import UserPost from "../../common/UserPost";
+// import PostSuccessful from "../../common/PostSuccessful";
+// import { URI_PHOTO, URI } from "../../../constants/URI";
 
 const PrimitivesTestScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <ConfirmButton text="NEXT" />
-      <FullPost
+      {/* <FullPost
         userName="Ksenia Kardash"
         likes="123"
         description="Some text"
@@ -36,7 +36,7 @@ const PrimitivesTestScreen = () => {
       <ButtonIcon iconName="search" />
       <ButtonIcon iconName="chevron-right" />
       <ButtonIcon iconName="chevron-left" />
-      <ButtonIcon iconName="plus" />
+      <ButtonIcon iconName="plus" /> */}
     </ScrollView>
   );
 };

@@ -2,7 +2,11 @@
 import React from "react";
 import { TextInput, StyleSheet } from "react-native";
 
-const TextArea = () => {
+type Props = {
+  onChangeText: Function
+};
+const TextArea = (props: Props) => {
+  const { onChangeText } = props;
   return (
     <TextInput
       underlineColorAndroid="transparent"
@@ -10,6 +14,7 @@ const TextArea = () => {
       numberOfLines={4}
       style={styles.textarea}
       placeholder="Description"
+      onChangeText={onChangeText}
     />
   );
 };

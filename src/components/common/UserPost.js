@@ -12,14 +12,14 @@ type Props = {
   children?: Node,
   userName: string,
   onShowSelectedPost?: Function,
-  _id?: string
+  id?: number
 };
 
 const UserPost = (props: Props) => {
-  const { uri, uriPhoto, children, userName, onShowSelectedPost, _id } = props;
+  const { uri, uriPhoto, children, userName, onShowSelectedPost, id } = props;
 
   const onUserPostsPress = () => {
-    if (onShowSelectedPost) onShowSelectedPost(_id);
+    if (onShowSelectedPost) onShowSelectedPost(id);
   };
 
   return (

@@ -1,12 +1,17 @@
 /* @flow */
-export type Post = {
-  _id: string,
-  index: number,
-  uri: string,
-  uriPhoto: string,
-  userName: string
-};
 
 export type Uri = {
   uri: string
 };
+
+export type Post = {
+  id: number,
+  userName: string,
+  likes: number,
+  description: string,
+  tag: string,
+  uriPhoto: string,
+  uri: string
+};
+
+export type Posts = Array<Post>;

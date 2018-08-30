@@ -1,14 +1,25 @@
 /* @flow */
 import React, { PureComponent } from "react";
 import { View, StyleSheet } from "react-native";
+import { connect } from "react-redux";
 import ConfirmButton from "../../common/ConfirmButton";
 import { BACKGROUND_COLOR } from "../../../constants/colors";
+import { getPosts } from "../../../actions/postsAction";
+import { storeData, clearStorage } from "../../../api/asyncStorageApi";
 
 type Props = {
-  navigator: Object
+  navigator: Object,
+  getPosts: Function
 };
 
 class InitialScreen extends PureComponent<Props> {
+  componentWillMount() {
+    const { getPosts } = this.props;
+    getPosts();
+    // clearStorage();
+    storeData("user", "Ksenia Kardash");
+  }
+
   navigateToNextPage = () => {
     const { navigator } = this.props;
     navigator.push({
@@ -39,4 +50,13 @@ const styles = StyleSheet.create({
   }
 });
 
-export default InitialScreen;
+const mapDispatchToProps = dispatch => {
+  return {
+    getPosts: () => dispatch(getPosts())
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(InitialScreen);
