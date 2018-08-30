@@ -14,7 +14,9 @@ import { addPost } from "../../../actions/postsAction";
 type Props = {
   navigator: Object,
   uri: Uri,
-  addPost: Function
+  addPost: Function,
+  userName: string,
+  userPhoto: string
 };
 
 type State = {
@@ -44,7 +46,7 @@ class FinishPost extends PureComponent<Props, State> {
     });
   };
   navigateToNextPage = () => {
-    const { navigator, addPost, uri } = this.props;
+    const { navigator, addPost, uri, userName, userPhoto } = this.props;
     const { tag, description } = this.state;
     navigator.push({
       screen: "InfoModal",
@@ -55,12 +57,11 @@ class FinishPost extends PureComponent<Props, State> {
     });
     const post = {
       id: this.generateId(),
-      userName: "Ks Kardash",
+      userName: userName,
       likes: this.generateLikes(),
       description: description,
       tag: tag,
-      uriPhoto:
-        "https://facebook.github.io/react-native/docs/assets/favicon.png",
+      uriPhoto: userPhoto,
       uri: uri.uri
     };
     addPost(post);
@@ -129,6 +130,13 @@ const styles = StyleSheet.create({
   }
 });
 
+const mapStateToProps = state => {
+  return {
+    userName: state.profile.userName,
+    userPhoto: state.profile.userPhoto
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     addPost: post => dispatch(addPost(post))
@@ -136,6 +144,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(FinishPost);

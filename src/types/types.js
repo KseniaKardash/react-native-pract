@@ -1,5 +1,4 @@
 /* @flow */
-
 export type Uri = {
   uri: string
 };

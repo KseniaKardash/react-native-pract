@@ -5,19 +5,39 @@ import { connect } from "react-redux";
 import ConfirmButton from "../../common/ConfirmButton";
 import { BACKGROUND_COLOR } from "../../../constants/colors";
 import { getPosts } from "../../../actions/postsAction";
-import { storeData, clearStorage } from "../../../api/asyncStorageApi";
+import { storeData, retrieveData } from "../../../api/asyncStorageApi";
+import { setUserName, setUserPhoto } from "../../../actions/profileAction";
 
 type Props = {
   navigator: Object,
-  getPosts: Function
+  getPosts: Function,
+  userName: string,
+  userPhoto: string,
+  setUserName: Function,
+  setUserPhoto: Function
 };
 
 class InitialScreen extends PureComponent<Props> {
   componentWillMount() {
-    const { getPosts } = this.props;
+    const {
+      getPosts,
+      userName,
+      setUserName,
+      userPhoto,
+      setUserPhoto
+    } = this.props;
     getPosts();
-    // clearStorage();
     storeData("user", "Ksenia Kardash");
+    storeData(
+      "userPhoto",
+      "https://facebook.github.io/react-native/docs/assets/favicon.png"
+    );
+    if (userName == "") {
+      retrieveData("user").then(name => setUserName(name));
+    }
+    if (userPhoto == "") {
+      retrieveData("userPhoto").then(userPhoto => setUserPhoto(userPhoto));
+    }
   }
 
   navigateToNextPage = () => {
@@ -50,13 +70,23 @@ const styles = StyleSheet.create({
   }
 });
 
+const mapStateToProps = state => {
+  return {
+    userName: state.profile.userName,
+    userPhoto: state.profile.userPhoto,
+    set: state.profile
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
-    getPosts: () => dispatch(getPosts())
+    getPosts: () => dispatch(getPosts()),
+    setUserName: userName => dispatch(setUserName(userName)),
+    setUserPhoto: userPhoto => dispatch(setUserPhoto(userPhoto))
   };
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(InitialScreen);
