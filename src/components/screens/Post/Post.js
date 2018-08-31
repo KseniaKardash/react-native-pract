@@ -6,7 +6,7 @@ import ButtonIcon from "../../common/ButtonIcon";
 import FullPost from "../../common/FullPost";
 import HeaderTitle from "../../common/HeaderTitle";
 import type { Post } from "../../../types/types";
-import { deletePost } from "../../../actions/postsAction";
+import { deletePost } from "../../../actions/postsActions";
 import { SHADOW_COLOR } from "../../../constants/colors";
 
 type Props = {

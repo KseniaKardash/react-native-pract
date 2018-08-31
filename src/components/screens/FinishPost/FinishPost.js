@@ -9,7 +9,7 @@ import InputText from "../../common/InputText";
 import TextArea from "../../common/TextArea";
 import { BACKGROUND_COLOR } from "../../../constants/colors";
 import type { Uri } from "../../../types/types";
-import { addPost } from "../../../actions/postsAction";
+import { addPost } from "../../../actions/postsActions";
 
 type Props = {
   navigator: Object,

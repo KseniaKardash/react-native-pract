@@ -3,6 +3,10 @@ import {
   SEARCH_USER_NAME,
   SET_TOGGLE_SEARCH_BUTTON_STATUS
 } from "../../constants/actionTypes";
+import type {
+  SearchNameAction,
+  SearchToggleStatusAction
+} from "../../types/types";
 
 type State = {
   +searchName: string,
@@ -14,11 +18,6 @@ const InitialState = {
   toggleSearchStatus: false
 };
 
-type SearchNameAction = { type: "SEARCH_USER_NAME", searchName: string };
-type SearchToggleStatusAction = {
-  type: "SET_TOGGLE_SEARCH_BUTTON_STATUS",
-  toggleSearchStatus: boolean
-};
 type Action = SearchNameAction | SearchToggleStatusAction;
 
 export default function postsFeed(

@@ -11,7 +11,7 @@ import { SHADOW_COLOR } from "../../../constants/colors";
 import {
   changeSearchName,
   setToggleSearchStatus
-} from "../../../actions/postsFeedAction";
+} from "../../../actions/postsFeedActions";
 
 type Props = {
   navigator: Object,

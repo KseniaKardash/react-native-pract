@@ -1,8 +1,6 @@
 /* @flow */
 import { SET_USERNAME, SET_USER_PHOTO } from "../constants/actionTypes";
-
-type SetUserNameAction = { type: "SET_USERNAME", userName: string };
-type SetUserPhotoAction = { type: "SET_USER_PHOTO", userPhoto: string };
+import type { SetUserNameAction, SetUserPhotoAction } from "../types/types";
 
 export function setUserName(userName: string): SetUserNameAction {
   return {

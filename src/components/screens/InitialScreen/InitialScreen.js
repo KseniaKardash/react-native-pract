@@ -4,9 +4,9 @@ import { View, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import ConfirmButton from "../../common/ConfirmButton";
 import { BACKGROUND_COLOR } from "../../../constants/colors";
-import { getPosts } from "../../../actions/postsAction";
+import { getPosts } from "../../../actions/postsActions";
 import { storeData, retrieveData } from "../../../api/asyncStorageApi";
-import { setUserName, setUserPhoto } from "../../../actions/profileAction";
+import { setUserName, setUserPhoto } from "../../../actions/profileActions";
 
 type Props = {
   navigator: Object,

@@ -3,17 +3,24 @@ import { AsyncStorage } from "react-native";
 
 export const generateKey = (key: string) => `@AsyncStorage:${key}`;
 
-export const storeData = async (key: string, value: string) => {
+export const storeData = async (
+  key: string,
+  value: string,
+  callback: ?(error: ?Error) => void
+) => {
   try {
-    await AsyncStorage.setItem(key, value);
+    await AsyncStorage.setItem(key, value, callback);
   } catch (error) {
     console.log("Error saving data" + error);
   }
 };
 
-export const retrieveData = async (key: string) => {
+export const retrieveData = async (
+  key: string,
+  callback: ?(error: ?Error, result: any) => void
+) => {
   try {
-    return await AsyncStorage.getItem(key);
+    return await AsyncStorage.getItem(key, callback);
   } catch (error) {
     console.log("Error resetting data" + error);
   }
@@ -21,7 +28,7 @@ export const retrieveData = async (key: string) => {
 
 export const deleteData = async (key: string) => {
   try {
-    await AsyncStorage.removeItem(generateKey(key));
+    await AsyncStorage.removeItem(key);
   } catch (error) {
     console.log("Error deleting data" + error);
   }

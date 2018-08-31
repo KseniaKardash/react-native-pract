@@ -1,5 +1,6 @@
 /* @flow */
 import { SET_USERNAME, SET_USER_PHOTO } from "../../constants/actionTypes";
+import type { SetUserNameAction, SetUserPhotoAction } from "../../types/types";
 
 type State = {
   +userName: string,
@@ -10,9 +11,6 @@ const InitialState = {
   userName: "",
   userPhoto: ""
 };
-
-type SetUserNameAction = { type: "SET_USERNAME", userName: string };
-type SetUserPhotoAction = { type: "SET_USER_PHOTO", userPhoto: string };
 
 type Action = SetUserNameAction | SetUserPhotoAction;
 

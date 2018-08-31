@@ -14,3 +14,23 @@ export type Post = {
 };
 
 export type Posts = Array<Post>;
+
+export type SetUserNameAction = { type: "SET_USERNAME", userName: string };
+export type SetUserPhotoAction = { type: "SET_USER_PHOTO", userPhoto: string };
+export type SearchNameAction = { type: "SEARCH_USER_NAME", searchName: string };
+export type SearchToggleStatusAction = {
+  type: "SET_TOGGLE_SEARCH_BUTTON_STATUS",
+  toggleSearchStatus: boolean
+};
+export type AddPostAction = { type: "ADD_POST", post: Post };
+export type DeletePostAction = {
+  type: "DELETE_POST",
+  post?: Post,
+  id?: number
+};
+export type UpdatePostAction = {
+  type: "UPDATE_POST",
+  id?: number,
+  post: Post
+};
+export type GetPostsAction = { type: "GET_POSTS", posts: Array<Post> };
