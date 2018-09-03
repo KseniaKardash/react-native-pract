@@ -25,24 +25,24 @@ type Action =
 type Dispatch = (action: Action | ThunkAction) => any;
 type ThunkAction = (dispatch: Dispatch) => any;
 
-function addPostAction(post: Post): AddPostAction {
+function addPostAction(posts: Posts): AddPostAction {
   return {
     type: ADD_POST,
-    post: post
+    posts: posts
   };
 }
 
-function deletePostAction(id: number): DeletePostAction {
+function deletePostAction(posts: Posts): DeletePostAction {
   return {
     type: DELETE_POST,
-    id: id
+    posts: posts
   };
 }
 
-function updatePostAction(post: Post): UpdatePostAction {
+function updatePostAction(posts: Posts): UpdatePostAction {
   return {
     type: UPDATE_POST,
-    post: post
+    posts: posts
   };
 }
 
@@ -53,8 +53,13 @@ function getPostsAction(posts: Posts): GetPostsAction {
   };
 }
 
-function getIndex(data, id) {
-  return data.findIndex(post => parseInt(post.id) === parseInt(id));
+function getIndex(postsArray, id) {
+  const posts = cloneObject(postsArray);
+  return posts.findIndex(obj => parseInt(obj.id) === parseInt(id));
+}
+
+function cloneObject(postsArray) {
+  return [...postsArray];
 }
 
 export function addPost(post: Post): ThunkAction {
@@ -63,7 +68,7 @@ export function addPost(post: Post): ThunkAction {
       const posts = JSON.parse(postsData);
       posts.unshift(post);
       await storeData("data", posts);
-      dispatch(addPostAction(post));
+      dispatch(addPostAction(posts));
     });
   };
 }
@@ -88,7 +93,7 @@ export function updatePost(post: Post): ThunkAction {
         posts[index]["tag"] = post.tag;
       }
       await storeData("data", posts);
-      dispatch(updatePostAction(post));
+      dispatch(updatePostAction(posts));
     });
   };
 }
@@ -100,7 +105,7 @@ export function deletePost(id: number): ThunkAction {
       const index = getIndex(posts, id);
       if (index !== -1) posts.splice(index, 1);
       await storeData("data", posts);
-      dispatch(deletePostAction(id));
+      dispatch(deletePostAction(posts));
     });
   };
 }

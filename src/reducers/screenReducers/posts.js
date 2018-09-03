@@ -25,45 +25,22 @@ export type Action =
 
 const postsState = { posts: [] };
 
-function cloneObject(object) {
-  return JSON.parse(JSON.stringify(object));
-}
-
-function getIndex(data, id) {
-  const clone = JSON.parse(JSON.stringify(data));
-  return clone.findIndex(obj => parseInt(obj.id) === parseInt(id));
-}
-
 export default function postsReducer(
   state: State = postsState,
   action: Action
 ): State {
   switch (action.type) {
     case ADD_POST: {
-      const posts = cloneObject(state.posts);
-      posts.unshift(action.post);
-      state = Object.assign({}, state, { posts: posts });
-      return state;
+      return { ...state, posts: action.posts };
     }
     case UPDATE_POST: {
-      const post = action.post;
-      const posts = cloneObject(state.posts);
-      const index = getIndex(posts, post.id);
-      if (index !== -1) {
-        posts[index]["description"] = post.description;
-        posts[index]["tag"] = post.tag;
-      }
-      return Object.assign({}, state, { posts: posts });
+      return { ...state, posts: action.posts };
     }
     case GET_POSTS:
-      return Object.assign({}, state, { posts: action.posts });
+      return { ...state, posts: action.posts };
 
     case DELETE_POST: {
-      const posts = cloneObject(state.posts);
-      const index = getIndex(posts, action.id);
-      if (index !== -1) posts.splice(index, 1);
-      state = Object.assign({}, state, { posts: posts });
-      return state;
+      return { ...state, posts: action.posts };
     }
     default:
       return state;

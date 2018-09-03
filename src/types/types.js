@@ -22,15 +22,15 @@ export type SearchToggleStatusAction = {
   type: "SET_TOGGLE_SEARCH_BUTTON_STATUS",
   toggleSearchStatus: boolean
 };
-export type AddPostAction = { type: "ADD_POST", post: Post };
+export type AddPostAction = { type: "ADD_POST", posts: Posts };
 export type DeletePostAction = {
   type: "DELETE_POST",
-  post?: Post,
+  posts?: Posts,
   id?: number
 };
 export type UpdatePostAction = {
   type: "UPDATE_POST",
   id?: number,
-  post: Post
+  posts: Posts
 };
 export type GetPostsAction = { type: "GET_POSTS", posts: Array<Post> };
