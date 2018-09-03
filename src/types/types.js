@@ -25,12 +25,10 @@ export type SearchToggleStatusAction = {
 export type AddPostAction = { type: "ADD_POST", posts: Posts };
 export type DeletePostAction = {
   type: "DELETE_POST",
-  posts?: Posts,
-  id?: number
+  posts: Posts
 };
 export type UpdatePostAction = {
   type: "UPDATE_POST",
-  id?: number,
   posts: Posts
 };
-export type GetPostsAction = { type: "GET_POSTS", posts: Array<Post> };
+export type GetPostsAction = { type: "GET_POSTS", posts: Posts };
