@@ -54,26 +54,24 @@ function getPostsAction(posts: Posts): GetPostsAction {
 }
 
 function getIndex(data, id) {
-  const clone = JSON.parse(JSON.stringify(data));
-  return clone.findIndex(obj => parseInt(obj.id) === parseInt(id));
+  return data.findIndex(post => parseInt(post.id) === parseInt(id));
 }
 
 export function addPost(post: Post): ThunkAction {
   return dispatch => {
-    retrieveData("data", (err, postsData) => {
+    retrieveData("data", async (err, postsData) => {
       const posts = JSON.parse(postsData);
       posts.unshift(post);
-      storeData("data", JSON.stringify(posts), () => {
-        dispatch(addPostAction(post));
-      });
+      await storeData("data", posts);
+      dispatch(addPostAction(post));
     });
   };
 }
 export function getPosts(): ThunkAction {
   return dispatch => {
-    retrieveData("data", (err, posts) => {
+    retrieveData("data", async (err, posts) => {
       if (posts == null) {
-        storeData("data", JSON.stringify(testPosts));
+        await storeData("data", testPosts);
       }
       dispatch(getPostsAction(JSON.parse(posts)));
     });
@@ -82,29 +80,27 @@ export function getPosts(): ThunkAction {
 
 export function updatePost(post: Post): ThunkAction {
   return dispatch => {
-    retrieveData("data", (err, postsData) => {
+    retrieveData("data", async (err, postsData) => {
       const posts = JSON.parse(postsData);
       const index = getIndex(posts, post.id);
       if (index !== -1) {
         posts[index]["description"] = post.description;
         posts[index]["tag"] = post.tag;
       }
-      storeData("data", JSON.stringify(posts), () => {
-        dispatch(updatePostAction(post));
-      });
+      await storeData("data", posts);
+      dispatch(updatePostAction(post));
     });
   };
 }
 
 export function deletePost(id: number): ThunkAction {
   return dispatch => {
-    retrieveData("data", (err, postsData) => {
+    retrieveData("data", async (err, postsData) => {
       const posts = JSON.parse(postsData);
       const index = getIndex(posts, id);
       if (index !== -1) posts.splice(index, 1);
-      storeData("data", JSON.stringify(posts), () => {
-        dispatch(deletePostAction(id));
-      });
+      await storeData("data", posts);
+      dispatch(deletePostAction(id));
     });
   };
 }

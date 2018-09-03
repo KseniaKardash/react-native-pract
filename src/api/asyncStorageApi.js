@@ -9,7 +9,7 @@ export const storeData = async (
   callback: ?(error: ?Error) => void
 ) => {
   try {
-    await AsyncStorage.setItem(key, value, callback);
+    await AsyncStorage.setItem(key, JSON.stringify(value), callback);
   } catch (error) {
     console.log("Error saving data" + error);
   }
@@ -17,10 +17,12 @@ export const storeData = async (
 
 export const retrieveData = async (
   key: string,
-  callback: ?(error: ?Error, result: any) => void
+  callback: ?(error: ?Error, result: any) => Promise<void>
 ) => {
   try {
-    return await AsyncStorage.getItem(key, callback);
+    return await AsyncStorage.getItem(key, callback).then(res =>
+      JSON.parse(res)
+    );
   } catch (error) {
     console.log("Error resetting data" + error);
   }
