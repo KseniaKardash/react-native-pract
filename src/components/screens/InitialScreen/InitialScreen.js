@@ -18,7 +18,7 @@ type Props = {
 };
 
 class InitialScreen extends PureComponent<Props> {
-  componentWillMount() {
+  componentDidMount() {
     const {
       getPosts,
       userName,

@@ -25,24 +25,24 @@ type Action =
 type Dispatch = (action: Action | ThunkAction) => any;
 type ThunkAction = (dispatch: Dispatch) => any;
 
-function addPostAction(posts: Posts): AddPostAction {
+function addPostAction(post: Post): AddPostAction {
   return {
     type: ADD_POST,
-    posts: posts
+    post: post
   };
 }
 
-function deletePostAction(posts: Posts): DeletePostAction {
+function deletePostAction(id: number): DeletePostAction {
   return {
     type: DELETE_POST,
-    posts: posts
+    id: id
   };
 }
 
-function updatePostAction(posts: Posts): UpdatePostAction {
+function updatePostAction(post: Post): UpdatePostAction {
   return {
     type: UPDATE_POST,
-    posts: posts
+    post: post
   };
 }
 
@@ -68,7 +68,7 @@ export function addPost(post: Post): ThunkAction {
       const posts = JSON.parse(postsData);
       posts.unshift(post);
       await storeData("data", posts);
-      dispatch(addPostAction(posts));
+      dispatch(addPostAction(post));
     });
   };
 }
@@ -93,7 +93,7 @@ export function updatePost(post: Post): ThunkAction {
         posts[index]["tag"] = post.tag;
       }
       await storeData("data", posts);
-      dispatch(updatePostAction(posts));
+      dispatch(updatePostAction(post));
     });
   };
 }
@@ -105,7 +105,7 @@ export function deletePost(id: number): ThunkAction {
       const index = getIndex(posts, id);
       if (index !== -1) posts.splice(index, 1);
       await storeData("data", posts);
-      dispatch(deletePostAction(posts));
+      dispatch(deletePostAction(id));
     });
   };
 }

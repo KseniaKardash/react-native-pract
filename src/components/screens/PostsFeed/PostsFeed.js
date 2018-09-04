@@ -148,7 +148,7 @@ const mapStateToProps = state => {
   return {
     searchName: state.postsFeed.searchName,
     toggleSearchStatus: state.postsFeed.toggleSearchStatus,
-    posts: state.postsReducer.posts
+    posts: state.postsReducer
   };
 };
 
