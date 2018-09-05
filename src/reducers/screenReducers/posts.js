@@ -21,35 +21,16 @@ export type Action =
 
 const postsState = [];
 
-function getIndex(postsArray, id) {
-  const posts = cloneObject(postsArray);
-  return posts.findIndex(obj => parseInt(obj.id) === parseInt(id));
-}
-function cloneObject(postsArray) {
-  return [...postsArray];
-}
 function getPostsAfterUpdating(state, action) {
   const post = action.post;
-  const posts = cloneObject(state);
-  const index = getIndex(posts, post.id);
-  if (index !== -1) {
-    posts[index]["description"] = post.description;
-    posts[index]["tag"] = post.tag;
-  }
-  return posts;
-}
-
-function getPostsAfterAddition(state, action) {
-  const posts = cloneObject(state);
-  posts.unshift(action.post);
-  return posts;
-}
-
-function getPostsAfterRemoval(state, action) {
-  const posts = cloneObject(state);
-  const index = getIndex(posts, action.id);
-  if (index !== -1) posts.splice(index, 1);
-  return posts;
+  const posts = [...state];
+  return posts.map(obj => {
+    if (obj.id === post.id) {
+      obj.description = post.description;
+      obj.tag = post.tag;
+      return obj;
+    } else return obj;
+  });
 }
 
 export default function postsReducer(
@@ -58,19 +39,19 @@ export default function postsReducer(
 ): Posts {
   switch (action.type) {
     case ADD_POST: {
-      const posts = getPostsAfterAddition(state, action);
-      return [...posts];
+      return [action.post, ...state];
     }
     case UPDATE_POST: {
       const posts = getPostsAfterUpdating(state, action);
-      return [...posts];
+      return posts;
     }
-    case GET_POSTS:
+    case GET_POSTS: {
       return [...state, ...action.posts];
-
+    }
     case DELETE_POST: {
-      const posts = getPostsAfterRemoval(state, action);
-      return [...posts];
+      const initialPosts = [...state];
+      const posts = initialPosts.filter(post => post.id !== action.id);
+      return posts;
     }
     default:
       return state;

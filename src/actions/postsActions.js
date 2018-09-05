@@ -53,21 +53,11 @@ function getPostsAction(posts: Posts): GetPostsAction {
   };
 }
 
-function getIndex(postsArray, id) {
-  const posts = cloneObject(postsArray);
-  return posts.findIndex(obj => parseInt(obj.id) === parseInt(id));
-}
-
-function cloneObject(postsArray) {
-  return [...postsArray];
-}
-
 export function addPost(post: Post): ThunkAction {
   return dispatch => {
     retrieveData("data", async (err, postsData) => {
       const posts = JSON.parse(postsData);
-      posts.unshift(post);
-      await storeData("data", posts);
+      await storeData("data", [post, ...posts]);
       dispatch(addPostAction(post));
     });
   };
@@ -86,12 +76,14 @@ export function getPosts(): ThunkAction {
 export function updatePost(post: Post): ThunkAction {
   return dispatch => {
     retrieveData("data", async (err, postsData) => {
-      const posts = JSON.parse(postsData);
-      const index = getIndex(posts, post.id);
-      if (index !== -1) {
-        posts[index]["description"] = post.description;
-        posts[index]["tag"] = post.tag;
-      }
+      const InitialPosts = JSON.parse(postsData);
+      const posts = InitialPosts.map(obj => {
+        if (obj.id === post.id) {
+          obj.description = post.description;
+          obj.tag = post.tag;
+          return obj;
+        } else return obj;
+      });
       await storeData("data", posts);
       dispatch(updatePostAction(post));
     });
@@ -101,9 +93,8 @@ export function updatePost(post: Post): ThunkAction {
 export function deletePost(id: number): ThunkAction {
   return dispatch => {
     retrieveData("data", async (err, postsData) => {
-      const posts = JSON.parse(postsData);
-      const index = getIndex(posts, id);
-      if (index !== -1) posts.splice(index, 1);
+      const InitialPosts = JSON.parse(postsData);
+      const posts = InitialPosts.filter(post => post.id !== id);
       await storeData("data", posts);
       dispatch(deletePostAction(id));
     });
