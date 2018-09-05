@@ -5,7 +5,7 @@ export const generateKey = (key: string) => `@AsyncStorage:${key}`;
 
 export const storeData = async (
   key: string,
-  value: string,
+  value: string | Array<Object>,
   callback: ?(error: ?Error) => void
 ) => {
   try {

@@ -26,9 +26,10 @@ function getPostsAfterUpdating(state, action) {
   const posts = [...state];
   return posts.map(obj => {
     if (obj.id === post.id) {
-      obj.description = post.description;
-      obj.tag = post.tag;
-      return obj;
+      const object = { ...obj };
+      object.description = post.description;
+      object.tag = post.tag;
+      return object;
     } else return obj;
   });
 }

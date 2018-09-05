@@ -12,7 +12,8 @@ import type {
   AddPostAction,
   DeletePostAction,
   UpdatePostAction,
-  GetPostsAction
+  GetPostsAction,
+  GetState
 } from "../types/types";
 import { retrieveData, storeData } from "../api/asyncStorageApi";
 
@@ -23,7 +24,7 @@ type Action =
   | GetPostsAction;
 
 type Dispatch = (action: Action | ThunkAction) => any;
-type ThunkAction = (dispatch: Dispatch) => any;
+type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 
 function addPostAction(post: Post): AddPostAction {
   return {
@@ -54,14 +55,13 @@ function getPostsAction(posts: Posts): GetPostsAction {
 }
 
 export function addPost(post: Post): ThunkAction {
-  return dispatch => {
-    retrieveData("data", async (err, postsData) => {
-      const posts = JSON.parse(postsData);
-      await storeData("data", [post, ...posts]);
-      dispatch(addPostAction(post));
-    });
+  return (dispatch, getState) => {
+    const posts = getState().postsReducer;
+    storeData("data", [post, ...posts]);
+    dispatch(addPostAction(post));
   };
 }
+
 export function getPosts(): ThunkAction {
   return dispatch => {
     retrieveData("data", async (err, posts) => {
@@ -74,29 +74,26 @@ export function getPosts(): ThunkAction {
 }
 
 export function updatePost(post: Post): ThunkAction {
-  return dispatch => {
-    retrieveData("data", async (err, postsData) => {
-      const InitialPosts = JSON.parse(postsData);
-      const posts = InitialPosts.map(obj => {
-        if (obj.id === post.id) {
-          obj.description = post.description;
-          obj.tag = post.tag;
-          return obj;
-        } else return obj;
-      });
-      await storeData("data", posts);
-      dispatch(updatePostAction(post));
+  return (dispatch, getState) => {
+    const initialPosts = [...getState().postsReducer];
+    const posts = initialPosts.map(obj => {
+      if (obj.id === post.id) {
+        const object = { ...obj };
+        object.description = post.description;
+        object.tag = post.tag;
+        return object;
+      } else return obj;
     });
+    storeData("data", posts);
+    dispatch(updatePostAction(post));
   };
 }
 
 export function deletePost(id: number): ThunkAction {
-  return dispatch => {
-    retrieveData("data", async (err, postsData) => {
-      const InitialPosts = JSON.parse(postsData);
-      const posts = InitialPosts.filter(post => post.id !== id);
-      await storeData("data", posts);
-      dispatch(deletePostAction(id));
-    });
+  return (dispatch, getState) => {
+    const initialPosts = [...getState().postsReducer];
+    const posts = initialPosts.filter(post => post.id !== id);
+    storeData("data", posts);
+    dispatch(deletePostAction(id));
   };
 }

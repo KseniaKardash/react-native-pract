@@ -34,3 +34,16 @@ export type UpdatePostAction = {
   id?: number
 };
 export type GetPostsAction = { type: "GET_POSTS", posts: Posts, id?: number };
+export type State = {
+  postsFeed: {
+    searchName: string,
+    toggleSearchStatus: boolean
+  },
+  postsReducer: Posts,
+  profile: {
+    userName: string,
+    userPhoto: string
+  }
+};
+
+export type GetState = () => State;
