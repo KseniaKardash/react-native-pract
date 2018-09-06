@@ -78,10 +78,7 @@ export function updatePost(post: Post): ThunkAction {
     const initialPosts = [...getState().postsReducer];
     const posts = initialPosts.map(obj => {
       if (obj.id === post.id) {
-        const object = { ...obj };
-        object.description = post.description;
-        object.tag = post.tag;
-        return object;
+        return { ...obj, description: post.description, tag: post.tag };
       } else return obj;
     });
     storeData("data", posts);
