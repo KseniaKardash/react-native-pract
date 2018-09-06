@@ -1,36 +1,37 @@
 /* @flow */
 import React, { PureComponent } from "react";
 import { View, StyleSheet, FlatList, TextInput } from "react-native";
+import { connect } from "react-redux";
 import ButtonIcon from "../../common/ButtonIcon";
 import HeaderTitle from "../../common/HeaderTitle";
 import UserPost from "../../common/UserPost";
-import posts from "../../../constants/testObjects";
-import type { Post } from "../../../types/types";
+import type { Post, Posts } from "../../../types/types";
 import FadeWrapper from "../../common/FadeWrapper";
 import { SHADOW_COLOR } from "../../../constants/colors";
+import {
+  changeSearchName,
+  setToggleSearchStatus
+} from "../../../actions/postsFeedActions";
 
 type Props = {
-  navigator: Object
-};
-
-type State = {
+  navigator: Object,
   searchName: string,
-  toggleSearch: boolean
+  toggleSearchStatus: boolean,
+  changeSearchName: Function,
+  setToggleSearchStatus: Function,
+  posts: Posts
 };
 
-class PostsFeed extends PureComponent<Props, State> {
-  state: State = {
-    searchName: "",
-    toggleSearch: false
-  };
-
+class PostsFeed extends PureComponent<Props> {
   onChangeText = (text: string) => {
-    this.setState({ searchName: text });
+    const { changeSearchName } = this.props;
+    changeSearchName(text);
   };
 
-  onShowSelectedPost = (_id: string) => {
+  onShowSelectedPost = (id: string) => {
+    const { posts } = this.props;
     const selectedPost = posts.find(post => {
-      return post._id === _id;
+      return post.id === id;
     });
     const { navigator } = this.props;
     navigator.push({
@@ -46,12 +47,11 @@ class PostsFeed extends PureComponent<Props, State> {
   };
 
   setToggle = () => {
-    this.setState(prevState => {
-      return { toggleSearch: !prevState.toggleSearch };
-    });
+    const { setToggleSearchStatus, toggleSearchStatus } = this.props;
+    setToggleSearchStatus(!toggleSearchStatus);
   };
 
-  getKeyExtractor = (item: Post) => item._id;
+  getKeyExtractor = (item: Post) => item.id;
 
   navigateToNextPage = () => {
     const { navigator } = this.props;
@@ -68,7 +68,7 @@ class PostsFeed extends PureComponent<Props, State> {
     return posts.filter(post => {
       const userName = post.userName.toUpperCase();
       const queryData = query.toUpperCase();
-      return userName.indexOf(queryData) > -1;
+      return userName.indexOf(queryData) !== -1;
     });
   };
 
@@ -79,7 +79,7 @@ class PostsFeed extends PureComponent<Props, State> {
           userName={inboundData.item.userName}
           uri={{ uri: inboundData.item.uri }}
           uriPhoto={{ uri: inboundData.item.uriPhoto }}
-          _id={inboundData.item._id}
+          id={inboundData.item.id}
           onShowSelectedPost={this.onShowSelectedPost}
         />
       </FadeWrapper>
@@ -87,11 +87,8 @@ class PostsFeed extends PureComponent<Props, State> {
   };
 
   render() {
-    let filter;
-    const { searchName, toggleSearch } = this.state;
-    searchName !== ""
-      ? (filter = this.filterPosts(posts, searchName))
-      : (filter = posts);
+    const { searchName, toggleSearchStatus, posts } = this.props;
+    let filteredPosts = this.filterPosts(posts, searchName);
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -99,7 +96,7 @@ class PostsFeed extends PureComponent<Props, State> {
           <HeaderTitle text="FEED" />
           <ButtonIcon iconName="plus" onPress={this.navigateToNextPage} />
         </View>
-        {toggleSearch ? (
+        {toggleSearchStatus ? (
           <TextInput
             style={styles.textInput}
             placeholder="Search"
@@ -114,7 +111,7 @@ class PostsFeed extends PureComponent<Props, State> {
           showsVerticalScrollIndicator={false}
           initialNumToRender={15}
           maxToRenderPerBatch={20}
-          data={filter}
+          data={filteredPosts}
           windowSize={21}
           keyExtractor={this.getKeyExtractor}
           renderItem={this.renderItem}
@@ -147,4 +144,22 @@ const styles = StyleSheet.create({
   }
 });
 
-export default PostsFeed;
+const mapStateToProps = state => {
+  return {
+    searchName: state.postsFeed.searchName,
+    toggleSearchStatus: state.postsFeed.toggleSearchStatus,
+    posts: state.postsReducer
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    changeSearchName: value => dispatch(changeSearchName(value)),
+    setToggleSearchStatus: value => dispatch(setToggleSearchStatus(value))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PostsFeed);

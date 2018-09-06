@@ -1,15 +1,18 @@
 /* @flow */
 import React, { PureComponent } from "react";
 import { View, StyleSheet } from "react-native";
+import { connect } from "react-redux";
 import ButtonIcon from "../../common/ButtonIcon";
 import FullPost from "../../common/FullPost";
 import HeaderTitle from "../../common/HeaderTitle";
 import type { Post } from "../../../types/types";
+import { deletePost } from "../../../actions/postsActions";
 import { SHADOW_COLOR } from "../../../constants/colors";
 
 type Props = {
   navigator: Object,
-  post: Post
+  post: Post,
+  deletePost: Function
 };
 
 class FinishPost extends PureComponent<Props> {
@@ -19,6 +22,10 @@ class FinishPost extends PureComponent<Props> {
       animated: true,
       animationType: "fade"
     });
+  };
+  deletePost = () => {
+    const { deletePost, post } = this.props;
+    deletePost(post.id);
   };
 
   render() {
@@ -32,12 +39,14 @@ class FinishPost extends PureComponent<Props> {
               onPress={this.navigateToPreviousPage}
             />
             <HeaderTitle text="POST" />
+            <ButtonIcon iconName="minus" onPress={this.deletePost} />
           </View>
         </View>
         <FullPost
           userName={post.userName}
-          likes="123"
-          description="Some text"
+          likes={post.likes}
+          tag={post.tag}
+          description={post.description}
           uri={{ uri: post.uri }}
           uriPhoto={{ uri: post.uriPhoto }}
         />
@@ -62,9 +71,18 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    width: "82%",
+    width: "100%",
     justifyContent: "space-between"
   }
 });
 
-export default FinishPost;
+const mapDispatchToProps = dispatch => {
+  return {
+    deletePost: id => dispatch(deletePost(id))
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(FinishPost);

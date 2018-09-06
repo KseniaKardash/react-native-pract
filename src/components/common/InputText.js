@@ -2,10 +2,15 @@
 import React from "react";
 import { TextInput, StyleSheet } from "react-native";
 
-const InputText = () => {
+type Props = {
+  onChangeText: Function
+};
+const InputText = (props: Props) => {
+  const { onChangeText } = props;
   return (
     <TextInput
       underlineColorAndroid="transparent"
+      onChangeText={onChangeText}
       style={styles.taginput}
       placeholder="Tag"
     />

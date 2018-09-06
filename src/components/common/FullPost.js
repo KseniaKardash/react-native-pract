@@ -11,24 +11,30 @@ type uri = {
 
 type Props = {
   uri: uri,
-  likes: string,
+  likes: number,
+  tag: string,
   description: string,
   userName: string,
   uriPhoto: uri
 };
 
 const FullPost = (props: Props) => {
-  const { likes, description, userName, uri, uriPhoto } = props;
+  const { likes, description, userName, uri, uriPhoto, tag } = props;
   return (
     <View style={styles.container}>
-      <UserPost uri={uri} userName={userName} uriPhoto={uriPhoto}>
+      <UserPost uri={uri} userName={userName} uriPhoto={uriPhoto} size={27}>
         <View style={styles.likes}>
           <TouchableOpacity style={styles.like}>
             <Icon name="heart" color={MAIN_COLOR} size={27} />
           </TouchableOpacity>
           <Text style={styles.text}>{likes}</Text>
         </View>
-        <Text style={styles.description}>Description: {description}</Text>
+        {description ? (
+          <Text style={styles.description}>Description: {description}</Text>
+        ) : (
+          <View />
+        )}
+        {tag ? <Text style={styles.description}>Tags: {tag}</Text> : <View />}
       </UserPost>
     </View>
   );
