@@ -1,5 +1,5 @@
 module.exports = {
-  "extends": [
+  extends: [
     "airbnb",
     "eslint:recommended",
     "plugin:react/recommended",
@@ -10,28 +10,31 @@ module.exports = {
     "prettier",
     "prettier/react"
   ],
-  "rules": {
+  rules: {
     "linebreak-style": 0,
-    "semi": 2,
-    "react/jsx-filename-extension": [1, {
-      "extensions": [".js", ".jsx"]
-    }],
-    "react/require-default-props": 0
+    semi: 2,
+    "no-console": 1,
+    "react/jsx-filename-extension": [
+      1,
+      {
+        extensions: [".js", ".jsx"]
+      }
+    ]
   },
-  "env": {
+  env: {
     "react-native/react-native": true,
-    "browser": true,
+    browser: true
   },
-  "parser": "babel-eslint",
-  "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true,
-      "jsx": true
+  parser: "babel-eslint",
+  parserOptions: {
+    ecmaVersion: 6,
+    sourceType: "module",
+    ecmaFeatures: {
+      experimentalObjectRestSpread: true,
+      jsx: true
     }
   },
-  "plugins": [
+  plugins: [
     "react",
     "jsx-a11y",
     "import",
@@ -40,4 +43,4 @@ module.exports = {
     "prettier",
     "react-native"
   ]
-}
+};
