@@ -5,7 +5,7 @@ import rootReducer from "../reducers/rootReducer";
 
 export default function configureStore() {
   if (__DEV__) {
-    let Reactotron = require("../../ReactotronConfig").default;
+    const Reactotron = require("../../ReactotronConfig").default;
     return Reactotron.createStore(rootReducer, applyMiddleware(thunk));
   } else return createStore(rootReducer, applyMiddleware(thunk));
 }
