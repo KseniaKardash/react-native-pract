@@ -5,7 +5,9 @@ import { reactotronRedux } from "reactotron-redux"; // eslint-disable-line impor
 Reactotron.configure({ name: "React Native Demo" })
   .useReactNative()
   .use(reactotronRedux())
-  .use(asyncStorage())
-  .connect();
+  .use(asyncStorage());
+if (__DEV__) {
+  Reactotron.connect();
+}
 console.tron = Reactotron.log;
 export default Reactotron;

@@ -18,6 +18,7 @@
 [libs]
 node_modules/react-native/flow/
 node_modules/react-native/flow-github/
+./libdefs.js
 
 [lints]
 
