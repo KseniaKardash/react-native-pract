@@ -1,4 +1,5 @@
 /* @flow */
+/*eslint no-console: ["error", { allow: ["log"] }] */
 import { AsyncStorage } from "react-native";
 
 export const generateKey = (key: string) => `@AsyncStorage:${key}`;
