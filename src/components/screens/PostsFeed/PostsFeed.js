@@ -1,17 +1,12 @@
 /* @flow */
 import React, { PureComponent } from "react";
 import { View, StyleSheet, FlatList, TextInput } from "react-native";
-import { connect } from "react-redux";
 import ButtonIcon from "../../common/ButtonIcon";
 import HeaderTitle from "../../common/HeaderTitle";
 import UserPost from "../../common/UserPost";
 import type { Post, Posts } from "../../../types/types";
 import FadeWrapper from "../../common/FadeWrapper";
 import { SHADOW_COLOR } from "../../../constants/colors";
-import {
-  changeSearchName,
-  setToggleSearchStatus
-} from "../../../actions/postsFeedActions";
 
 type Props = {
   navigator: Object,
@@ -54,7 +49,7 @@ class PostsFeed extends PureComponent<Props> {
   getKeyExtractor = (item: Post) => item.id;
 
   navigateToNextPage = () => {
-    const { navigator } = this.props;
+    const { navigator, setToggleSearchStatus, toggleSearchStatus } = this.props;
     navigator.push({
       screen: "ImagePickerScreen",
       title: "ImagePickerScreen",
@@ -62,6 +57,9 @@ class PostsFeed extends PureComponent<Props> {
       animated: true,
       animationType: "fade"
     });
+    if (toggleSearchStatus) {
+      setToggleSearchStatus(!toggleSearchStatus);
+    }
   };
 
   filterPosts = (posts: Array<Post>, query: string): Array<Post> => {
@@ -144,22 +142,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => {
-  return {
-    searchName: state.postsFeed.searchName,
-    toggleSearchStatus: state.postsFeed.toggleSearchStatus,
-    posts: state.postsReducer
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    changeSearchName: value => dispatch(changeSearchName(value)),
-    setToggleSearchStatus: value => dispatch(setToggleSearchStatus(value))
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PostsFeed);
+export default PostsFeed;

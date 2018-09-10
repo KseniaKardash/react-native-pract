@@ -1,8 +1,8 @@
 /* @flow */
-import registerScreens from "./src/components/screens/index/index";
+import startApp from "./src/components/screens/index/index";
 
 if (__DEV__) {
   require("./ReactotronConfig");
 }
 
-registerScreens();
+startApp();

@@ -1,6 +1,5 @@
 /* @flow */
 import React, { PureComponent } from "react";
-import { connect } from "react-redux";
 import { View, StyleSheet, Image } from "react-native";
 import ButtonIcon from "../../common/ButtonIcon";
 import ConfirmButton from "../../common/ConfirmButton";
@@ -9,7 +8,6 @@ import InputText from "../../common/InputText";
 import TextArea from "../../common/TextArea";
 import { BACKGROUND_COLOR } from "../../../constants/colors";
 import type { Uri } from "../../../types/types";
-import { addPost } from "../../../actions/postsActions";
 
 type Props = {
   navigator: Object,
@@ -130,20 +128,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => {
-  return {
-    userName: state.profile.userName,
-    userPhoto: state.profile.userPhoto
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    addPost: post => dispatch(addPost(post))
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FinishPost);
+export default FinishPost;
