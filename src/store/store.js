@@ -7,7 +7,8 @@ import rootReducer from "../reducers/rootReducer";
 
 const persistConfig = {
   key: "data",
-  storage
+  storage: storage,
+  whitelist: ["profile", "postsReducer"]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -7,8 +7,7 @@ const mapStateToProps = state => {
   return {
     userName: state.profile.userName,
     userPhoto: state.profile.userPhoto,
-    posts: state.postsReducer,
-    state
+    posts: state.postsReducer
   };
 };
 
