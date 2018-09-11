@@ -1,30 +1,41 @@
 /* @flow */
 import { Navigation } from "react-native-navigation";
 import { Provider } from "react-redux";
-import Post from "../Post/Post";
+import { persistStore } from "redux-persist";
 import SelectPhoto from "../SelectPhoto/SelectPhoto";
-import FinishPost from "../FinishPost/FinishPost";
 import InfoModal from "../InfoModal/ InfoModal";
-import PostsFeed from "../PostsFeed/PostsFeed";
 import ImagePickerScreen from "../ImagePickerScreen/ImagePickerScreen";
-import InitialScreen from "../InitialScreen/InitialScreen";
 import configureStore from "../../../store/store";
+import PostsFeedContainer from "../../../containers/PostsFeedContainer";
+import FinishPostContainer from "../../../containers/FinishPostContainer";
+import PostContainer from "../../../containers/PostContainer";
+import InitialScreenContainer from "../../../containers/InitialScreenContainer";
 
 const store = configureStore();
 
 function registerScreens() {
   Navigation.registerComponent(
     "InitialScreen",
-    () => InitialScreen,
+    () => InitialScreenContainer,
     store,
     Provider
   );
   Navigation.registerComponent("ImagePickerScreen", () => ImagePickerScreen);
-  Navigation.registerComponent("Post", () => Post, store, Provider);
+  Navigation.registerComponent("Post", () => PostContainer, store, Provider);
   Navigation.registerComponent("InfoModal", () => InfoModal);
   Navigation.registerComponent("SelectPhoto", () => SelectPhoto);
-  Navigation.registerComponent("FinishPost", () => FinishPost, store, Provider);
-  Navigation.registerComponent("PostsFeed", () => PostsFeed, store, Provider);
+  Navigation.registerComponent(
+    "FinishPost",
+    () => FinishPostContainer,
+    store,
+    Provider
+  );
+  Navigation.registerComponent(
+    "PostsFeed",
+    () => PostsFeedContainer,
+    store,
+    Provider
+  );
 
   Navigation.startSingleScreenApp({
     screen: {
@@ -35,4 +46,9 @@ function registerScreens() {
   });
 }
 
-export default registerScreens;
+function startApp() {
+  persistStore(store, null, () => {
+    registerScreens();
+  });
+}
+export default startApp;

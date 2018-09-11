@@ -1,12 +1,10 @@
 /* @flow */
 import React, { PureComponent } from "react";
 import { View, StyleSheet } from "react-native";
-import { connect } from "react-redux";
 import ButtonIcon from "../../common/ButtonIcon";
 import FullPost from "../../common/FullPost";
 import HeaderTitle from "../../common/HeaderTitle";
 import type { Post } from "../../../types/types";
-import { deletePost } from "../../../actions/postsActions";
 import { SHADOW_COLOR } from "../../../constants/colors";
 
 type Props = {
@@ -76,13 +74,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    deletePost: id => dispatch(deletePost(id))
-  };
-};
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(FinishPost);
+export default FinishPost;
