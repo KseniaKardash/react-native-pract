@@ -5,7 +5,7 @@ import Post from "../components/screens/Post/Post";
 
 const mapDispatchToProps = dispatch => {
   return {
-    deletePost: id => dispatch(deletePost(id))
+    deletePost: post => dispatch(deletePost(post))
   };
 };
 

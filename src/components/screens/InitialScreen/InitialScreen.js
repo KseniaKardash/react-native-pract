@@ -8,12 +8,15 @@ type Props = {
   navigator: Object,
   userName: string,
   userPhoto: string,
+  getPosts: Function,
   setUserName: Function,
   setUserPhoto: Function
 };
 
 class InitialScreen extends PureComponent<Props> {
   componentDidMount() {
+    const { getPosts } = this.props;
+    getPosts();
     const { userName, setUserName, userPhoto, setUserPhoto } = this.props;
     if (userName == "") {
       setUserName("Ksenia Kardash");

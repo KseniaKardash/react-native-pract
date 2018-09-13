@@ -1,6 +1,7 @@
 /* @flow */
 import { connect } from "react-redux";
 import { setUserName, setUserPhoto } from "../actions/profileActions";
+import { getPosts } from "../actions/postsActions";
 import InitialScreen from "../components/screens/InitialScreen/InitialScreen";
 
 const mapStateToProps = state => {
@@ -14,7 +15,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     setUserName: userName => dispatch(setUserName(userName)),
-    setUserPhoto: userPhoto => dispatch(setUserPhoto(userPhoto))
+    setUserPhoto: userPhoto => dispatch(setUserPhoto(userPhoto)),
+    getPosts: () => dispatch(getPosts())
   };
 };
 

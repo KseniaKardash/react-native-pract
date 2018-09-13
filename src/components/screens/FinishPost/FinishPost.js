@@ -8,6 +8,7 @@ import InputText from "../../common/InputText";
 import TextArea from "../../common/TextArea";
 import { BACKGROUND_COLOR } from "../../../constants/colors";
 import type { Uri } from "../../../types/types";
+import realmV2 from '../../../database/index';
 
 type Props = {
   navigator: Object,
@@ -55,11 +56,11 @@ class FinishPost extends PureComponent<Props, State> {
     });
     const post = {
       id: this.generateId(),
-      userName: userName,
+      userName: "K Kardash" || userName,
       likes: this.generateLikes(),
       description: description,
       tag: tag,
-      uriPhoto: userPhoto,
+      uriPhoto: 'https://realm.io/assets/img/social/realmDark.jpg' || userPhoto,
       uri: uri.uri
     };
     addPost(post);
