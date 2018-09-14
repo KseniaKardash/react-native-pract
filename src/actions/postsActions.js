@@ -22,10 +22,10 @@ export function updatePostAction(post: Post): UpdatePostAction {
   };
 }
 
-export function deletePostAction(post: Post): DeletePostAction {
+export function deletePostAction(id: string): DeletePostAction {
   return {
     type: DELETE_POST,
-    post: post
+    id: id
   };
 }
 
@@ -45,7 +45,11 @@ function getPostsAction(posts: Posts): GetPostsAction {
 
 type Dispatch = (action: Action | ThunkAction) => any;
 type ThunkAction = (dispatch: Dispatch) => any;
-type Action = GetPostsAction | AddPostAction | DeletePostAction | UpdatePostAction;
+type Action =
+  | GetPostsAction
+  | AddPostAction
+  | DeletePostAction
+  | UpdatePostAction;
 
 export function addPost(post: Post): ThunkAction {
   return dispatch => {
@@ -56,16 +60,35 @@ export function addPost(post: Post): ThunkAction {
   };
 }
 
-export function deletePost(post: Post): ThunkAction {
+export function updatePost(post: Post): ThunkAction {
   return dispatch => {
-    realmV2.delete(post);
-    dispatch(deletePostAction(post));
+    realmV2.write(() => {
+      realmV2.create(
+        "PostV2",
+        { id: post.id, description: post.description, tag: post.tag },
+        true
+      );
+    });
+    dispatch(addPostAction(post));
+  };
+}
+
+export function deletePost(id: string): ThunkAction {
+  return dispatch => {
+    realmV2.write(() => {
+      const post = realmV2.objects("PostV2").filtered(`id = "${id}"`);
+      realmV2.delete(post);
+    });
+    dispatch(deletePostAction(id));
   };
 }
 
 export function getPosts(): ThunkAction {
   return dispatch => {
-    const posts = realmV2.objects("PostV2");
+    const postsData = realmV2.objects("PostV2");
+    const posts = postsData.map(post => {
+      return { ...post };
+    });
     dispatch(getPostsAction(posts));
   };
 }

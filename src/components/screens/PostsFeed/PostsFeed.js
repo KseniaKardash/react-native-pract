@@ -28,12 +28,11 @@ class PostsFeed extends PureComponent<Props> {
     const selectedPost = posts.find(post => {
       return post.id === id;
     });
-    console.log("selectedPost", selectedPost);
     navigator.push({
       screen: "Post",
       title: selectedPost.userName,
       passProps: {
-        post: selectedPost
+        post: { ...selectedPost }
       },
       backButtonHidden: true,
       animated: true,

@@ -23,7 +23,7 @@ class FinishPost extends PureComponent<Props> {
   };
   deletePost = () => {
     const { deletePost, post } = this.props;
-    deletePost(post);
+    deletePost(post.id);
   };
 
   render() {
