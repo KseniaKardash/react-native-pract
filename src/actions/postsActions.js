@@ -13,7 +13,7 @@ import type {
   UpdatePostAction,
   GetPostsAction
 } from "../types/types";
-import realmV2 from "../database/index";
+import realm from "../database/index";
 
 export function updatePostAction(post: Post): UpdatePostAction {
   return {
@@ -53,8 +53,8 @@ type Action =
 
 export function addPost(post: Post): ThunkAction {
   return dispatch => {
-    realmV2.write(() => {
-      realmV2.create("PostV2", post);
+    realm.write(() => {
+      realm.create("Post", post);
     });
     dispatch(addPostAction(post));
   };
@@ -62,9 +62,9 @@ export function addPost(post: Post): ThunkAction {
 
 export function updatePost(post: Post): ThunkAction {
   return dispatch => {
-    realmV2.write(() => {
-      realmV2.create(
-        "PostV2",
+    realm.write(() => {
+      realm.create(
+        "Post",
         { id: post.id, description: post.description, tag: post.tag },
         true
       );
@@ -75,9 +75,9 @@ export function updatePost(post: Post): ThunkAction {
 
 export function deletePost(id: string): ThunkAction {
   return dispatch => {
-    realmV2.write(() => {
-      const post = realmV2.objects("PostV2").filtered(`id = "${id}"`);
-      realmV2.delete(post);
+    realm.write(() => {
+      const post = realm.objects("Post").filtered(`id = "${id}"`);
+      realm.delete(post);
     });
     dispatch(deletePostAction(id));
   };
@@ -85,7 +85,7 @@ export function deletePost(id: string): ThunkAction {
 
 export function getPosts(): ThunkAction {
   return dispatch => {
-    const postsData = realmV2.objects("PostV2");
+    const postsData = realm.objects("Post");
     const posts = postsData.map(post => {
       return { ...post };
     });

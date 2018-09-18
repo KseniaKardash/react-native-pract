@@ -1,15 +1,15 @@
 /* @flow */
-const Post = {
-  name: "PostV2",
+const PostSchema = {
+  name: "Post",
+  primaryKey: "id",
   properties: {
-    id: "string",
-    userName: "string",
-    likes: "string",
-    description: "string",
-    tag: "string",
+    id: "int",
+    userName: { type: "string", indexed: true },
+    likes: { type: "int", default: 0 },
+    description: { type: "string", default: "" },
+    tag: { type: "string", default: "" },
     uriPhoto: "string",
     uri: "string"
   }
 };
-
-export default Post;
+export default PostSchema;

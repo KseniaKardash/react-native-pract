@@ -1,8 +1,11 @@
 /* @flow */
-import Post from "./schema/post";
+import PostSchema from "./schema/post";
 
 const Realm = require("realm");
 
-const realmV2 = new Realm({ schema: [Post] });
-
-export default realmV2;
+const databaseOptions = {
+  path: "posts.realm",
+  schema: [PostSchema],
+  schemaVersion: 0
+};
+export default new Realm(databaseOptions);

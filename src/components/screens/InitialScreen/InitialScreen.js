@@ -43,7 +43,6 @@ class InitialScreen extends PureComponent<Props> {
       animationType: "fade"
     });
   };
-
   render() {
     return (
       <View style={styles.container}>

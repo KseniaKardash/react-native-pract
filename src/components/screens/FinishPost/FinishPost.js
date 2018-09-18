@@ -53,9 +53,9 @@ class FinishPost extends PureComponent<Props, State> {
       animationType: "fade"
     });
     const post = {
-      id: this.generateId(),
+      id: parseInt(this.generateId()),
       userName: store.getState().profile.userName,
-      likes: this.generateLikes(),
+      likes: parseInt(this.generateLikes()),
       description: description,
       tag: tag,
       uriPhoto: store.getState().profile.userPhoto,
