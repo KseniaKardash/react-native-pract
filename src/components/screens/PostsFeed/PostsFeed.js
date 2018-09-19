@@ -24,16 +24,15 @@ class PostsFeed extends PureComponent<Props> {
   };
 
   onShowSelectedPost = (id: string) => {
-    const { posts } = this.props;
+    const { posts, navigator } = this.props;
     const selectedPost = posts.find(post => {
       return post.id === id;
     });
-    const { navigator } = this.props;
     navigator.push({
       screen: "Post",
       title: selectedPost.userName,
       passProps: {
-        post: selectedPost
+        post: { ...selectedPost }
       },
       backButtonHidden: true,
       animated: true,

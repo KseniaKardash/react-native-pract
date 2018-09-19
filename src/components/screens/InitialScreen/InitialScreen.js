@@ -8,19 +8,27 @@ type Props = {
   navigator: Object,
   userName: string,
   userPhoto: string,
+  getPosts: Function,
   setUserName: Function,
   setUserPhoto: Function
 };
 
 class InitialScreen extends PureComponent<Props> {
   componentDidMount() {
-    const { userName, setUserName, userPhoto, setUserPhoto } = this.props;
+    const {
+      userName,
+      setUserName,
+      getPosts,
+      userPhoto,
+      setUserPhoto
+    } = this.props;
+    getPosts();
     if (userName == "") {
       setUserName("Ksenia Kardash");
     }
     if (userPhoto == "") {
       setUserPhoto(
-        "https://facebook.github.io/react-native/docs/assets/favicon.png"
+        "https://i.pinimg.com/originals/61/d5/d3/61d5d36722b29bd95aaec4488f85884b.jpg"
       );
     }
   }
@@ -35,7 +43,6 @@ class InitialScreen extends PureComponent<Props> {
       animationType: "fade"
     });
   };
-
   render() {
     return (
       <View style={styles.container}>

@@ -1,7 +1,6 @@
 /* @flow */
 import { Navigation } from "react-native-navigation";
 import { Provider } from "react-redux";
-import { persistStore } from "redux-persist";
 import SelectPhoto from "../SelectPhoto/SelectPhoto";
 import InfoModal from "../InfoModal/ InfoModal";
 import ImagePickerScreen from "../ImagePickerScreen/ImagePickerScreen";
@@ -11,9 +10,9 @@ import FinishPostContainer from "../../../containers/FinishPostContainer";
 import PostContainer from "../../../containers/PostContainer";
 import InitialScreenContainer from "../../../containers/InitialScreenContainer";
 
-const store = configureStore();
+export const store = configureStore();
 
-function registerScreens() {
+export function registerScreens() {
   Navigation.registerComponent(
     "InitialScreen",
     () => InitialScreenContainer,
@@ -45,10 +44,3 @@ function registerScreens() {
     animationType: "fade"
   });
 }
-
-function startApp() {
-  persistStore(store, null, () => {
-    registerScreens();
-  });
-}
-export default startApp;

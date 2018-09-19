@@ -2,8 +2,8 @@
 import {
   ADD_POST,
   DELETE_POST,
-  UPDATE_POST
-  // GET_POSTS
+  UPDATE_POST,
+  GET_POSTS
 } from "../../constants/actionTypes";
 import type {
   Posts,
@@ -42,6 +42,9 @@ export default function postsReducer(
     case UPDATE_POST: {
       const posts = getPostsAfterUpdating(state, action);
       return posts;
+    }
+    case GET_POSTS: {
+      return action.posts;
     }
     case DELETE_POST: {
       const initialPosts = [...state];
