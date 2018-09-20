@@ -1,9 +1,7 @@
 /* @flow */
 import { connect } from "react-redux";
-import {
-  changeSearchName,
-  setToggleSearchStatus
-} from "../actions/postsFeedActions";
+import setToggleSearchStatus from "../actions/postsFeedActions";
+import { filterPostsByUserName } from "../actions/postsActions";
 import PostsFeed from "../components/screens/PostsFeed/PostsFeed";
 
 const mapStateToProps = state => {
@@ -16,8 +14,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    changeSearchName: value => dispatch(changeSearchName(value)),
-    setToggleSearchStatus: value => dispatch(setToggleSearchStatus(value))
+    setToggleSearchStatus: value => dispatch(setToggleSearchStatus(value)),
+    filterPostsByUserName: query => dispatch(filterPostsByUserName(query))
   };
 };
 

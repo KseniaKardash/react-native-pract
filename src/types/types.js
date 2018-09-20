@@ -17,7 +17,6 @@ export type Posts = Array<Post>;
 
 export type SetUserNameAction = { type: "SET_USERNAME", userName: string };
 export type SetUserPhotoAction = { type: "SET_USER_PHOTO", userPhoto: string };
-export type SearchNameAction = { type: "SEARCH_USER_NAME", searchName: string };
 export type SearchToggleStatusAction = {
   type: "SET_TOGGLE_SEARCH_BUTTON_STATUS",
   toggleSearchStatus: boolean
@@ -34,6 +33,11 @@ export type UpdatePostAction = {
   id?: number
 };
 export type GetPostsAction = { type: "GET_POSTS", posts: Posts, id?: string };
+export type FilterPostsAction = {
+  type: "SEARCH_USER_NAME",
+  posts: Posts,
+  id?: string
+};
 export type State = {
   postsFeed: {
     searchName: string,

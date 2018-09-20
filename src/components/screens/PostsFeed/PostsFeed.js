@@ -12,15 +12,15 @@ type Props = {
   navigator: Object,
   searchName: string,
   toggleSearchStatus: boolean,
-  changeSearchName: Function,
   setToggleSearchStatus: Function,
+  filterPostsByUserName: Function,
   posts: Posts
 };
 
 class PostsFeed extends PureComponent<Props> {
   onChangeText = (text: string) => {
-    const { changeSearchName } = this.props;
-    changeSearchName(text);
+    const { filterPostsByUserName } = this.props;
+    filterPostsByUserName(text);
   };
 
   onShowSelectedPost = (id: string) => {
@@ -61,14 +61,6 @@ class PostsFeed extends PureComponent<Props> {
     }
   };
 
-  filterPosts = (posts: Array<Post>, query: string): Array<Post> => {
-    return posts.filter(post => {
-      const userName = post.userName.toUpperCase();
-      const queryData = query.toUpperCase();
-      return userName.indexOf(queryData) !== -1;
-    });
-  };
-
   renderItem = (inboundData: { item: Post }) => {
     return (
       <FadeWrapper>
@@ -85,7 +77,6 @@ class PostsFeed extends PureComponent<Props> {
 
   render() {
     const { searchName, toggleSearchStatus, posts } = this.props;
-    let filteredPosts = this.filterPosts(posts, searchName);
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -108,7 +99,7 @@ class PostsFeed extends PureComponent<Props> {
           showsVerticalScrollIndicator={false}
           initialNumToRender={15}
           maxToRenderPerBatch={20}
-          data={filteredPosts}
+          data={posts}
           windowSize={21}
           keyExtractor={this.getKeyExtractor}
           renderItem={this.renderItem}

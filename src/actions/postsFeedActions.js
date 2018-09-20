@@ -1,21 +1,11 @@
 /* @flow */
 import {
-  SEARCH_USER_NAME,
+  // SEARCH_USER_NAME,
   SET_TOGGLE_SEARCH_BUTTON_STATUS
 } from "../constants/actionTypes";
-import type {
-  SearchNameAction,
-  SearchToggleStatusAction
-} from "../types/types";
+import type { SearchToggleStatusAction } from "../types/types";
 
-export function changeSearchName(value: string): SearchNameAction {
-  return {
-    type: SEARCH_USER_NAME,
-    searchName: value
-  };
-}
-
-export function setToggleSearchStatus(
+export default function setToggleSearchStatus(
   value: boolean
 ): SearchToggleStatusAction {
   return {

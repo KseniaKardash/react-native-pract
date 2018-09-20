@@ -3,6 +3,7 @@ import {
   ADD_POST,
   DELETE_POST,
   UPDATE_POST,
+  SEARCH_USER_NAME,
   GET_POSTS
 } from "../../constants/actionTypes";
 import type {
@@ -10,14 +11,16 @@ import type {
   AddPostAction,
   DeletePostAction,
   UpdatePostAction,
-  GetPostsAction
+  GetPostsAction,
+  FilterPostsAction
 } from "../../types/types";
 
 export type Action =
   | AddPostAction
   | DeletePostAction
   | UpdatePostAction
-  | GetPostsAction;
+  | GetPostsAction
+  | FilterPostsAction;
 
 const postsState = [];
 
@@ -44,6 +47,9 @@ export default function postsReducer(
       return posts;
     }
     case GET_POSTS: {
+      return action.posts;
+    }
+    case SEARCH_USER_NAME: {
       return action.posts;
     }
     case DELETE_POST: {
