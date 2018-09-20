@@ -31,21 +31,21 @@ export function deletePostAction(id: string): DeletePostAction {
   };
 }
 
-function addPostAction(post: Post): AddPostAction {
+export function addPostAction(post: Post): AddPostAction {
   return {
     type: ADD_POST,
     post: post
   };
 }
 
-function getPostsAction(posts: Posts): GetPostsAction {
+export function getPostsAction(posts: Posts): GetPostsAction {
   return {
     type: GET_POSTS,
     posts: posts
   };
 }
 
-function filterPostsAction(posts: Posts): FilterPostsAction {
+export function filterPostsAction(posts: Posts): FilterPostsAction {
   return {
     type: SEARCH_USER_NAME,
     posts: posts

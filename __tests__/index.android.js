@@ -1,12 +1,23 @@
-import 'react-native';
-import React from 'react';
-import Index from '../index.android.js';
+import "react-native";
+import configureStore from "redux-mock-store";
+import thunk from "redux-thunk";
+import { deletePostAction } from "../src/actions/postsActions";
 
-// Note: test renderer must be required after react-native.
-import renderer from 'react-test-renderer';
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares);
 
-it('renders correctly', () => {
-  const tree = renderer.create(
-    <Index />
-  );
+const initialState = {};
+const store = mockStore(initialState);
+
+beforeEach(() => {
+  store.clearActions();
+});
+
+afterEach(() => {
+  expect(store.getActions()).toMatchSnapshot();
+});
+
+test("Dispatch action", () => {
+  const id = 56;
+  store.dispatch(deletePostAction(id));
 });

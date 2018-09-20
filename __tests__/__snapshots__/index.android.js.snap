@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dispatch action 1`] = `
+Array [
+  Object {
+    "id": 56,
+    "type": "DELETE_POST",
+  },
+]
+`;
