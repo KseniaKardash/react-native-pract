@@ -4,7 +4,7 @@ import {
   SET_TOGGLE_SEARCH_BUTTON_STATUS
 } from "../../constants/actionTypes";
 import type {
-  SearchNameAction,
+  FilterPostsAction,
   SearchToggleStatusAction
 } from "../../types/types";
 
@@ -18,7 +18,7 @@ const InitialState = {
   toggleSearchStatus: false
 };
 
-type Action = SearchNameAction | SearchToggleStatusAction;
+type Action = FilterPostsAction | SearchToggleStatusAction;
 
 export default function postsFeed(
   state: State = InitialState,

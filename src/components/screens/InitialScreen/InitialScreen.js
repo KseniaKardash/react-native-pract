@@ -22,7 +22,6 @@ class InitialScreen extends PureComponent<Props> {
       userPhoto,
       setUserPhoto
     } = this.props;
-    getPosts();
     if (userName == "") {
       setUserName("Ksenia Kardash");
     }
@@ -30,6 +29,7 @@ class InitialScreen extends PureComponent<Props> {
       setUserPhoto(
         "https://i.pinimg.com/originals/61/d5/d3/61d5d36722b29bd95aaec4488f85884b.jpg"
       );
+      getPosts();
     }
   }
 

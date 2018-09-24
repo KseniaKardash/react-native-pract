@@ -17,7 +17,7 @@ afterEach(() => {
   expect(store.getActions()).toMatchSnapshot();
 });
 
-test("Dispatch action", () => {
+test("Dispatch deletePostAction", () => {
   const id = 56;
   store.dispatch(deletePostAction(id));
 });

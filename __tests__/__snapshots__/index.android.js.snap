@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Dispatch action 1`] = `
+exports[`Dispatch deletePostAction 1`] = `
 Array [
   Object {
     "id": 56,

@@ -48,6 +48,7 @@
     "prettier": "^1.14.2",
     "prettier-eslint": "^8.8.2",
     "ramda": "^0.24.1",
+    "react-dom": "^16.0.0-alpha.6",
     "react-test-renderer": "^16.0.0-alpha.6",
     "reactotron-react-native": "^1.14.0",
     "reactotron-redux": "^1.13.0",

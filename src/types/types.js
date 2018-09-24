@@ -36,7 +36,8 @@ export type GetPostsAction = { type: "GET_POSTS", posts: Posts, id?: string };
 export type FilterPostsAction = {
   type: "SEARCH_USER_NAME",
   posts: Posts,
-  id?: string
+  id?: string,
+  searchName?: string
 };
 export type State = {
   postsFeed: {
