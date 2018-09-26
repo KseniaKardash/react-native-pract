@@ -1,7 +1,9 @@
 /* @flow */
 import { connect } from "react-redux";
-import setToggleSearchStatus from "../actions/postsFeedActions";
-import { filterPostsByUserName } from "../actions/postsActions";
+import {
+  filterPostsByUserName,
+  setToggleSearchStatus
+} from "../actions/postsFeedActions";
 import PostsFeed from "../components/screens/PostsFeed/PostsFeed";
 
 const mapStateToProps = state => {

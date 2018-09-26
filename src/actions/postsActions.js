@@ -3,8 +3,7 @@ import {
   ADD_POST,
   DELETE_POST,
   UPDATE_POST,
-  GET_POSTS,
-  SEARCH_USER_NAME
+  GET_POSTS
 } from "../constants/actionTypes";
 import type {
   Post,
@@ -41,13 +40,6 @@ export function addPostAction(post: Post): AddPostAction {
 export function getPostsAction(posts: Posts): GetPostsAction {
   return {
     type: GET_POSTS,
-    posts: posts
-  };
-}
-
-export function filterPostsAction(posts: Posts): FilterPostsAction {
-  return {
-    type: SEARCH_USER_NAME,
     posts: posts
   };
 }
@@ -100,17 +92,5 @@ export function getPosts(): ThunkAction {
       return { ...post };
     });
     dispatch(getPostsAction(posts));
-  };
-}
-
-export function filterPostsByUserName(query: string): ThunkAction {
-  return dispatch => {
-    const postsData = realm
-      .objects("Post")
-      .filtered(`userName CONTAINS[c] "${query}"`);
-    const posts = postsData.map(post => {
-      return { ...post };
-    });
-    dispatch(filterPostsAction(posts));
   };
 }
