@@ -1,7 +1,8 @@
 /* @flow */
 import {
   SEARCH_USER_NAME,
-  SET_TOGGLE_SEARCH_BUTTON_STATUS
+  SET_TOGGLE_SEARCH_BUTTON_STATUS,
+  SET_DAY_OF_WEEK
 } from "../constants/actionTypes";
 import type { SearchToggleStatusAction } from "../types/types";
 import realm from "../database/index";
@@ -31,5 +32,20 @@ export function filterPostsAction(posts: Posts): FilterPostsAction {
   return {
     type: SEARCH_USER_NAME,
     posts: posts
+  };
+}
+
+export function setDayOFWeekAction(dayOfTheWeek: string): SetDayOFWeekAction {
+  return {
+    type: SET_DAY_OF_WEEK,
+    dayOfTheWeek: dayOfTheWeek
+  };
+}
+
+export function fetchDayOfTheWeek(): ThunkAction {
+  return dispatch => {
+    return fetch(`http://worldclockapi.com/api/json/est/now`)
+      .then(response => response.json())
+      .then(response => dispatch(setDayOFWeekAction(response.dayOfTheWeek)));
   };
 }

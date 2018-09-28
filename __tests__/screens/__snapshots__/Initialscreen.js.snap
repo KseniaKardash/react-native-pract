@@ -12,6 +12,18 @@ exports[`InitialScreen snapShot renders as expected 1`] = `
     }
   }
 >
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "color": "#D14DAE",
+        "fontSize": 22,
+        "marginBottom": 10,
+      }
+    }
+  />
   <View
     accessible={true}
     isTVSelectable={true}

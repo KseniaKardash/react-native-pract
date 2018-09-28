@@ -1,16 +1,18 @@
 /* @flow */
 import React, { PureComponent } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import ConfirmButton from "../../common/ConfirmButton";
-import { BACKGROUND_COLOR } from "../../../constants/colors";
+import { BACKGROUND_COLOR, MAIN_COLOR } from "../../../constants/colors";
 
 type Props = {
   navigator: Object,
   userName: string,
   userPhoto: string,
+  dayOfTheWeek: string,
   getPosts: Function,
   setUserName: Function,
-  setUserPhoto: Function
+  setUserPhoto: Function,
+  fetchDayOfTheWeek: Function
 };
 
 class InitialScreen extends PureComponent<Props> {
@@ -20,7 +22,8 @@ class InitialScreen extends PureComponent<Props> {
       setUserName,
       getPosts,
       userPhoto,
-      setUserPhoto
+      setUserPhoto,
+      fetchDayOfTheWeek
     } = this.props;
     if (userName == "") {
       setUserName("Ksenia Kardash");
@@ -29,6 +32,7 @@ class InitialScreen extends PureComponent<Props> {
       setUserPhoto(
         "https://i.pinimg.com/originals/61/d5/d3/61d5d36722b29bd95aaec4488f85884b.jpg"
       );
+      fetchDayOfTheWeek();
       getPosts();
     }
   }
@@ -44,8 +48,10 @@ class InitialScreen extends PureComponent<Props> {
     });
   };
   render() {
+    const { dayOfTheWeek } = this.props;
     return (
       <View style={styles.container}>
+        <Text style={styles.dayOfTheWeek}>{dayOfTheWeek}</Text>
         <ConfirmButton text="START" onPress={this.navigateToNextPage} />
       </View>
     );
@@ -59,6 +65,11 @@ const styles = StyleSheet.create({
     backgroundColor: BACKGROUND_COLOR,
     justifyContent: "center",
     alignItems: "center"
+  },
+  dayOfTheWeek: {
+    color: MAIN_COLOR,
+    fontSize: 22,
+    marginBottom: 10
   }
 });
 

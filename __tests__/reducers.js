@@ -7,7 +7,8 @@ import profile from "../src/reducers/screenReducers/profile";
 describe("postsFeed reducer", () => {
   const initialState = {
     searchName: "",
-    toggleSearchStatus: false
+    toggleSearchStatus: false,
+    dayOfTheWeek: ""
   };
 
   it("should return the initial state", () => {
@@ -21,7 +22,20 @@ describe("postsFeed reducer", () => {
     });
     expect(state).toEqual({
       searchName: "KS",
-      toggleSearchStatus: false
+      toggleSearchStatus: false,
+      dayOfTheWeek: ""
+    });
+  });
+
+  it("'should handle SEARCH_USER_NAME", () => {
+    const state = postsFeed(initialState, {
+      type: types.SET_DAY_OF_WEEK,
+      dayOfTheWeek: "Wednesday"
+    });
+    expect(state).toEqual({
+      searchName: "",
+      toggleSearchStatus: false,
+      dayOfTheWeek: "Wednesday"
     });
   });
 
@@ -32,7 +46,8 @@ describe("postsFeed reducer", () => {
     });
     expect(state).toEqual({
       searchName: "",
-      toggleSearchStatus: true
+      toggleSearchStatus: true,
+      dayOfTheWeek: ""
     });
   });
 });

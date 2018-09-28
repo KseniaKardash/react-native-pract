@@ -8,3 +8,4 @@ export const UPDATE_POST = "UPDATE_POST";
 export const GET_POSTS = "GET_POSTS";
 export const SET_USERNAME = "SET_USERNAME";
 export const SET_USER_PHOTO = "SET_USER_PHOTO";
+export const SET_DAY_OF_WEEK = "SET_DAY_OF_WEEK";
