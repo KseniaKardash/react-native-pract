@@ -9,6 +9,7 @@ type Props = {
   userName: string,
   userPhoto: string,
   dayOfTheWeek: string,
+  fetchPosts: Function,
   getPosts: Function,
   setUserName: Function,
   setUserPhoto: Function,
@@ -20,6 +21,7 @@ class InitialScreen extends PureComponent<Props> {
     const {
       userName,
       setUserName,
+      fetchPosts,
       getPosts,
       userPhoto,
       setUserPhoto,
@@ -33,7 +35,7 @@ class InitialScreen extends PureComponent<Props> {
         "https://i.pinimg.com/originals/61/d5/d3/61d5d36722b29bd95aaec4488f85884b.jpg"
       );
       fetchDayOfTheWeek();
-      getPosts();
+      fetchPosts();
     }
   }
 

@@ -5,3 +5,7 @@ export const URI = {
 export const URI_PHOTO = {
   uri: "https://facebook.github.io/react-native/docs/assets/favicon.png"
 };
+
+export const SERVER_URL = "http://10.0.2.2:3000";
+
+export const WORLD_CLOCK_API = `http://worldclockapi.com`;

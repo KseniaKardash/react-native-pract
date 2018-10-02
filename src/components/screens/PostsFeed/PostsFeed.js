@@ -1,12 +1,18 @@
 /* @flow */
 import React, { PureComponent } from "react";
-import { View, StyleSheet, FlatList, TextInput } from "react-native";
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  TextInput,
+  ActivityIndicator
+} from "react-native";
 import ButtonIcon from "../../common/ButtonIcon";
 import HeaderTitle from "../../common/HeaderTitle";
 import UserPost from "../../common/UserPost";
 import type { Post, Posts } from "../../../types/types";
 import FadeWrapper from "../../common/FadeWrapper";
-import { SHADOW_COLOR } from "../../../constants/colors";
+import { SHADOW_COLOR, MAIN_COLOR } from "../../../constants/colors";
 
 type Props = {
   navigator: Object,
@@ -14,7 +20,8 @@ type Props = {
   toggleSearchStatus: boolean,
   setToggleSearchStatus: Function,
   filterPostsByUserName: Function,
-  posts: Posts
+  posts: Posts,
+  loading: boolean
 };
 
 class PostsFeed extends PureComponent<Props> {
@@ -76,7 +83,7 @@ class PostsFeed extends PureComponent<Props> {
   };
 
   render() {
-    const { searchName, toggleSearchStatus, posts } = this.props;
+    const { searchName, toggleSearchStatus, posts, loading } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -94,17 +101,25 @@ class PostsFeed extends PureComponent<Props> {
         ) : (
           <View />
         )}
-        <FlatList
-          removeClippedSubviews={false}
-          showsVerticalScrollIndicator={false}
-          initialNumToRender={15}
-          maxToRenderPerBatch={20}
-          data={posts}
-          windowSize={21}
-          keyExtractor={this.getKeyExtractor}
-          renderItem={this.renderItem}
-          style={styles.flatList}
-        />
+        {loading ? (
+          <ActivityIndicator
+            style={styles.loader}
+            size="large"
+            color={MAIN_COLOR}
+          />
+        ) : (
+          <FlatList
+            removeClippedSubviews={false}
+            showsVerticalScrollIndicator={false}
+            initialNumToRender={15}
+            maxToRenderPerBatch={20}
+            data={posts}
+            windowSize={21}
+            keyExtractor={this.getKeyExtractor}
+            renderItem={this.renderItem}
+            style={styles.flatList}
+          />
+        )}
       </View>
     );
   }
@@ -117,6 +132,9 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 10,
     backgroundColor: SHADOW_COLOR
+  },
+  loader: {
+    paddingTop: 200
   },
   header: {
     display: "flex",

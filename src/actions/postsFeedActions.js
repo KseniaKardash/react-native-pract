@@ -1,51 +1,30 @@
 /* @flow */
-import {
-  SEARCH_USER_NAME,
-  SET_TOGGLE_SEARCH_BUTTON_STATUS,
-  SET_DAY_OF_WEEK
-} from "../constants/actionTypes";
+import * as types from "../constants/actionTypes";
 import type { SearchToggleStatusAction } from "../types/types";
-import realm from "../database/index";
 
 export function setToggleSearchStatus(
   value: boolean
 ): SearchToggleStatusAction {
   return {
-    type: SET_TOGGLE_SEARCH_BUTTON_STATUS,
+    type: types.SET_TOGGLE_SEARCH_BUTTON_STATUS,
     toggleSearchStatus: value
   };
 }
 
-export function filterPostsByUserName(query: string): ThunkAction {
-  return dispatch => {
-    const postsData = realm
-      .objects("Post")
-      .filtered(`userName CONTAINS[c] "${query}"`);
-    const posts = postsData.map(post => {
-      return { ...post };
-    });
-    dispatch(filterPostsAction(posts));
-  };
-}
-
-export function filterPostsAction(posts: Posts): FilterPostsAction {
+export function fetchDayOfTheWeek() {
   return {
-    type: SEARCH_USER_NAME,
-    posts: posts
+    type: types.FETCH_DAY_OF_WEEK
   };
 }
 
-export function setDayOFWeekAction(dayOfTheWeek: string): SetDayOFWeekAction {
-  return {
-    type: SET_DAY_OF_WEEK,
-    dayOfTheWeek: dayOfTheWeek
-  };
-}
+export const requestDayOfWeek = () => {
+  return { type: types.GET_DAY_OF_WEEK };
+};
 
-export function fetchDayOfTheWeek(): ThunkAction {
-  return dispatch => {
-    return fetch(`http://worldclockapi.com/api/json/est/now`)
-      .then(response => response.json())
-      .then(response => dispatch(setDayOFWeekAction(response.dayOfTheWeek)));
-  };
-}
+export const requestDaySuccess = (dayOfWeek: string) => {
+  return { type: types.GET_DAY_OF_WEEK_SUCCESS, dayOfWeek: dayOfWeek };
+};
+
+export const requestDayError = () => {
+  return { type: types.GET_DAY_OF_WEEK_FAILURE };
+};
