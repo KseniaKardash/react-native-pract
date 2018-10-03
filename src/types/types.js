@@ -44,6 +44,9 @@ export type RequestPostsSuccess = {
   posts: Posts,
   id?: number
 };
+export type RequestPosts = {
+  type: "GET_POSTS"
+};
 export type RequestPostsError = {
   type: "GET_POSTS_FAILURE",
   error?: boolean,
@@ -84,9 +87,14 @@ export type SetDayOFWeekAction = {
 export type State = {
   postsFeed: {
     searchName: string,
-    toggleSearchStatus: boolean
+    toggleSearchStatus: boolean,
+    dayOfTheWeek: string
   },
-  postsReducer: Posts,
+  postsReducer: {
+    posts: Posts,
+    error: boolean,
+    fetching: boolean
+  },
   profile: {
     userName: string,
     userPhoto: string

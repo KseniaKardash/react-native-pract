@@ -16,7 +16,7 @@ type State = {
   +error: boolean
 };
 
-const InitialState = {
+export const InitialState = {
   searchName: "",
   toggleSearchStatus: false,
   dayOfTheWeek: "",

@@ -1,24 +1,81 @@
-import { testSaga } from "redux-saga-test-plan";
+import { expectSaga } from "redux-saga-test-plan";
+import { throwError } from "redux-saga-test-plan/providers";
+import { call } from "redux-saga/effects";
 import {
-  requestDayOfWeek,
   requestDaySuccess,
   requestDayError
 } from "../src/actions/postsFeedActions";
+import {
+  requestPostsSuccess,
+  requestPostsError
+} from "../src/actions/postsActions";
 import { getDay } from "../src/sagas/worldClockSaga";
-import { fetchDayOfTheWeek } from "../src/api/api";
+import { getPosts } from "../src/sagas/postsSaga";
+import * as api from "../src/api/api";
+import postsFeed, {
+  InitialState
+} from "../src/reducers/screenReducers/postsFeed";
+import postsPeducer, { postsState } from "../src/reducers/screenReducers/posts";
 
-describe("with redux-saga-test plan", () => {
-  const action = { type: "TEST" };
+describe("test worldClockSaga", () => {
+  const response = {
+    data: {
+      dayOfTheWeek: "Wednesday"
+    }
+  };
+  it("handles errors", () => {
+    return expectSaga(getDay)
+      .provide([[call(api.fetchDayOfTheWeek), throwError()]])
+      .put(requestDayError())
+      .run();
+  });
 
-  it("works as a unit test", () => {
-    testSaga(getDay)
-      .next(action)
-      .put(requestDayOfWeek)
-      .next(action)
-      .call(fetchDayOfTheWeek)
-      .next(dayOfWeek)
-      .put(requestDaySuccess(dayOfWeek))
-      .next()
-      .isDone();
+  it("fetched a dayOfTheWeek successfully", () => {
+    return expectSaga(getDay)
+      .provide([[call(api.fetchDayOfTheWeek), response]])
+      .put(requestDaySuccess(response.data.dayOfTheWeek))
+      .run();
+  });
+
+  it("fetched the day into the store state", () => {
+    return expectSaga(getDay)
+      .withReducer(postsFeed)
+      .provide([[call(api.fetchDayOfTheWeek), response]])
+      .hasFinalState({
+        ...InitialState,
+        dayOfTheWeek: response.data.dayOfTheWeek
+      })
+      .run();
+  });
+});
+
+describe("test postsSaga", () => {
+  const response = {
+    data: []
+  };
+
+  it("handles errors", () => {
+    return expectSaga(getPosts)
+      .provide([[call(api.fetchPosts), throwError()]])
+      .put(requestPostsError())
+      .run();
+  });
+
+  it("fetched posts successfully", () => {
+    return expectSaga(getPosts)
+      .provide([[call(api.fetchPosts), response]])
+      .put(requestPostsSuccess(response.data))
+      .run();
+  });
+
+  it("fetched posts into the store state", () => {
+    return expectSaga(getPosts)
+      .withReducer(postsPeducer)
+      .provide([[call(api.fetchPosts), response]])
+      .hasFinalState({
+        ...postsState,
+        posts: response.data
+      })
+      .run();
   });
 });

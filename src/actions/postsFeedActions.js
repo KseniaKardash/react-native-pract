@@ -11,12 +11,6 @@ export function setToggleSearchStatus(
   };
 }
 
-export function fetchDayOfTheWeek() {
-  return {
-    type: types.FETCH_DAY_OF_WEEK
-  };
-}
-
 export const requestDayOfWeek = () => {
   return { type: types.GET_DAY_OF_WEEK };
 };

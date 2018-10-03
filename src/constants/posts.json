@@ -71,33 +71,6 @@
       "tag": "#sea",
       "uriPhoto": "https://facebook.github.io/react-native/docs/assets/favicon.png",
       "uri": "https://i.pinimg.com/originals/d3/dc/cb/d3dccb04fc115e896781d5680f948015.jpg"
-    },
-    {
-      "id": 8589610704,
-      "userName": "Ksenia Kardash",
-      "likes": 9,
-      "description": "",
-      "tag": "",
-      "uriPhoto": "https://i.pinimg.com/originals/61/d5/d3/61d5d36722b29bd95aaec4488f85884b.jpg",
-      "uri": "content://com.google.android.apps.photos.contentprovider/-1/1/content%3A%2F%2Fmedia%2Fexternal%2Fimages%2Fmedia%2F29/ORIGINAL/NONE/260590567"
-    },
-    {
-      "id": 6440646106,
-      "userName": "Ksenia Kardash",
-      "likes": 88,
-      "description": "",
-      "tag": "",
-      "uriPhoto": "https://i.pinimg.com/originals/61/d5/d3/61d5d36722b29bd95aaec4488f85884b.jpg",
-      "uri": "content://com.google.android.apps.photos.contentprovider/-1/1/content%3A%2F%2Fmedia%2Fexternal%2Fimages%2Fmedia%2F29/ORIGINAL/NONE/430199358"
-    },
-    {
-      "id": 9825671231,
-      "userName": "Ksenia Kardash",
-      "likes": 84,
-      "description": "",
-      "tag": "hj",
-      "uriPhoto": "https://i.pinimg.com/originals/61/d5/d3/61d5d36722b29bd95aaec4488f85884b.jpg",
-      "uri": "content://com.google.android.apps.photos.contentprovider/-1/1/content%3A%2F%2Fmedia%2Fexternal%2Fimages%2Fmedia%2F29/ORIGINAL/NONE/1720441761"
     }
   ]
 }

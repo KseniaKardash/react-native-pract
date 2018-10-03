@@ -20,11 +20,16 @@ type Props = {
   toggleSearchStatus: boolean,
   setToggleSearchStatus: Function,
   filterPostsByUserName: Function,
+  requestPosts: Function,
   posts: Posts,
-  loading: boolean
+  fetching: boolean
 };
 
 class PostsFeed extends PureComponent<Props> {
+  componentDidMount() {
+    const { requestPosts } = this.props;
+    requestPosts();
+  }
   onChangeText = (text: string) => {
     const { filterPostsByUserName } = this.props;
     filterPostsByUserName(text);
@@ -83,7 +88,7 @@ class PostsFeed extends PureComponent<Props> {
   };
 
   render() {
-    const { searchName, toggleSearchStatus, posts, loading } = this.props;
+    const { searchName, toggleSearchStatus, posts, fetching } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -101,7 +106,7 @@ class PostsFeed extends PureComponent<Props> {
         ) : (
           <View />
         )}
-        {loading ? (
+        {fetching ? (
           <ActivityIndicator
             style={styles.loader}
             size="large"

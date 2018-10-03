@@ -26,7 +26,7 @@ type State = {
   +error: boolean
 };
 
-const postsState = {
+export const postsState = {
   posts: [],
   fetching: false,
   error: false
@@ -54,7 +54,7 @@ export default function postsReducer(
     case types.GET_POSTS_FAILURE:
       return { ...state, fetching: false, error: true };
     case types.SEARCH_USER_NAME:
-      return { ...state, posts: action.posts };
+      return { ...state, fetching: true };
     case types.ADD_POST: {
       const posts = [action.post, ...state.posts];
       return { ...state, posts: posts };

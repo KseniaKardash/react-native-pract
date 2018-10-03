@@ -7,7 +7,9 @@ import type {
   DeletePostAction,
   UpdatePostAction,
   FilterPostsAction,
-  RequestPostsSuccess
+  RequestPostsSuccess,
+  RequestPostsError,
+  RequestPosts
 } from "../types/types";
 
 export function updatePost(post: Post): UpdatePostAction {
@@ -38,18 +40,17 @@ export function filterPosts(query: string): FilterPostsAction {
   };
 }
 
-export const fetchPosts = () => {
-  return { type: types.FETCHED_POSTS };
-};
-
-export const requestPosts = () => {
+export const requestPosts = (): RequestPosts => {
   return { type: types.GET_POSTS };
 };
 
 export const requestPostsSuccess = (posts: Posts): RequestPostsSuccess => {
-  return { type: types.GET_POSTS_SUCCESS, posts: posts };
+  return {
+    type: types.GET_POSTS_SUCCESS,
+    posts: posts
+  };
 };
 
-export const requestPostsError = () => {
+export const requestPostsError = (): RequestPostsError => {
   return { type: types.GET_POSTS_FAILURE };
 };
