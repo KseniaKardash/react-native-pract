@@ -7,7 +7,7 @@ type State = {
   +userPhoto: string
 };
 
-const InitialState = {
+export const InitialState = {
   userName: "",
   userPhoto: ""
 };

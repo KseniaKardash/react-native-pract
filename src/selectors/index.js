@@ -1,5 +1,4 @@
 /* @flow */
-// import { createSelector } from "reselect";
 import type { State } from "../types/types";
 
 export const getUserName = (state: State) => state.profile.userName;

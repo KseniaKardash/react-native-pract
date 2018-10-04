@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for constants/actionTypes.js</title>
+    <title>Code coverage report for selectors/index.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="..\prettify.css" />
     <link rel="stylesheet" href="..\base.css" />
@@ -16,13 +16,13 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="..\index.html">All files</a> / <a href="index.html">constants</a> actionTypes.js
+      <a href="..\index.html">All files</a> / <a href="index.html">selectors</a> index.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>15/15</span>
+        <span class='fraction'>14/14</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -32,12 +32,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/0</span>
+        <span class='fraction'>7/7</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>15/15</span>
+        <span class='fraction'>9/9</span>
       </div>
     </div>
   </div>
@@ -55,45 +55,30 @@
 10
 11
 12
-13
-14
-15
-16
-17
-18</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+13</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* @flow */
-export const SEARCH_USER_NAME = "SEARCH_USER_NAME";
-export const SET_TOGGLE_SEARCH_BUTTON_STATUS =
-  "SET_TOGGLE_SEARCH_BUTTON_STATUS";
-export const ADD_POST = "ADD_POST";
-export const DELETE_POST = "DELETE_POST";
-export const UPDATE_POST = "UPDATE_POST";
-export const SET_USERNAME = "SET_USERNAME";
-export const SET_USER_PHOTO = "SET_USER_PHOTO";
-export const GET_POSTS = "GET_POSTS";
-export const GET_POSTS_SUCCESS = "GET_POSTS_SUCCESS";
-export const GET_POSTS_FAILURE = "GET_POSTS_FAILURE";
-export const FETCHED_POSTS = "FETCHED_POSTS";
-export const FETCH_DAY_OF_WEEK = "FETCH_DAY_OF_WEEK";
-export const GET_DAY_OF_WEEK = "GET_DAY_OF_WEEK";
-export const GET_DAY_OF_WEEK_SUCCESS = "GET_DAY_OF_WEEK_SUCCESS";
-export const GET_DAY_OF_WEEK_FAILURE = "GET_DAY_OF_WEEK_FAILURE";
+import type { State } from "../types/types";
+&nbsp;
+export const getUserName = (state: State) =&gt; state.profile.userName;
+export const getUserPhoto = (state: State) =&gt; state.profile.userPhoto;
+export const getPosts = (state: State) =&gt; state.postsReducer.posts;
+export const getDayOfTheWeek = (state: State) =&gt; state.postsFeed.dayOfTheWeek;
+export const getSearchName = (state: State) =&gt; state.postsFeed.searchName;
+export const getPostsFetchingStatus = (state: State) =&gt;
+  state.postsReducer.fetching;
+export const getToggleSearchStatus = (state: State) =&gt;
+  state.postsFeed.toggleSearchStatus;
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->

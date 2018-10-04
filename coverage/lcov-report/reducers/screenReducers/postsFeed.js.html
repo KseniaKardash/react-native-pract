@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>6/6</span>
+        <span class='fraction'>4/8</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">42.86% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>5/5</span>
+        <span class='fraction'>3/7</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -35,13 +35,13 @@
         <span class='fraction'>1/1</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>6/6</span>
+        <span class='fraction'>4/8</span>
       </div>
     </div>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line medium'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -92,7 +92,16 @@
 47
 48
 49
-50</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -108,32 +117,41 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -142,49 +160,58 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* @flow */
-import {
-  SEARCH_USER_NAME,
-  SET_TOGGLE_SEARCH_BUTTON_STATUS,
-  SET_DAY_OF_WEEK
-} from "../../constants/actionTypes";
+import * as types from "../../constants/actionTypes";
 import type {
+  SearchToggleStatusAction,
   FilterPostsAction,
-  SearchToggleStatusAction
+  RequestDayOfWeekError,
+  RequestDayOfWeekSuccess,
+  requestDayOfWeek
 } from "../../types/types";
 &nbsp;
 type State = {
   +searchName: string,
   +toggleSearchStatus: boolean,
-  +dayOfTheWeek: string
+  +dayOfTheWeek: string,
+  +fetching: boolean,
+  +error: boolean
 };
 &nbsp;
-const InitialState = {
+export const InitialState = {
   searchName: "",
   toggleSearchStatus: false,
-  dayOfTheWeek: ""
+  dayOfTheWeek: "",
+  fetching: false,
+  error: false
 };
 &nbsp;
-type Action = FilterPostsAction | SearchToggleStatusAction;
+export type Action =
+  | SearchToggleStatusAction
+  | requestDayOfWeek
+  | RequestDayOfWeekError
+  | RequestDayOfWeekSuccess
+  | FilterPostsAction;
 &nbsp;
 export default function postsFeed(
   state: State = InitialState,
   action: Action
 ): State {
   switch (action.type) {
-    case SEARCH_USER_NAME:
-      return {
+<span class="branch-0 cbranch-no" title="branch not covered" >    case types.GET_DAY_OF_WEEK:</span>
+<span class="cstat-no" title="statement not covered" >      return { ...state, fetching: true };</span>
+    case types.GET_DAY_OF_WEEK_SUCCESS:
+      return { ...state, fetching: false, dayOfTheWeek: action.dayOfWeek };
+<span class="branch-2 cbranch-no" title="branch not covered" >    case types.GET_DAY_OF_WEEK_FAILURE:</span>
+<span class="cstat-no" title="statement not covered" >      return { ...state, fetching: false, error: true };</span>
+<span class="branch-3 cbranch-no" title="branch not covered" >    case types.SEARCH_USER_NAME:</span>
+<span class="cstat-no" title="statement not covered" >      return {</span>
         ...state,
-        searchName: action.searchName
+        searchName: action.query
       };
-    case SET_TOGGLE_SEARCH_BUTTON_STATUS:
-      return {
+<span class="branch-4 cbranch-no" title="branch not covered" >    case types.SET_TOGGLE_SEARCH_BUTTON_STATUS:</span>
+<span class="cstat-no" title="statement not covered" >      return {</span>
         ...state,
         toggleSearchStatus: action.toggleSearchStatus
-      };
-    case SET_DAY_OF_WEEK:
-      return {
-        ...state,
-        dayOfTheWeek: action.dayOfTheWeek
       };
     default:
       return state;
@@ -196,7 +223,7 @@ export default function postsFeed(
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Sep 26 2018 18:49:45 GMT+0300 (RTZ 2 (зима))
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Oct 04 2018 16:19:32 GMT+0300 (GMT+03:00)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>
