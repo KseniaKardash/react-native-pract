@@ -44,6 +44,7 @@ class InitialScreen extends PureComponent<Props> {
       animationType: "fade"
     });
   };
+
   render() {
     const { dayOfTheWeek } = this.props;
     return (

@@ -57,7 +57,7 @@ class PostsFeed extends PureComponent<Props> {
     setToggleSearchStatus(!toggleSearchStatus);
   };
 
-  getKeyExtractor = (item: Post) => item.id;
+  getKeyExtractor = (item: Post) => item.id.toString();
 
   navigateToNextPage = () => {
     const { navigator, setToggleSearchStatus, toggleSearchStatus } = this.props;
@@ -66,7 +66,7 @@ class PostsFeed extends PureComponent<Props> {
       title: "ImagePickerScreen",
       backButtonHidden: true,
       animated: true,
-      animationType: "fade"
+      animationType: "none"
     });
     if (toggleSearchStatus) {
       setToggleSearchStatus(!toggleSearchStatus);
