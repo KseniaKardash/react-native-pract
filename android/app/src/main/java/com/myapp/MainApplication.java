@@ -2,7 +2,7 @@ package com.myapp;
 
 import android.support.annotation.Nullable;
 import android.app.Application;
-
+import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.facebook.react.ReactApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -30,7 +30,8 @@ public class MainApplication extends NavigationApplication {
          new VectorIconsPackage(),
          new LinearGradientPackage(),
          new ImagePickerPackage(),
-         new RealmReactPackage()
+         new RealmReactPackage(),
+         new RNGoogleSigninPackage()
          );
      }
 
