@@ -1,116 +1,56 @@
 /* @flow */
-import {
-  ADD_POST,
-  DELETE_POST,
-  UPDATE_POST,
-  GET_POSTS,
-  SEARCH_USER_NAME
-} from "../constants/actionTypes";
+import * as types from "../constants/actionTypes";
 import type {
   Post,
   Posts,
   AddPostAction,
   DeletePostAction,
   UpdatePostAction,
-  GetPostsAction,
-  FilterPostsAction
+  FilterPostsAction,
+  RequestPostsSuccess,
+  RequestPostsError,
+  RequestPosts
 } from "../types/types";
-import realm from "../database/index";
 
-export function updatePostAction(post: Post): UpdatePostAction {
+export function updatePost(post: Post): UpdatePostAction {
   return {
-    type: UPDATE_POST,
+    type: types.UPDATE_POST,
     post: post
   };
 }
 
-export function deletePostAction(id: string): DeletePostAction {
+export function deletePost(id: string): DeletePostAction {
   return {
-    type: DELETE_POST,
+    type: types.DELETE_POST,
     id: id
   };
 }
 
-function addPostAction(post: Post): AddPostAction {
+export function addPost(post: Post): AddPostAction {
   return {
-    type: ADD_POST,
+    type: types.ADD_POST,
     post: post
   };
 }
 
-function getPostsAction(posts: Posts): GetPostsAction {
+export function filterPosts(query: string): FilterPostsAction {
   return {
-    type: GET_POSTS,
+    type: types.SEARCH_USER_NAME,
+    query: query
+  };
+}
+
+export const requestPosts = (): RequestPosts => {
+  return { type: types.GET_POSTS };
+};
+
+export const requestPostsSuccess = (posts: Posts): RequestPostsSuccess => {
+  return {
+    type: types.GET_POSTS_SUCCESS,
     posts: posts
   };
-}
+};
 
-function filterPostsAction(posts: Posts): FilterPostsAction {
-  return {
-    type: SEARCH_USER_NAME,
-    posts: posts
-  };
-}
-
-type Dispatch = (action: Action | ThunkAction) => any;
-type ThunkAction = (dispatch: Dispatch) => any;
-type Action =
-  | GetPostsAction
-  | AddPostAction
-  | DeletePostAction
-  | UpdatePostAction
-  | FilterPostsAction;
-
-export function addPost(post: Post): ThunkAction {
-  return dispatch => {
-    realm.write(() => {
-      realm.create("Post", post);
-    });
-    dispatch(addPostAction(post));
-  };
-}
-
-export function updatePost(post: Post): ThunkAction {
-  return dispatch => {
-    realm.write(() => {
-      realm.create(
-        "Post",
-        { id: post.id, description: post.description, tag: post.tag },
-        true
-      );
-    });
-    dispatch(addPostAction(post));
-  };
-}
-
-export function deletePost(id: string): ThunkAction {
-  return dispatch => {
-    realm.write(() => {
-      const post = realm.objects("Post").filtered(`id = "${id}"`);
-      realm.delete(post);
-    });
-    dispatch(deletePostAction(id));
-  };
-}
-
-export function getPosts(): ThunkAction {
-  return dispatch => {
-    const postsData = realm.objects("Post");
-    const posts = postsData.map(post => {
-      return { ...post };
-    });
-    dispatch(getPostsAction(posts));
-  };
-}
-
-export function filterPostsByUserName(query: string): ThunkAction {
-  return dispatch => {
-    const postsData = realm
-      .objects("Post")
-      .filtered(`userName CONTAINS[c] "${query}"`);
-    const posts = postsData.map(post => {
-      return { ...post };
-    });
-    dispatch(filterPostsAction(posts));
-  };
-}
+export const requestPostsError = (): RequestPostsError => {
+  return { type: types.GET_POSTS_FAILURE };
+};

@@ -23,6 +23,7 @@ module.exports = {
   },
   env: {
     "react-native/react-native": true,
+    jest: true,
     browser: true
   },
   parser: "babel-eslint",

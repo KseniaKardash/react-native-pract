@@ -1,18 +1,14 @@
 /* @flow */
-import {
-  ADD_POST,
-  DELETE_POST,
-  UPDATE_POST,
-  SEARCH_USER_NAME,
-  GET_POSTS
-} from "../../constants/actionTypes";
+import * as types from "../../constants/actionTypes";
 import type {
   Posts,
   AddPostAction,
   DeletePostAction,
   UpdatePostAction,
   GetPostsAction,
-  FilterPostsAction
+  FilterPostsAction,
+  RequestPostsSuccess,
+  RequestPostsError
 } from "../../types/types";
 
 export type Action =
@@ -20,9 +16,21 @@ export type Action =
   | DeletePostAction
   | UpdatePostAction
   | GetPostsAction
+  | RequestPostsError
+  | RequestPostsSuccess
   | FilterPostsAction;
 
-const postsState = [];
+type State = {
+  +posts: Posts,
+  +fetching: boolean,
+  +error: boolean
+};
+
+export const postsState = {
+  posts: [],
+  fetching: false,
+  error: false
+};
 
 function getPostsAfterUpdating(state, action) {
   const post = action.post;
@@ -35,27 +43,30 @@ function getPostsAfterUpdating(state, action) {
 }
 
 export default function postsReducer(
-  state: Posts = postsState,
+  state: State = postsState,
   action: Action
-): Posts {
+): State {
   switch (action.type) {
-    case ADD_POST: {
-      return [action.post, ...state];
+    case types.GET_POSTS:
+      return { ...state, fetching: true };
+    case types.GET_POSTS_SUCCESS:
+      return { ...state, fetching: false, posts: action.posts };
+    case types.GET_POSTS_FAILURE:
+      return { ...state, fetching: false, error: true };
+    case types.SEARCH_USER_NAME:
+      return { ...state, fetching: true };
+    case types.ADD_POST: {
+      const posts = [action.post, ...state.posts];
+      return { ...state, posts: posts };
     }
-    case UPDATE_POST: {
-      const posts = getPostsAfterUpdating(state, action);
-      return posts;
+    case types.UPDATE_POST: {
+      const posts = getPostsAfterUpdating(state.posts, action);
+      return { ...state, posts: posts };
     }
-    case GET_POSTS: {
-      return action.posts;
-    }
-    case SEARCH_USER_NAME: {
-      return action.posts;
-    }
-    case DELETE_POST: {
-      const initialPosts = [...state];
+    case types.DELETE_POST: {
+      const initialPosts = [...state.posts];
       const posts = initialPosts.filter(post => post.id !== action.id);
-      return posts;
+      return { ...state, posts: posts };
     }
     default:
       return state;

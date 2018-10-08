@@ -6,7 +6,7 @@ import { GRADIENT_COLORS } from "../../constants/colors";
 
 type Props = {
   text: string,
-  onPress?: Function
+  onPress: Function
 };
 
 const СonfirmButton = (props: Props) => {

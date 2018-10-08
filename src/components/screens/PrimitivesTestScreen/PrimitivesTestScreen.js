@@ -2,7 +2,7 @@
 import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
 // import ButtonIcon from "../../common/ButtonIcon";
-import ConfirmButton from "../../common/ConfirmButton";
+// import ConfirmButton from "../../common/ConfirmButton";
 // import FullPost from "../../common/FullPost";
 // import HeaderTitle from "../../common/HeaderTitle";
 // import InputText from "../../common/InputText";
@@ -15,7 +15,7 @@ import ConfirmButton from "../../common/ConfirmButton";
 const PrimitivesTestScreen = () => {
   return (
     <ScrollView style={styles.container}>
-      <ConfirmButton text="NEXT" />
+      {/* <ConfirmButton text="NEXT" /> */}
       {/* <FullPost
         userName="Ksenia Kardash"
         likes="123"

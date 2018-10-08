@@ -11,7 +11,7 @@ import {
 type Props = {
   titlePost: string,
   textPost: string,
-  onPress?: Function
+  onPress: Function
 };
 
 class PostSuccesful extends PureComponent<Props> {

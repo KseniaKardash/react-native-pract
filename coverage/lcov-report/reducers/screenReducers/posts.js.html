@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for reducers/screenReducers/posts.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\index.html">All files</a> / <a href="index.html">reducers/screenReducers</a> posts.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">19.05% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>4/21</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">27.27% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>3/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">25% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">20% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>4/20</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* @flow */
+import * as types from "../../constants/actionTypes";
+import type {
+  Posts,
+  AddPostAction,
+  DeletePostAction,
+  UpdatePostAction,
+  GetPostsAction,
+  FilterPostsAction,
+  RequestPostsSuccess,
+  RequestPostsError
+} from "../../types/types";
+&nbsp;
+export type Action =
+  | AddPostAction
+  | DeletePostAction
+  | UpdatePostAction
+  | GetPostsAction
+  | RequestPostsError
+  | RequestPostsSuccess
+  | FilterPostsAction;
+&nbsp;
+type State = {
+  +posts: Posts,
+  +fetching: boolean,
+  +error: boolean
+};
+&nbsp;
+export const postsState = {
+  posts: [],
+  fetching: false,
+  error: false
+};
+&nbsp;
+function <span class="fstat-no" title="function not covered" >getPostsAfterUpdating(</span>state, action) {
+  const post = <span class="cstat-no" title="statement not covered" >action.post;</span>
+  const posts = <span class="cstat-no" title="statement not covered" >[...state];</span>
+<span class="cstat-no" title="statement not covered" >  return posts.map(<span class="fstat-no" title="function not covered" >ob</span>j =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (obj.id === post.id) {</span>
+<span class="cstat-no" title="statement not covered" >      return { ...obj, description: post.description, tag: post.tag };</span>
+    } else <span class="cstat-no" title="statement not covered" >return obj;</span>
+  });
+}
+&nbsp;
+export default function postsReducer(
+  state: State = postsState,
+  action: Action
+): State {
+  switch (action.type) {
+<span class="branch-0 cbranch-no" title="branch not covered" >    case types.GET_POSTS:</span>
+<span class="cstat-no" title="statement not covered" >      return { ...state, fetching: true };</span>
+    case types.GET_POSTS_SUCCESS:
+      return { ...state, fetching: false, posts: action.posts };
+<span class="branch-2 cbranch-no" title="branch not covered" >    case types.GET_POSTS_FAILURE:</span>
+<span class="cstat-no" title="statement not covered" >      return { ...state, fetching: false, error: true };</span>
+<span class="branch-3 cbranch-no" title="branch not covered" >    case types.SEARCH_USER_NAME:</span>
+<span class="cstat-no" title="statement not covered" >      return { ...state, fetching: true };</span>
+<span class="branch-4 cbranch-no" title="branch not covered" >    case types.ADD_POST: {</span>
+      const posts = <span class="cstat-no" title="statement not covered" >[action.post, ...state.posts];</span>
+<span class="cstat-no" title="statement not covered" >      return { ...state, posts: posts };</span>
+    }
+<span class="branch-5 cbranch-no" title="branch not covered" >    case types.UPDATE_POST: {</span>
+      const posts = <span class="cstat-no" title="statement not covered" >getPostsAfterUpdating(state.posts, action);</span>
+<span class="cstat-no" title="statement not covered" >      return { ...state, posts: posts };</span>
+    }
+<span class="branch-6 cbranch-no" title="branch not covered" >    case types.DELETE_POST: {</span>
+      const initialPosts = <span class="cstat-no" title="statement not covered" >[...state.posts];</span>
+      const posts = <span class="cstat-no" title="statement not covered" >initialPosts.filter(<span class="fstat-no" title="function not covered" >po</span>st =&gt; <span class="cstat-no" title="statement not covered" >post.id !== action.id)</span>;</span>
+<span class="cstat-no" title="statement not covered" >      return { ...state, posts: posts };</span>
+    }
+    default:
+      return state;
+  }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Oct 04 2018 16:19:32 GMT+0300 (GMT+03:00)
+</div>
+</div>
+<script src="..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\sorter.js"></script>
+</body>
+</html>

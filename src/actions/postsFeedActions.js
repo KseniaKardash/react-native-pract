@@ -1,15 +1,24 @@
 /* @flow */
-import {
-  // SEARCH_USER_NAME,
-  SET_TOGGLE_SEARCH_BUTTON_STATUS
-} from "../constants/actionTypes";
+import * as types from "../constants/actionTypes";
 import type { SearchToggleStatusAction } from "../types/types";
 
-export default function setToggleSearchStatus(
+export function setToggleSearchStatus(
   value: boolean
 ): SearchToggleStatusAction {
   return {
-    type: SET_TOGGLE_SEARCH_BUTTON_STATUS,
+    type: types.SET_TOGGLE_SEARCH_BUTTON_STATUS,
     toggleSearchStatus: value
   };
 }
+
+export const requestDayOfWeek = () => {
+  return { type: types.GET_DAY_OF_WEEK };
+};
+
+export const requestDaySuccess = (dayOfWeek: string) => {
+  return { type: types.GET_DAY_OF_WEEK_SUCCESS, dayOfWeek: dayOfWeek };
+};
+
+export const requestDayError = () => {
+  return { type: types.GET_DAY_OF_WEEK_FAILURE };
+};
