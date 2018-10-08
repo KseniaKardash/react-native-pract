@@ -2,11 +2,7 @@
 import React, { PureComponent } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import firebase from "react-native-firebase";
-import {
-  GoogleSigninButton,
-  GoogleSignin,
-  statusCodes
-} from "react-native-google-signin";
+import { GoogleSigninButton, GoogleSignin } from "react-native-google-signin";
 import ConfirmButton from "../../common/ConfirmButton";
 import { BACKGROUND_COLOR, MAIN_COLOR } from "../../../constants/colors";
 
@@ -55,6 +51,9 @@ class InitialScreen extends PureComponent<Props> {
         return firebase.auth().signInWithCredential(credential);
       })
       .then(currentUser => {
+        this.setState({
+          isAuthenticated: true
+        });
         console.tron(
           `Google Login with user : ${JSON.stringify(currentUser.toJSON())}`
         );
@@ -64,26 +63,22 @@ class InitialScreen extends PureComponent<Props> {
       });
   };
 
-  signIn = async () => {
-    try {
-      await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn();
-      this.setState({
-        isAuthenticated: true
+  onLogOutGoogle = () => {
+    GoogleSignin.signOut()
+      .then(() => {
+        firebase.auth().signOut();
+      })
+      .then(() => {
+        this.setState({
+          isAuthenticated: false
+        });
+        console.tron(`OUT`);
+      })
+      .catch(error => {
+        console.tron(`Login fail with error: ${error}`);
       });
-      console.tron(userInfo);
-    } catch (error) {
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        console.tron(`SIGN_IN_CANCELLED`);
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        console.tron(`IN_PROGRESS`);
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        console.tron(`PLAY_SERVICES_NOT_AVAILABLE`);
-      } else {
-        console.tron(`UNDETECTED_ERROR`);
-      }
-    }
   };
+
   navigateToNextPage = () => {
     const { navigator } = this.props;
     navigator.push({
@@ -95,17 +90,6 @@ class InitialScreen extends PureComponent<Props> {
     });
   };
 
-  signOut = async () => {
-    try {
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
-      this.setState({
-        isAuthenticated: false
-      });
-    } catch (error) {
-      console.tron(error);
-    }
-  };
   render() {
     const { dayOfTheWeek } = this.props;
     const { isAuthenticated } = this.state;
@@ -114,15 +98,15 @@ class InitialScreen extends PureComponent<Props> {
         {isAuthenticated ? (
           <View>
             <ConfirmButton text="START" onPress={this.navigateToNextPage} />
-            <ConfirmButton text="SIGN OUT" onPress={this.signOut} />
+            <ConfirmButton text="SIGN OUT" onPress={this.onLogOutGoogle} />
             <Text style={styles.dayOfTheWeek}>{dayOfTheWeek}</Text>
           </View>
         ) : (
           <GoogleSigninButton
-            style={{ width: 215, height: 55 }}
+            style={styles.googleButton}
             size={GoogleSigninButton.Size.Standard}
-            color={GoogleSigninButton.Color.Auto}
-            onPress={this.signIn}
+            color={GoogleSigninButton.Color.Dark}
+            onPress={this.onLoginGoogle}
           />
         )}
       </View>
@@ -142,6 +126,10 @@ const styles = StyleSheet.create({
     color: MAIN_COLOR,
     fontSize: 22,
     marginBottom: 10
+  },
+  googleButton: {
+    width: 230,
+    height: 50
   }
 });
 

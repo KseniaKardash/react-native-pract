@@ -2,12 +2,12 @@
 
 buildscript {
     repositories {
-        jcenter()
         google()
+        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.2'
-        classpath 'com.google.gms:google-services:3.2.1'
+        classpath 'com.android.tools.build:gradle:3.1.3'
+        classpath 'com.google.gms:google-services:4.0.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -20,13 +20,14 @@ ext {
     compileSdkVersion = 27
     targetSdkVersion = 27
     supportLibVersion = "27.1.0"
-    googlePlayServicesVersion   = "15.0.1"
+    googlePlayServicesVersion  = "15.0.0"
 }
 
 
 allprojects {
     repositories {
         google()
+        jcenter()
         mavenLocal()
         maven { url "https://maven.google.com" }
         maven {
@@ -42,7 +43,6 @@ allprojects {
         maven {
           url "$rootDir/../node_modules/react-native-google-signin/android"
         }
-        jcenter()
     }
 }
 

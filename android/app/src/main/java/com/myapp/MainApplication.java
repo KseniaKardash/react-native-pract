@@ -13,7 +13,6 @@ import com.facebook.soloader.SoLoader;
 import com.reactnativenavigation.NavigationApplication;
 import com.imagepicker.ImagePickerPackage;
 import io.realm.react.RealmReactPackage;
-import io.invertase.firebase.RNFirebasePackage;
 
 import java.util.Arrays;
 import java.util.List;
