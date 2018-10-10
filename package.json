@@ -17,6 +17,7 @@
     "axios": "^0.18.0",
     "react": "^16.3.1",
     "react-native": "^0.55.3",
+    "react-native-firebase": "^4.3.8",
     "react-native-google-signin": "^1.0.0-rc5",
     "react-native-image-picker": "^0.26.10",
     "react-native-linear-gradient": "^2.4.0",

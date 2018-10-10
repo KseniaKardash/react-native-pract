@@ -17,6 +17,9 @@ import io.realm.react.RealmReactPackage;
 import java.util.Arrays;
 import java.util.List;
 
+import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.auth.RNFirebaseAuthPackage;
+
 public class MainApplication extends NavigationApplication {
 
      @Override
@@ -31,6 +34,8 @@ public class MainApplication extends NavigationApplication {
          new LinearGradientPackage(),
          new ImagePickerPackage(),
          new RealmReactPackage(),
+         new RNFirebasePackage(),
+         new RNFirebaseAuthPackage(),
          new RNGoogleSigninPackage()
          );
      }
