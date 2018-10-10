@@ -1,83 +1,29 @@
 /* @flow */
 import React, { PureComponent } from "react";
-import { View, StyleSheet, Text } from "react-native";
-import firebase from "react-native-firebase";
+import { View, StyleSheet, Text, ActivityIndicator } from "react-native";
 import { GoogleSigninButton, GoogleSignin } from "react-native-google-signin";
 import ConfirmButton from "../../common/ConfirmButton";
 import { BACKGROUND_COLOR, MAIN_COLOR } from "../../../constants/colors";
 
+// $FlowFixMe
+console.disableYellowBox = true;
+
 type Props = {
   navigator: Object,
-  userName: string,
-  userPhoto: string,
+  user: Object,
   dayOfTheWeek: string,
-  setUserName: Function,
-  setUserPhoto: Function,
-  requestDayOfWeek: Function
+  fetchingUser: boolean,
+  requestDayOfWeek: Function,
+  requestSignIn: Function,
+  requestSignOut: Function
 };
 
 class InitialScreen extends PureComponent<Props> {
-  state = {
-    isAuthenticated: false
-  };
-
   componentDidMount() {
-    const {
-      userName,
-      setUserName,
-      userPhoto,
-      setUserPhoto,
-      requestDayOfWeek
-    } = this.props;
-    if (userName == "") {
-      setUserName("Ksenia Kardash");
-    }
-    if (userPhoto == "") {
-      setUserPhoto(
-        "https://i.pinimg.com/originals/61/d5/d3/61d5d36722b29bd95aaec4488f85884b.jpg"
-      );
-      requestDayOfWeek();
-    }
+    const { requestDayOfWeek } = this.props;
+    requestDayOfWeek();
     GoogleSignin.configure({ offlineAccess: false });
   }
-
-  onLoginGoogle = () => {
-    GoogleSignin.signIn()
-      .then(data => {
-        const credential = firebase.auth.GoogleAuthProvider.credential(
-          data.idToken,
-          data.accessToken
-        );
-        return firebase.auth().signInWithCredential(credential);
-      })
-      .then(currentUser => {
-        this.setState({
-          isAuthenticated: true
-        });
-        console.tron(
-          `Google Login with user : ${JSON.stringify(currentUser.toJSON())}`
-        );
-      })
-      .catch(error => {
-        console.tron(`Login fail with error: ${error}`);
-      });
-  };
-
-  onLogOutGoogle = () => {
-    GoogleSignin.signOut()
-      .then(() => {
-        firebase.auth().signOut();
-      })
-      .then(() => {
-        this.setState({
-          isAuthenticated: false
-        });
-        console.tron(`OUT`);
-      })
-      .catch(error => {
-        console.tron(`Login fail with error: ${error}`);
-      });
-  };
 
   navigateToNextPage = () => {
     const { navigator } = this.props;
@@ -91,26 +37,38 @@ class InitialScreen extends PureComponent<Props> {
   };
 
   render() {
-    const { dayOfTheWeek } = this.props;
-    const { isAuthenticated } = this.state;
-    return (
-      <View style={styles.container}>
-        {isAuthenticated ? (
-          <View>
-            <ConfirmButton text="START" onPress={this.navigateToNextPage} />
-            <ConfirmButton text="SIGN OUT" onPress={this.onLogOutGoogle} />
-            <Text style={styles.dayOfTheWeek}>{dayOfTheWeek}</Text>
-          </View>
-        ) : (
-          <GoogleSigninButton
-            style={styles.googleButton}
-            size={GoogleSigninButton.Size.Standard}
-            color={GoogleSigninButton.Color.Dark}
-            onPress={this.onLoginGoogle}
-          />
-        )}
-      </View>
-    );
+    const {
+      dayOfTheWeek,
+      requestSignIn,
+      requestSignOut,
+      user,
+      fetchingUser
+    } = this.props;
+    if (fetchingUser) {
+      return (
+        <View style={styles.container}>
+          <ActivityIndicator size="large" color={MAIN_COLOR} />
+        </View>
+      );
+    } else
+      return (
+        <View style={styles.container}>
+          {user ? (
+            <View>
+              <Text style={styles.dayOfTheWeek}>{dayOfTheWeek}</Text>
+              <ConfirmButton text="START" onPress={this.navigateToNextPage} />
+              <ConfirmButton text="SIGN OUT" onPress={requestSignOut} />
+            </View>
+          ) : (
+            <GoogleSigninButton
+              style={styles.googleButton}
+              size={GoogleSigninButton.Size.Standard}
+              color={GoogleSigninButton.Color.Dark}
+              onPress={requestSignIn}
+            />
+          )}
+        </View>
+      );
   }
 }
 
@@ -124,8 +82,9 @@ const styles = StyleSheet.create({
   },
   dayOfTheWeek: {
     color: MAIN_COLOR,
-    fontSize: 22,
-    marginBottom: 10
+    fontSize: 20,
+    marginBottom: 30,
+    alignSelf: "center"
   },
   googleButton: {
     width: 230,

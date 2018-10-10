@@ -12,36 +12,40 @@ import type {
   RequestPosts
 } from "../types/types";
 
-export function updatePost(post: Post): UpdatePostAction {
+export function updatePost(id: number, post: Post): UpdatePostAction {
   return {
     type: types.UPDATE_POST,
+    id: id,
     post: post
   };
 }
 
-export function deletePost(id: string): DeletePostAction {
+export function deletePost(userId: number, id: string): DeletePostAction {
   return {
     type: types.DELETE_POST,
+    userId: userId,
     id: id
   };
 }
 
-export function addPost(post: Post): AddPostAction {
+export function addPost(id: number, post: Post): AddPostAction {
   return {
     type: types.ADD_POST,
+    id: id,
     post: post
   };
 }
 
-export function filterPosts(query: string): FilterPostsAction {
+export function filterPosts(id: number, query: string): FilterPostsAction {
   return {
     type: types.SEARCH_USER_NAME,
+    id: id,
     query: query
   };
 }
 
-export const requestPosts = (): RequestPosts => {
-  return { type: types.GET_POSTS };
+export const requestPosts = (id: number): RequestPosts => {
+  return { type: types.GET_POSTS, id: id };
 };
 
 export const requestPostsSuccess = (posts: Posts): RequestPostsSuccess => {

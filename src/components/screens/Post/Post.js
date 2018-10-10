@@ -10,6 +10,7 @@ import { SHADOW_COLOR } from "../../../constants/colors";
 type Props = {
   navigator: Object,
   post: Post,
+  userId: number,
   deletePost: Function
 };
 
@@ -22,8 +23,8 @@ class FinishPost extends PureComponent<Props> {
     });
   };
   deletePost = () => {
-    const { deletePost, post } = this.props;
-    deletePost(post.id);
+    const { deletePost, post, userId } = this.props;
+    deletePost(userId, post.id);
   };
 
   render() {

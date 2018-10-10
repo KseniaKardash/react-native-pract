@@ -21,32 +21,30 @@ const watcherPostsSaga = [
   takeEvery(types.SEARCH_USER_NAME, filterPosts)
 ];
 
-export function* getPosts(): Generator<*, *, *> {
+export function* getPosts({ id }: { id: number }): Generator<*, *, *> {
   try {
-    const response = yield call(fetchPosts);
-    const posts = response.data;
+    const posts = yield call(fetchPosts, id);
     yield put(requestPostsSuccess(posts));
   } catch (error) {
     yield put(requestPostsError());
   }
 }
 
-function* deletePost(action): Generator<*, *, *> {
-  yield call(deletePostFromServer, action.id);
+function* deletePost({ userId, id }): Generator<*, *, *> {
+  yield call(deletePostFromServer, userId, id);
 }
 
-function* addPost(action): Generator<*, *, *> {
-  yield call(addNewPostToServer, action.post);
+function* addPost({ id, post }): Generator<*, *, *> {
+  yield call(addNewPostToServer, id, post);
 }
 
-function* updatePost(action): Generator<*, *, *> {
-  yield call(updatePostOnServer, action.post);
+function* updatePost({ id, post }): Generator<*, *, *> {
+  yield call(updatePostOnServer, id, post);
 }
 
-function* filterPosts(action): Generator<*, *, *> {
+function* filterPosts({ id, query }): Generator<*, *, *> {
   try {
-    const response = yield call(filterPostsByUserName, action.query);
-    const posts = response.data;
+    const posts = yield call(filterPostsByUserName, id, query);
     yield put(requestPostsSuccess(posts));
   } catch (error) {
     yield put(requestPostsError());

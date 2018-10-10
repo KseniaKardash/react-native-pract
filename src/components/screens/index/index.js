@@ -1,6 +1,7 @@
 /* @flow */
 import { Navigation } from "react-native-navigation";
 import { Provider } from "react-redux";
+import { persistStore } from "redux-persist";
 import SelectPhoto from "../SelectPhoto/SelectPhoto";
 import InfoModal from "../InfoModal/InfoModal";
 import ImagePickerScreen from "../ImagePickerScreen/ImagePickerScreen";
@@ -44,3 +45,9 @@ export function registerScreens() {
     animationType: "fade"
   });
 }
+function startApp() {
+  persistStore(store, null, () => {
+    registerScreens();
+  });
+}
+export default startApp;

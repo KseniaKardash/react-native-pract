@@ -17,6 +17,7 @@ import { SHADOW_COLOR, MAIN_COLOR } from "../../../constants/colors";
 type Props = {
   navigator: Object,
   searchName: string,
+  userId: number,
   toggleSearchStatus: boolean,
   setToggleSearchStatus: Function,
   filterPostsByUserName: Function,
@@ -27,12 +28,13 @@ type Props = {
 
 class PostsFeed extends PureComponent<Props> {
   componentDidMount() {
-    const { requestPosts } = this.props;
-    requestPosts();
+    const { requestPosts, userId } = this.props;
+    requestPosts(userId);
   }
+
   onChangeText = (text: string) => {
-    const { filterPostsByUserName } = this.props;
-    filterPostsByUserName(text);
+    const { filterPostsByUserName, userId } = this.props;
+    filterPostsByUserName(userId, text);
   };
 
   onShowSelectedPost = (id: string) => {

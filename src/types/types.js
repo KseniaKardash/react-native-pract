@@ -24,7 +24,7 @@ export type SearchToggleStatusAction = {
 export type AddPostAction = {
   type: "ADD_POST",
   post: Post,
-  id?: string,
+  id?: number,
   fetching?: boolean,
   error?: boolean
 };
@@ -71,18 +71,57 @@ export type RequestDayOfWeekError = {
   id?: number
 };
 
-/////
-
 export type FilterPostsAction = {
   type: "SEARCH_USER_NAME",
   query: string,
-  id?: string,
+  id?: number,
   searchName?: string,
   posts?: Posts
 };
 export type SetDayOFWeekAction = {
   type: "SET_DAY_OF_WEEK",
   dayOfTheWeek: string
+};
+
+export type RequestSignIn = {
+  type: "SIGN_IN_REQUEST"
+};
+export type RequestSignInSuccess = {
+  type: "SIGN_IN_SUCCESS",
+  user: User
+};
+export type RequestSignInError = {
+  type: "SIGN_IN_FAILURE",
+  error: boolean
+};
+export type RequestSignOut = {
+  type: "SIGN_OUT_REQUEST"
+};
+
+export type RequestSignOutSuccess = {
+  type: "SIGN_OUT_SUCCESS"
+};
+export type RequestSignOutError = {
+  type: "SIGN_OUT_FAILURE",
+  error: boolean
+};
+export type User = {
+  userInfo: {
+    photo: string,
+    email: string,
+    givenName: string,
+    familyName: string,
+    name: string,
+    id: number
+  },
+  firebase: {
+    providerId: string,
+    uid: string
+  },
+  credential: {
+    idToken: Object,
+    accessToken: string
+  }
 };
 export type State = {
   postsFeed: {
@@ -98,6 +137,11 @@ export type State = {
   profile: {
     userName: string,
     userPhoto: string
+  },
+  authenticationReducer: {
+    user: User,
+    error: boolean,
+    fetchingUser: boolean
   }
 };
 

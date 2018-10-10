@@ -8,12 +8,16 @@ import InputText from "../../common/InputText";
 import TextArea from "../../common/TextArea";
 import { BACKGROUND_COLOR } from "../../../constants/colors";
 import type { Uri } from "../../../types/types";
-import { store } from "../index/index";
 
 type Props = {
   navigator: Object,
   uri: Uri,
-  addPost: Function
+  addPost: Function,
+  userInfo: {
+    id: number,
+    name: string,
+    photo: string
+  }
 };
 
 type State = {
@@ -43,7 +47,7 @@ class FinishPost extends PureComponent<Props, State> {
     });
   };
   navigateToNextPage = () => {
-    const { navigator, addPost, uri } = this.props;
+    const { navigator, addPost, uri, userInfo } = this.props;
     const { tag, description } = this.state;
     navigator.push({
       screen: "InfoModal",
@@ -54,14 +58,14 @@ class FinishPost extends PureComponent<Props, State> {
     });
     const post = {
       id: parseInt(this.generateId()),
-      userName: store.getState().profile.userName,
+      userName: userInfo.name,
       likes: parseInt(this.generateLikes()),
       description: description,
       tag: tag,
-      uriPhoto: store.getState().profile.userPhoto,
+      uriPhoto: userInfo.photo,
       uri: uri.uri
     };
-    addPost(post);
+    addPost(userInfo.id, post);
   };
 
   generateId = () => {

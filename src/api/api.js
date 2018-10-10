@@ -1,27 +1,71 @@
 /* @flow */
 import axios from "axios";
-import { SERVER_URL, WORLD_CLOCK_API } from "../constants/URI";
+import firebase from "react-native-firebase";
+import { GoogleSignin } from "react-native-google-signin";
+import { WORLD_CLOCK_API } from "../constants/URI";
 import type { Post } from "../types/types";
 
-export function fetchPosts() {
-  return axios.get(`${SERVER_URL}/posts/`);
+export const signInWithGoogle = async () => {
+  const data = await GoogleSignin.signIn();
+  const credential = await firebase.auth.GoogleAuthProvider.credential(
+    data.idToken,
+    data.accessToken
+  );
+  const fb = await firebase.auth().signInWithCredential(credential);
+  return {
+    userInfo: data.user,
+    firebase: { providerId: fb.providerId, uid: fb.uid },
+    credential: { idToken: data.idToken, accessToken: data.accessToken }
+  };
+};
+
+export const signOutWithGoogle = async () => {
+  await GoogleSignin.signOut();
+  await firebase.auth().signOut();
+};
+
+export const fetchPosts = async (id: number) => {
+  const posts = await firebase
+    .database()
+    .ref(`users/${id}/posts`)
+    .once("value")
+    .then(snapshot => snapshot.val());
+  return Object.values(posts);
+};
+
+export function deletePostFromServer(userId: number, postId: number) {
+  firebase
+    .database()
+    .ref(`users/${userId}/posts/${postId}`)
+    .remove();
 }
 
-export function deletePostFromServer(id: number) {
-  return axios.delete(`${SERVER_URL}/posts/${id}`);
+export function addNewPostToServer(id: number, post: Post) {
+  firebase
+    .database()
+    .ref(`users/${id}/posts/${post.id}`)
+    .set(post);
 }
 
-export function addNewPostToServer(post: Post) {
-  return axios.post(`${SERVER_URL}/posts/`, post);
+export function updatePostOnServer(id: number, post: Post) {
+  firebase
+    .database()
+    .ref(`users/${id}/posts/${post.id}`)
+    .set(post);
 }
 
-export function updatePostOnServer(post: Post) {
-  return axios.post(`${SERVER_URL}/posts/${post.id}`, post);
-}
-
-export function filterPostsByUserName(query: string) {
-  return axios.get(`${SERVER_URL}/posts/?q=${query}`);
-}
+export const filterPostsByUserName = async (id: number, query: string) => {
+  let posts = [];
+  await firebase
+    .database()
+    .ref(`users/${id}/posts/`)
+    .orderByChild("userName")
+    .startAt(query)
+    .on("child_added", function(data) {
+      posts.push(data.val());
+    });
+  return posts;
+};
 
 export function fetchDayOfTheWeek() {
   return axios.get(`${WORLD_CLOCK_API}/api/json/est/now`);

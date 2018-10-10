@@ -6,7 +6,9 @@ import {
   getSearchName,
   getPosts,
   getPostsFetchingStatus,
-  getToggleSearchStatus
+  getToggleSearchStatus,
+  getUser,
+  getUserId
 } from "../selectors/index";
 import PostsFeed from "../components/screens/PostsFeed/PostsFeed";
 
@@ -15,15 +17,17 @@ const mapStateToProps = state => {
     searchName: getSearchName(state),
     toggleSearchStatus: getToggleSearchStatus(state),
     posts: getPosts(state),
-    fetching: getPostsFetchingStatus(state)
+    fetching: getPostsFetchingStatus(state),
+    user: getUser(state),
+    userId: getUserId(state)
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     setToggleSearchStatus: value => dispatch(setToggleSearchStatus(value)),
-    filterPostsByUserName: query => dispatch(filterPosts(query)),
-    requestPosts: () => dispatch(requestPosts())
+    filterPostsByUserName: (id, query) => dispatch(filterPosts(id, query)),
+    requestPosts: id => dispatch(requestPosts(id))
   };
 };
 

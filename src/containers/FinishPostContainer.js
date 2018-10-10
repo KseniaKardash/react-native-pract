@@ -2,18 +2,19 @@
 import { connect } from "react-redux";
 import { addPost } from "../actions/postsActions";
 import FinishPost from "../components/screens/FinishPost/FinishPost";
-import { getUserName, getUserPhoto } from "../selectors/index";
+import { getUserName, getUserPhoto, getUserInfo } from "../selectors/index";
 
 const mapStateToProps = state => {
   return {
     userName: getUserName(state),
-    userPhoto: getUserPhoto(state)
+    userPhoto: getUserPhoto(state),
+    userInfo: getUserInfo(state)
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    addPost: post => dispatch(addPost(post))
+    addPost: (id, post) => dispatch(addPost(id, post))
   };
 };
 
