@@ -28,9 +28,12 @@ export function requestSignOut(): flowType.RequestSignOut {
     type: types.SIGN_OUT_REQUEST
   };
 }
-export function requestSignOutSuccess(): flowType.RequestSignOutSuccess {
+export function requestSignOutSuccess(
+  userId: number
+): flowType.RequestSignOutSuccess {
   return {
-    type: types.SIGN_OUT_SUCCESS
+    type: types.SIGN_OUT_SUCCESS,
+    userId: userId
   };
 }
 export function requestSignOutError(
@@ -39,5 +42,21 @@ export function requestSignOutError(
   return {
     type: types.SIGN_OUT_FAILURE,
     error: error
+  };
+}
+
+export function changeCurrentUser(
+  user: flowType.User
+): flowType.ChangeCurrentUser {
+  return {
+    type: types.CHANGE_CURRENT_USER,
+    user: user
+  };
+}
+
+export function deleteAuthorizedUser(userId: number) {
+  return {
+    type: types.DELETE_AUTHORIZED_USER,
+    userId: userId
   };
 }

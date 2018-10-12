@@ -1,5 +1,6 @@
 /* @flow */
-import { takeEvery, call, put } from "redux-saga/effects";
+import { takeEvery, call, put, select } from "redux-saga/effects";
+import { getUserId } from "../selectors/index";
 import * as types from "../constants/actionTypes";
 import {
   requestSignInSuccess,
@@ -30,7 +31,8 @@ export function* signIn(): Generator<*, *, *> {
 export function* signOut(): Generator<*, *, *> {
   try {
     yield call(signOutWithGoogle);
-    yield put(requestSignOutSuccess());
+    const currentUserId = yield select(getUserId);
+    yield put(requestSignOutSuccess(currentUserId));
   } catch (error) {
     yield put(requestSignOutError(error));
   }

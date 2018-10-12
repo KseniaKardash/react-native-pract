@@ -6,6 +6,8 @@ import { WORLD_CLOCK_API } from "../constants/URI";
 import type { Post } from "../types/types";
 
 export const signInWithGoogle = async () => {
+  const isSignedIn = await GoogleSignin.isSignedIn();
+  if (isSignedIn) await GoogleSignin.signOut();
   const data = await GoogleSignin.signIn();
   const credential = await firebase.auth.GoogleAuthProvider.credential(
     data.idToken,

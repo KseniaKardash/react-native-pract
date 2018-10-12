@@ -17,3 +17,5 @@ export const getUserId = (state: State) =>
   state.authenticationReducer.user.userInfo.id;
 export const getUserInfo = (state: State) =>
   state.authenticationReducer.user.userInfo;
+export const getAuthorizedUsers = (state: State) =>
+  state.authenticationReducer.authorizedUsers;

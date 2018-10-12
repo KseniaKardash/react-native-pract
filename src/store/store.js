@@ -10,7 +10,7 @@ import rootSaga from "../sagas/rootSaga";
 const sagaMiddleware = createSagaMiddleware();
 
 const persistConfig = {
-  key: "data",
+  key: "dataApp",
   storage: storage,
   whitelist: ["authenticationReducer"]
 };

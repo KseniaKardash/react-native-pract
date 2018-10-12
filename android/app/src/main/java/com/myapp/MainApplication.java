@@ -38,7 +38,7 @@ public class MainApplication extends NavigationApplication {
          new RNFirebasePackage(),
          new RNFirebaseAuthPackage(),
          new RNFirebaseStoragePackage(),
-        new RNFirebaseDatabasePackage(),
+         new RNFirebaseDatabasePackage(),
          new RNGoogleSigninPackage()
          );
      }

@@ -5,7 +5,8 @@ import InitialScreen from "../components/screens/InitialScreen/InitialScreen";
 import {
   getDayOfTheWeek,
   getUser,
-  getFetchingUserStatus
+  getFetchingUserStatus,
+  getAuthorizedUsers
 } from "../selectors/index";
 import {
   requestSignIn,
@@ -16,7 +17,8 @@ const mapStateToProps = state => {
   return {
     dayOfTheWeek: getDayOfTheWeek(state),
     user: getUser(state),
-    fetchingUser: getFetchingUserStatus(state)
+    fetchingUser: getFetchingUserStatus(state),
+    authorizedUsers: getAuthorizedUsers(state)
   };
 };
 

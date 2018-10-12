@@ -23,6 +23,7 @@ export function registerScreens() {
   Navigation.registerComponent("ImagePickerScreen", () => ImagePickerScreen);
   Navigation.registerComponent("Post", () => PostContainer, store, Provider);
   Navigation.registerComponent("InfoModal", () => InfoModal);
+  Navigation.registerComponent("InfoModal", () => InfoModal);
   Navigation.registerComponent("SelectPhoto", () => SelectPhoto);
   Navigation.registerComponent(
     "FinishPost",

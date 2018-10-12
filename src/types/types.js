@@ -71,6 +71,10 @@ export type RequestDayOfWeekError = {
   id?: number
 };
 
+export type ChangeCurrentUser = {
+  type: "CHANGE_CURRENT_USER",
+  user: User
+};
 export type FilterPostsAction = {
   type: "SEARCH_USER_NAME",
   query: string,
@@ -84,27 +88,40 @@ export type SetDayOFWeekAction = {
 };
 
 export type RequestSignIn = {
-  type: "SIGN_IN_REQUEST"
+  type: "SIGN_IN_REQUEST",
+  userId?: number,
+  user?: User
 };
 export type RequestSignInSuccess = {
   type: "SIGN_IN_SUCCESS",
+  user: User,
+  userId?: number,
   user: User
 };
 export type RequestSignInError = {
   type: "SIGN_IN_FAILURE",
-  error: boolean
+  error: boolean,
+  userId?: number,
+  user?: User
 };
 export type RequestSignOut = {
-  type: "SIGN_OUT_REQUEST"
+  type: "SIGN_OUT_REQUEST",
+  userId?: number,
+  user?: User
 };
 
 export type RequestSignOutSuccess = {
-  type: "SIGN_OUT_SUCCESS"
+  type: "SIGN_OUT_SUCCESS",
+  userId: number,
+  user?: User
 };
 export type RequestSignOutError = {
   type: "SIGN_OUT_FAILURE",
-  error: boolean
+  error: boolean,
+  userId?: number,
+  user?: User
 };
+
 export type User = {
   userInfo: {
     photo: string,
@@ -139,6 +156,7 @@ export type State = {
     userPhoto: string
   },
   authenticationReducer: {
+    authorizedUsers: Array<User>,
     user: User,
     error: boolean,
     fetchingUser: boolean
