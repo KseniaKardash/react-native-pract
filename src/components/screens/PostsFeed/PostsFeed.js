@@ -7,6 +7,7 @@ import {
   TextInput,
   ActivityIndicator
 } from "react-native";
+import { SharedElementTransition } from "react-native-navigation";
 import ButtonIcon from "../../common/ButtonIcon";
 import HeaderTitle from "../../common/HeaderTitle";
 import UserPost from "../../common/UserPost";
@@ -45,8 +46,9 @@ class PostsFeed extends PureComponent<Props> {
     navigator.push({
       screen: "Post",
       title: selectedPost ? selectedPost.userName : "",
+      sharedElements: ["SharedPost"],
       passProps: {
-        post: { ...selectedPost }
+        post: selectedPost
       },
       backButtonHidden: true,
       animated: true,
@@ -77,15 +79,17 @@ class PostsFeed extends PureComponent<Props> {
 
   renderItem = (inboundData: { item: Post }) => {
     return (
-      <FadeWrapper>
-        <UserPost
-          userName={inboundData.item.userName}
-          uri={{ uri: inboundData.item.uri }}
-          uriPhoto={{ uri: inboundData.item.uriPhoto }}
-          id={inboundData.item.id}
-          onShowSelectedPost={this.onShowSelectedPost}
-        />
-      </FadeWrapper>
+      <SharedElementTransition sharedElementId="SharedPost">
+        <FadeWrapper>
+          <UserPost
+            userName={inboundData.item.userName}
+            uri={{ uri: inboundData.item.uri }}
+            uriPhoto={{ uri: inboundData.item.uriPhoto }}
+            id={inboundData.item.id}
+            onShowSelectedPost={this.onShowSelectedPost}
+          />
+        </FadeWrapper>
+      </SharedElementTransition>
     );
   };
 
@@ -145,6 +149,7 @@ const styles = StyleSheet.create({
   },
   header: {
     display: "flex",
+    width: "100%",
     flexDirection: "row",
     justifyContent: "space-between"
   },

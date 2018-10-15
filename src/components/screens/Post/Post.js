@@ -1,6 +1,7 @@
 /* @flow */
 import React, { PureComponent } from "react";
 import { View, StyleSheet } from "react-native";
+import { SharedElementTransition } from "react-native-navigation";
 import ButtonIcon from "../../common/ButtonIcon";
 import FullPost from "../../common/FullPost";
 import HeaderTitle from "../../common/HeaderTitle";
@@ -41,14 +42,29 @@ class FinishPost extends PureComponent<Props> {
             <ButtonIcon iconName="minus" onPress={this.deletePost} />
           </View>
         </View>
-        <FullPost
-          userName={post.userName}
-          likes={post.likes}
-          tag={post.tag}
-          description={post.description}
-          uri={{ uri: post.uri }}
-          uriPhoto={{ uri: post.uriPhoto }}
-        />
+        <SharedElementTransition
+          style={styles.sharedElement}
+          sharedElementId="SharedPost"
+          showDuration={300}
+          hideDuration={300}
+          showInterpolation={{
+            type: "linear",
+            easing: "FastOutSlowIn"
+          }}
+          hideInterpolation={{
+            type: "linear",
+            easing: "FastOutSlowIn"
+          }}
+        >
+          <FullPost
+            userName={post.userName}
+            likes={post.likes}
+            tag={post.tag}
+            description={post.description}
+            uri={{ uri: post.uri }}
+            uriPhoto={{ uri: post.uriPhoto }}
+          />
+        </SharedElementTransition>
       </View>
     );
   }
@@ -59,11 +75,13 @@ const styles = StyleSheet.create({
     width: "100%",
     flex: 1,
     flexDirection: "column",
-    justifyContent: "space-between",
     backgroundColor: SHADOW_COLOR,
     alignItems: "center",
     padding: 20,
     paddingTop: 10
+  },
+  sharedElement: {
+    width: "100%"
   },
   header: {
     alignSelf: "flex-start",

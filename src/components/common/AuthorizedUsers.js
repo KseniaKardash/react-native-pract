@@ -1,6 +1,13 @@
 /* @flow */
 import React, { PureComponent } from "react";
-import { Image, StyleSheet, TouchableHighlight, Alert } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  Alert,
+  Animated,
+  Easing
+} from "react-native";
 import { GoogleSignin } from "react-native-google-signin";
 import type { Uri, User } from "../../types/types";
 
@@ -13,8 +20,16 @@ type Props = {
 };
 
 class AuthorizedUser extends PureComponent<Props> {
+  scaleValue = new Animated.Value(0);
+
+  buttonScale = this.scaleValue.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [1, 0.95, 1]
+  });
+
   onCurrentUserChange = () => {
     const { user, changeCurrentUser } = this.props;
+    this.scale();
     changeCurrentUser(user);
   };
 
@@ -27,6 +42,15 @@ class AuthorizedUser extends PureComponent<Props> {
     } catch (error) {
       deleteAuthorizedUser(userId);
     }
+  };
+
+  scale = () => {
+    this.scaleValue.setValue(0);
+    Animated.timing(this.scaleValue, {
+      toValue: 1,
+      duration: 250,
+      easing: Easing.easeOutBack
+    }).start();
   };
 
   deleteUser = () => {
@@ -51,13 +75,20 @@ class AuthorizedUser extends PureComponent<Props> {
   render() {
     const { userPhoto } = this.props;
     return (
-      <TouchableHighlight
+      <TouchableWithoutFeedback
         onPress={this.onCurrentUserChange}
         onLongPress={this.deleteUser}
-        style={styles.touchableImg}
       >
-        <Image style={styles.userImg} source={userPhoto} />
-      </TouchableHighlight>
+        <Animated.View
+          style={{
+            transform: [{ scale: this.buttonScale }],
+            margin: 20,
+            borderRadius: 60
+          }}
+        >
+          <Image style={styles.userImg} source={userPhoto} />
+        </Animated.View>
+      </TouchableWithoutFeedback>
     );
   }
 }
@@ -65,10 +96,6 @@ const styles = StyleSheet.create({
   userImg: {
     height: 120,
     width: 120,
-    borderRadius: 60
-  },
-  touchableImg: {
-    margin: 20,
     borderRadius: 60
   }
 });
