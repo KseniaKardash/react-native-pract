@@ -73,6 +73,7 @@ export type RequestDayOfWeekError = {
 
 export type ChangeCurrentUser = {
   type: "CHANGE_CURRENT_USER",
+  userId?: number,
   user: User
 };
 export type FilterPostsAction = {
@@ -95,8 +96,7 @@ export type RequestSignIn = {
 export type RequestSignInSuccess = {
   type: "SIGN_IN_SUCCESS",
   user: User,
-  userId?: number,
-  user: User
+  userId?: number
 };
 export type RequestSignInError = {
   type: "SIGN_IN_FAILURE",
@@ -104,6 +104,7 @@ export type RequestSignInError = {
   userId?: number,
   user?: User
 };
+
 export type RequestSignOut = {
   type: "SIGN_OUT_REQUEST",
   userId?: number,
@@ -115,6 +116,7 @@ export type RequestSignOutSuccess = {
   userId: number,
   user?: User
 };
+
 export type RequestSignOutError = {
   type: "SIGN_OUT_FAILURE",
   error: boolean,
@@ -122,6 +124,11 @@ export type RequestSignOutError = {
   user?: User
 };
 
+export type DeleteAuthorizedUser = {
+  type: "DELETE_AUTHORIZED_USER",
+  userId: number,
+  user?: User
+};
 export type User = {
   userInfo: {
     photo: string,

@@ -54,7 +54,9 @@ export function changeCurrentUser(
   };
 }
 
-export function deleteAuthorizedUser(userId: number) {
+export function deleteAuthorizedUser(
+  userId: number
+): flowType.DeleteAuthorizedUser {
   return {
     type: types.DELETE_AUTHORIZED_USER,
     userId: userId

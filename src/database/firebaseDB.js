@@ -9,4 +9,5 @@ const config = {
   storageBucket: "react-native-1b2a0.appspot.com",
   messagingSenderId: "715039456545"
 };
-export default firebase.initializeApp(config);
+const db = firebase.initializeApp(config);
+export default db;

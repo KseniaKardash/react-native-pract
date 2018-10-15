@@ -19,17 +19,18 @@ class AuthorizedUser extends PureComponent<Props> {
   };
 
   getCurrentUserInfo = async (userId: number) => {
-    const { requestSignOut } = this.props;
-    // try {
-    const data = await GoogleSignin.signInSilently();
-    if (data.user.id === userId) requestSignOut();
-    // } catch (error) {
-    //   console.tron(error.code);
-    // }
+    const { requestSignOut, deleteAuthorizedUser } = this.props;
+    try {
+      const data = await GoogleSignin.signInSilently();
+      if (data.user.id === userId) requestSignOut();
+      else deleteAuthorizedUser(userId);
+    } catch (error) {
+      deleteAuthorizedUser(userId);
+    }
   };
 
   deleteUser = () => {
-    const { user, deleteAuthorizedUser } = this.props;
+    const { user } = this.props;
     Alert.alert(
       "Do you want to delete this user?",
       `User: ${user.userInfo.name} `,
@@ -38,7 +39,6 @@ class AuthorizedUser extends PureComponent<Props> {
           text: "Yes",
           onPress: () => {
             this.getCurrentUserInfo(user.userInfo.id);
-            deleteAuthorizedUser(user.userInfo.id);
           }
         },
         {

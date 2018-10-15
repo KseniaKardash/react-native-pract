@@ -44,7 +44,7 @@ class PostsFeed extends PureComponent<Props> {
     });
     navigator.push({
       screen: "Post",
-      title: selectedPost.userName,
+      title: selectedPost ? selectedPost.userName : "",
       passProps: {
         post: { ...selectedPost }
       },

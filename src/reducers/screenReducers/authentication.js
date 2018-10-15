@@ -23,6 +23,7 @@ type Action =
   | flowType.RequestSignOut
   | flowType.RequestSignOutError
   | flowType.RequestSignOutSuccess
+  | flowType.DeleteAuthorizedUser
   | flowType.ChangeCurrentUser;
 
 export default function authenticationReducer(
@@ -36,7 +37,9 @@ export default function authenticationReducer(
       return { ...state, fetchingUser: true };
     case types.SIGN_IN_SUCCESS: {
       const authorizedUsers = state.authorizedUsers.filter(user => {
-        return user.userInfo.id !== action.user.userInfo.id;
+        if (action.user) {
+          return user.userInfo.id !== action.user.userInfo.id;
+        }
       });
       return {
         ...state,
@@ -49,7 +52,6 @@ export default function authenticationReducer(
       const authorizedUsers = state.authorizedUsers.filter(
         user => user.userInfo.id !== action.userId
       );
-      // const authorizedUsers = state.authorizedUsers;
       return {
         ...state,
         fetchingUser: false,
