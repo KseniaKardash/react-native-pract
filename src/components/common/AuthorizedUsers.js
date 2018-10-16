@@ -10,12 +10,14 @@ import {
 } from "react-native";
 import { GoogleSignin } from "react-native-google-signin";
 import type { Uri, User } from "../../types/types";
+import { HIGLIGHT_COLOR } from "../../constants/colors";
 
 type Props = {
   userPhoto: Uri,
   changeCurrentUser: Function,
   deleteAuthorizedUser: Function,
   requestSignOut: Function,
+  currentUser: User,
   user: User
 };
 
@@ -23,8 +25,8 @@ class AuthorizedUser extends PureComponent<Props> {
   scaleValue = new Animated.Value(0);
 
   buttonScale = this.scaleValue.interpolate({
-    inputRange: [0, 0.5, 1],
-    outputRange: [1, 0.95, 1]
+    inputRange: [0, 0.4, 0.8],
+    outputRange: [1, 0.96, 0.98]
   });
 
   onCurrentUserChange = () => {
@@ -49,7 +51,8 @@ class AuthorizedUser extends PureComponent<Props> {
     Animated.timing(this.scaleValue, {
       toValue: 1,
       duration: 250,
-      easing: Easing.easeOutBack
+      easing: Easing.easeOutBack,
+      useNativeDriver: true
     }).start();
   };
 
@@ -73,18 +76,20 @@ class AuthorizedUser extends PureComponent<Props> {
   };
 
   render() {
-    const { userPhoto } = this.props;
+    const { userPhoto, user, currentUser } = this.props;
     return (
       <TouchableWithoutFeedback
         onPress={this.onCurrentUserChange}
         onLongPress={this.deleteUser}
       >
         <Animated.View
-          style={{
-            transform: [{ scale: this.buttonScale }],
-            margin: 20,
-            borderRadius: 60
-          }}
+          style={[
+            {
+              transform: [{ scale: this.buttonScale }],
+              borderWidth: user.userInfo.id === currentUser.userInfo.id ? 2 : 0
+            },
+            styles.touchableContainer
+          ]}
         >
           <Image style={styles.userImg} source={userPhoto} />
         </Animated.View>
@@ -97,6 +102,11 @@ const styles = StyleSheet.create({
     height: 120,
     width: 120,
     borderRadius: 60
+  },
+  touchableContainer: {
+    margin: 20,
+    borderRadius: 65,
+    borderColor: HIGLIGHT_COLOR
   }
 });
 

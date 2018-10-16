@@ -6,6 +6,13 @@ import {
   requestSignOut
 } from "../actions/authenticationActions";
 import AuthorizedUser from "../components/common/AuthorizedUsers";
+import { getUser } from "../selectors/index";
+
+const mapStateToProps = state => {
+  return {
+    currentUser: getUser(state)
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -16,6 +23,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(AuthorizedUser);
