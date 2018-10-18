@@ -9,7 +9,6 @@ import {
   requestSignOutError
 } from "../actions/authenticationActions";
 import { setUserName, setUserPhoto } from "../actions/profileActions";
-
 import { signInWithGoogle, signOutWithGoogle } from "../api/api";
 
 const authenticationSaga = [

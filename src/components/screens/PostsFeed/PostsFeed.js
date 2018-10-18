@@ -5,19 +5,22 @@ import {
   StyleSheet,
   FlatList,
   TextInput,
-  ActivityIndicator
+  ActivityIndicator,
+  NetInfo,
+  Alert
 } from "react-native";
 import { SharedElementTransition } from "react-native-navigation";
 import ButtonIcon from "../../common/ButtonIcon";
 import HeaderTitle from "../../common/HeaderTitle";
 import UserPost from "../../common/UserPost";
-import type { Post, Posts } from "../../../types/types";
+import type { Post, Posts, User } from "../../../types/types";
 import FadeWrapper from "../../common/FadeWrapper";
 import { SHADOW_COLOR, MAIN_COLOR } from "../../../constants/colors";
 
 type Props = {
   navigator: Object,
   searchName: string,
+  currentUser: User,
   userId: number,
   toggleSearchStatus: boolean,
   setToggleSearchStatus: Function,
@@ -29,8 +32,20 @@ type Props = {
 
 class PostsFeed extends PureComponent<Props> {
   componentDidMount() {
-    const { requestPosts, userId } = this.props;
-    requestPosts(userId);
+    const { requestPosts, userId, posts, currentUser } = this.props;
+    NetInfo.isConnected.fetch().then(isConnected => {
+      if (isConnected) {
+        if (
+          posts.length == 0 ||
+          posts[0].userName !== currentUser.userInfo.name
+        ) {
+          requestPosts(userId);
+        }
+      } else Alert.alert("There is no Internet connection.");
+    });
+    if (posts.length == 0 || posts[0].userName !== currentUser.userInfo.name) {
+      requestPosts(userId);
+    }
   }
 
   onChangeText = (text: string) => {
@@ -46,7 +61,7 @@ class PostsFeed extends PureComponent<Props> {
     navigator.push({
       screen: "Post",
       title: selectedPost ? selectedPost.userName : "",
-      sharedElements: ["SharedPost"],
+      sharedElements: [`SharedPost${selectedPost.id}`],
       passProps: {
         post: selectedPost
       },
@@ -54,6 +69,14 @@ class PostsFeed extends PureComponent<Props> {
       animated: true,
       animationType: "fade"
     });
+  };
+
+  onRefresh = async () => {
+    const { requestPosts, userId } = this.props;
+    const internetConnectionStatus = await NetInfo.isConnected.fetch();
+    if (internetConnectionStatus) {
+      requestPosts(userId);
+    } else Alert.alert("There is no Internet connection.");
   };
 
   setToggle = () => {
@@ -79,7 +102,9 @@ class PostsFeed extends PureComponent<Props> {
 
   renderItem = (inboundData: { item: Post }) => {
     return (
-      <SharedElementTransition sharedElementId="SharedPost">
+      <SharedElementTransition
+        sharedElementId={`SharedPost${inboundData.item.id}`}
+      >
         <FadeWrapper>
           <UserPost
             userName={inboundData.item.userName}
@@ -129,6 +154,8 @@ class PostsFeed extends PureComponent<Props> {
             keyExtractor={this.getKeyExtractor}
             renderItem={this.renderItem}
             style={styles.flatList}
+            refreshing={fetching}
+            onRefresh={this.onRefresh}
           />
         )}
       </View>

@@ -91,7 +91,12 @@ class AuthorizedUser extends PureComponent<Props> {
             styles.touchableContainer
           ]}
         >
-          <Image style={styles.userImg} source={userPhoto} />
+          <Image
+            style={styles.userImg}
+            source={
+              userPhoto.uri ? userPhoto : require("../../assets/img/user.png")
+            }
+          />
         </Animated.View>
       </TouchableWithoutFeedback>
     );

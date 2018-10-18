@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
     marginTop: 3
   },
   container: {
-    width: "100%"
+    width: "100%",
+    borderRadius: 5
   },
   text: {
     fontSize: 17,

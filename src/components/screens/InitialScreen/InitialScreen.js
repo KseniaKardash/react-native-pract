@@ -29,7 +29,9 @@ class InitialScreen extends PureComponent<Props> {
       storageBucket: "react-native-1b2a0.appspot.com",
       messagingSenderId: "715039456545"
     };
-    firebase.initializeApp(config);
+    if (!firebase.apps.length) {
+      firebase.initializeApp(config);
+    }
   }
 
   navigateToNextPage = () => {

@@ -44,9 +44,9 @@ class FinishPost extends PureComponent<Props> {
         </View>
         <SharedElementTransition
           style={styles.sharedElement}
-          sharedElementId="SharedPost"
-          showDuration={300}
-          hideDuration={300}
+          sharedElementId={`SharedPost${post.id}`}
+          showDuration={200}
+          hideDuration={200}
           showInterpolation={{
             type: "linear",
             easing: "FastOutSlowIn"

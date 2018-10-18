@@ -12,6 +12,7 @@ import {
   requestSignIn,
   requestSignOut
 } from "../actions/authenticationActions";
+import { requestPosts } from "../actions/postsActions";
 
 const mapStateToProps = state => {
   return {
@@ -26,7 +27,8 @@ const mapDispatchToProps = dispatch => {
   return {
     requestDayOfWeek: () => dispatch(requestDayOfWeek()),
     requestSignIn: () => dispatch(requestSignIn()),
-    requestSignOut: () => dispatch(requestSignOut())
+    requestSignOut: () => dispatch(requestSignOut()),
+    requestPosts: id => dispatch(requestPosts(id))
   };
 };
 

@@ -18,7 +18,7 @@ const mapStateToProps = state => {
     toggleSearchStatus: getToggleSearchStatus(state),
     posts: getPosts(state),
     fetching: getPostsFetchingStatus(state),
-    user: getUser(state),
+    currentUser: getUser(state),
     userId: getUserId(state)
   };
 };
