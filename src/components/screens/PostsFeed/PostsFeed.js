@@ -43,9 +43,6 @@ class PostsFeed extends PureComponent<Props> {
         }
       } else Alert.alert("There is no Internet connection.");
     });
-    if (posts.length == 0 || posts[0].userName !== currentUser.userInfo.name) {
-      requestPosts(userId);
-    }
   }
 
   onChangeText = (text: string) => {
@@ -58,17 +55,19 @@ class PostsFeed extends PureComponent<Props> {
     const selectedPost = posts.find(post => {
       return post.id === id;
     });
-    navigator.push({
-      screen: "Post",
-      title: selectedPost ? selectedPost.userName : "",
-      sharedElements: [`SharedPost${selectedPost.id}`],
-      passProps: {
-        post: selectedPost
-      },
-      backButtonHidden: true,
-      animated: true,
-      animationType: "fade"
-    });
+    if (selectedPost) {
+      navigator.push({
+        screen: "Post",
+        title: selectedPost.userName,
+        sharedElements: [`SharedPost${selectedPost.id}`],
+        passProps: {
+          post: selectedPost
+        },
+        backButtonHidden: true,
+        animated: true,
+        animationType: "fade"
+      });
+    }
   };
 
   onRefresh = async () => {
@@ -98,6 +97,16 @@ class PostsFeed extends PureComponent<Props> {
     if (toggleSearchStatus) {
       setToggleSearchStatus(!toggleSearchStatus);
     }
+  };
+
+  handleBackPress = () => {
+    const { navigator } = this.props;
+    navigator.popToRoot({
+      animated: true,
+      animationType: "fade"
+    });
+
+    return true;
   };
 
   renderItem = (inboundData: { item: Post }) => {
