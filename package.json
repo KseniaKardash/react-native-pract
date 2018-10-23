@@ -14,6 +14,7 @@
     "preset": "react-native"
   },
   "dependencies": {
+    "antd-mobile-rn": "^2.3.0",
     "axios": "^0.18.0",
     "react": "^16.3.1",
     "react-native": "^0.55.3",

@@ -29,6 +29,10 @@ class AuthorizedUser extends PureComponent<Props> {
     outputRange: [1, 0.96, 0.98]
   });
 
+  animateHeaderStyle = {
+    transform: [{ scale: this.buttonScale }]
+  };
+
   onCurrentUserChange = () => {
     const { user, changeCurrentUser } = this.props;
     this.scale();
@@ -83,16 +87,16 @@ class AuthorizedUser extends PureComponent<Props> {
         onLongPress={this.deleteUser}
       >
         <Animated.View
-          style={[
-            {
-              transform: [{ scale: this.buttonScale }],
-              borderWidth: user.userInfo.id === currentUser.userInfo.id ? 2 : 0
-            },
-            styles.touchableContainer
-          ]}
+          style={[this.animateHeaderStyle, styles.touchableContainer]}
         >
           <Image
-            style={styles.userImg}
+            style={[
+              {
+                borderWidth:
+                  user.userInfo.id === currentUser.userInfo.id ? 2 : 0
+              },
+              styles.userImg
+            ]}
             source={
               userPhoto.uri ? userPhoto : require("../../assets/img/user.png")
             }
@@ -106,12 +110,14 @@ const styles = StyleSheet.create({
   userImg: {
     height: 120,
     width: 120,
-    borderRadius: 60
+    borderRadius: 60,
+    borderColor: HIGLIGHT_COLOR
   },
   touchableContainer: {
     margin: 20,
-    borderRadius: 65,
-    borderColor: HIGLIGHT_COLOR
+    borderRadius: 60,
+    borderColor: HIGLIGHT_COLOR,
+    backgroundColor: HIGLIGHT_COLOR
   }
 });
 

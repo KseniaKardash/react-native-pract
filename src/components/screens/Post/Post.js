@@ -29,7 +29,7 @@ class FinishPost extends PureComponent<Props> {
   };
 
   render() {
-    const { post } = this.props;
+    const { post, navigator } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -63,6 +63,7 @@ class FinishPost extends PureComponent<Props> {
             description={post.description}
             uri={{ uri: post.uri }}
             uriPhoto={{ uri: post.uriPhoto }}
+            navigator={navigator}
           />
         </SharedElementTransition>
       </View>
@@ -77,8 +78,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: SHADOW_COLOR,
     alignItems: "center",
-    padding: 20,
-    paddingTop: 10
+    padding: 10
   },
   sharedElement: {
     width: "100%"

@@ -99,23 +99,15 @@ class PostsFeed extends PureComponent<Props> {
     }
   };
 
-  handleBackPress = () => {
-    const { navigator } = this.props;
-    navigator.popToRoot({
-      animated: true,
-      animationType: "fade"
-    });
-
-    return true;
-  };
-
   renderItem = (inboundData: { item: Post }) => {
+    const { navigator } = this.props;
     return (
       <SharedElementTransition
         sharedElementId={`SharedPost${inboundData.item.id}`}
       >
         <FadeWrapper>
           <UserPost
+            navigator={navigator}
             userName={inboundData.item.userName}
             uri={{ uri: inboundData.item.uri }}
             uriPhoto={{ uri: inboundData.item.uriPhoto }}
@@ -176,8 +168,7 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     flex: 1,
-    padding: 20,
-    paddingTop: 10,
+    padding: 10,
     backgroundColor: SHADOW_COLOR
   },
   loader: {

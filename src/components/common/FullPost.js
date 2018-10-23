@@ -15,14 +15,21 @@ type Props = {
   tag: string,
   description: string,
   userName: string,
-  uriPhoto: uri
+  uriPhoto: uri,
+  navigator: Object
 };
 
 const FullPost = (props: Props) => {
-  const { likes, description, userName, uri, uriPhoto, tag } = props;
+  const { likes, description, userName, uri, uriPhoto, tag, navigator } = props;
   return (
     <View style={styles.container}>
-      <UserPost uri={uri} userName={userName} uriPhoto={uriPhoto} size={27}>
+      <UserPost
+        uri={uri}
+        userName={userName}
+        uriPhoto={uriPhoto}
+        size={27}
+        navigator={navigator}
+      >
         <View style={styles.likes}>
           <TouchableOpacity style={styles.like}>
             <Icon name="heart" color={MAIN_COLOR} size={27} />
