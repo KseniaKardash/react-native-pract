@@ -8,6 +8,8 @@
 ; Ignore unexpected extra "@providesModule"
 ./node_modules/.*/node_modules/fbjs/.
 
+.*/node_modules/react-native-firebase
+
 ; Ignore duplicate module providers
 ; For RN Apps installed via npm, "Libraries" folder is inside
 ; "node_modules/react-native" but in the source repo it is in the root
@@ -25,5 +27,8 @@ node_modules/react-native/flow-github/
 [lints]
 
 [options]
+
+suppress_comment=\\(.\\|\n\\)*\\$FlowBug.*
+suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
 
 [strict]

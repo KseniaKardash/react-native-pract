@@ -1,23 +1,34 @@
 /* @flow */
 import { connect } from "react-redux";
-import { setUserName, setUserPhoto } from "../actions/profileActions";
 import { requestDayOfWeek } from "../actions/postsFeedActions";
 import InitialScreen from "../components/screens/InitialScreen/InitialScreen";
-import { getUserName, getUserPhoto, getDayOfTheWeek } from "../selectors/index";
+import {
+  getDayOfTheWeek,
+  getUser,
+  getFetchingUserStatus,
+  getAuthorizedUsers
+} from "../selectors/index";
+import {
+  requestSignIn,
+  requestSignOut
+} from "../actions/authenticationActions";
+import { requestPosts } from "../actions/postsActions";
 
 const mapStateToProps = state => {
   return {
-    userName: getUserName(state),
-    userPhoto: getUserPhoto(state),
-    dayOfTheWeek: getDayOfTheWeek(state)
+    dayOfTheWeek: getDayOfTheWeek(state),
+    user: getUser(state),
+    fetchingUser: getFetchingUserStatus(state),
+    authorizedUsers: getAuthorizedUsers(state)
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    setUserName: userName => dispatch(setUserName(userName)),
-    setUserPhoto: userPhoto => dispatch(setUserPhoto(userPhoto)),
-    requestDayOfWeek: () => dispatch(requestDayOfWeek())
+    requestDayOfWeek: () => dispatch(requestDayOfWeek()),
+    requestSignIn: () => dispatch(requestSignIn()),
+    requestSignOut: () => dispatch(requestSignOut()),
+    requestPosts: id => dispatch(requestPosts(id))
   };
 };
 

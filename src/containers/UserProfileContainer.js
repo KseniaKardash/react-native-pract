@@ -1,14 +1,13 @@
 /* @flow */
 import { connect } from "react-redux";
 import { addPost } from "../actions/postsActions";
-import FinishPost from "../components/screens/FinishPost/FinishPost";
-import { getUserName, getUserPhoto, getUserInfo } from "../selectors/index";
+import UserProfile from "../components/screens/UserProfile/UserProfile";
+import { getUser, getPosts } from "../selectors/index";
 
 const mapStateToProps = state => {
   return {
-    userName: getUserName(state),
-    userPhoto: getUserPhoto(state),
-    userInfo: getUserInfo(state)
+    user: getUser(state),
+    posts: getPosts(state)
   };
 };
 
@@ -21,4 +20,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(FinishPost);
+)(UserProfile);

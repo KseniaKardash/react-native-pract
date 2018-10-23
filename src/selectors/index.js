@@ -10,3 +10,12 @@ export const getPostsFetchingStatus = (state: State) =>
   state.postsReducer.fetching;
 export const getToggleSearchStatus = (state: State) =>
   state.postsFeed.toggleSearchStatus;
+export const getUser = (state: State) => state.authenticationReducer.user;
+export const getFetchingUserStatus = (state: State) =>
+  state.authenticationReducer.fetchingUser;
+export const getUserId = (state: State) =>
+  state.authenticationReducer.user.userInfo.id;
+export const getUserInfo = (state: State) =>
+  state.authenticationReducer.user.userInfo;
+export const getAuthorizedUsers = (state: State) =>
+  state.authenticationReducer.authorizedUsers;

@@ -9,14 +9,23 @@ import { BACKGROUND_COLOR, BORDER_SHADOW_COLOR } from "../../constants/colors";
 type Props = {
   uri: Uri,
   uriPhoto: Uri,
-  children?: Node,
+  children: Node,
   userName: string,
-  onShowSelectedPost?: Function,
-  id?: number
+  onShowSelectedPost: Function,
+  id: number,
+  navigator: Object
 };
 
 const UserPost = (props: Props) => {
-  const { uri, uriPhoto, children, userName, onShowSelectedPost, id } = props;
+  const {
+    uri,
+    uriPhoto,
+    children,
+    userName,
+    onShowSelectedPost,
+    id,
+    navigator
+  } = props;
 
   const onUserPostsPress = () => {
     if (onShowSelectedPost) onShowSelectedPost(id);
@@ -24,7 +33,7 @@ const UserPost = (props: Props) => {
 
   return (
     <View style={styles.container}>
-      <UserInfo userName={userName} uriPhoto={uriPhoto} />
+      <UserInfo userName={userName} uriPhoto={uriPhoto} navigator={navigator} />
       {children ? (
         <Image style={styles.imgFull} source={uri} />
       ) : (

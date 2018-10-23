@@ -1,38 +1,58 @@
 /* @flow */
-import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import React, { PureComponent } from "react";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableWithoutFeedback
+} from "react-native";
 
 type Props = {
   userName: string,
-  uriPhoto: uri
+  uriPhoto: uri,
+  navigator: Object
 };
 
 type uri = {
   uri: string
 };
 
-const UserInfo = (props: Props) => {
-  const { userName, uriPhoto } = props;
-  return (
-    <View style={styles.container}>
-      <Image style={styles.img} source={uriPhoto} />
-      <Text style={styles.userName}>{userName}</Text>
-    </View>
-  );
-};
+class UserInfo extends PureComponent<Props> {
+  navigateToNextPage = () => {
+    const { navigator, userName } = this.props;
+    navigator.push({
+      screen: "UserProfile",
+      title: userName,
+      backButtonHidden: true,
+      animated: true,
+      animationType: "fade"
+    });
+  };
+  render() {
+    const { userName, uriPhoto } = this.props;
+    return (
+      <TouchableWithoutFeedback onPress={this.navigateToNextPage}>
+        <View style={styles.container}>
+          <Image style={styles.img} source={uriPhoto} />
+          <Text style={styles.userName}>{userName}</Text>
+        </View>
+      </TouchableWithoutFeedback>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   img: {
-    width: 30,
-    height: 30,
-    borderRadius: 50,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     marginRight: 10
   },
   container: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    marginLeft: 10,
     marginBottom: 10
   },
   userName: {

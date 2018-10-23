@@ -5,18 +5,23 @@ import {
   StyleSheet,
   FlatList,
   TextInput,
-  ActivityIndicator
+  ActivityIndicator,
+  NetInfo,
+  Alert
 } from "react-native";
+import { SharedElementTransition } from "react-native-navigation";
 import ButtonIcon from "../../common/ButtonIcon";
 import HeaderTitle from "../../common/HeaderTitle";
 import UserPost from "../../common/UserPost";
-import type { Post, Posts } from "../../../types/types";
+import type { Post, Posts, User } from "../../../types/types";
 import FadeWrapper from "../../common/FadeWrapper";
 import { SHADOW_COLOR, MAIN_COLOR } from "../../../constants/colors";
 
 type Props = {
   navigator: Object,
   searchName: string,
+  currentUser: User,
+  userId: number,
   toggleSearchStatus: boolean,
   setToggleSearchStatus: Function,
   filterPostsByUserName: Function,
@@ -27,12 +32,22 @@ type Props = {
 
 class PostsFeed extends PureComponent<Props> {
   componentDidMount() {
-    const { requestPosts } = this.props;
-    requestPosts();
+    const { requestPosts, userId, posts, currentUser } = this.props;
+    NetInfo.isConnected.fetch().then(isConnected => {
+      if (isConnected) {
+        if (
+          posts.length == 0 ||
+          posts[0].userName !== currentUser.userInfo.name
+        ) {
+          requestPosts(userId);
+        }
+      } else Alert.alert("There is no Internet connection.");
+    });
   }
+
   onChangeText = (text: string) => {
-    const { filterPostsByUserName } = this.props;
-    filterPostsByUserName(text);
+    const { filterPostsByUserName, userId } = this.props;
+    filterPostsByUserName(userId, text);
   };
 
   onShowSelectedPost = (id: string) => {
@@ -40,16 +55,27 @@ class PostsFeed extends PureComponent<Props> {
     const selectedPost = posts.find(post => {
       return post.id === id;
     });
-    navigator.push({
-      screen: "Post",
-      title: selectedPost.userName,
-      passProps: {
-        post: { ...selectedPost }
-      },
-      backButtonHidden: true,
-      animated: true,
-      animationType: "fade"
-    });
+    if (selectedPost) {
+      navigator.push({
+        screen: "Post",
+        title: selectedPost.userName,
+        sharedElements: [`SharedPost${selectedPost.id}`],
+        passProps: {
+          post: selectedPost
+        },
+        backButtonHidden: true,
+        animated: true,
+        animationType: "fade"
+      });
+    }
+  };
+
+  onRefresh = async () => {
+    const { requestPosts, userId } = this.props;
+    const internetConnectionStatus = await NetInfo.isConnected.fetch();
+    if (internetConnectionStatus) {
+      requestPosts(userId);
+    } else Alert.alert("There is no Internet connection.");
   };
 
   setToggle = () => {
@@ -74,16 +100,22 @@ class PostsFeed extends PureComponent<Props> {
   };
 
   renderItem = (inboundData: { item: Post }) => {
+    const { navigator } = this.props;
     return (
-      <FadeWrapper>
-        <UserPost
-          userName={inboundData.item.userName}
-          uri={{ uri: inboundData.item.uri }}
-          uriPhoto={{ uri: inboundData.item.uriPhoto }}
-          id={inboundData.item.id}
-          onShowSelectedPost={this.onShowSelectedPost}
-        />
-      </FadeWrapper>
+      <SharedElementTransition
+        sharedElementId={`SharedPost${inboundData.item.id}`}
+      >
+        <FadeWrapper>
+          <UserPost
+            navigator={navigator}
+            userName={inboundData.item.userName}
+            uri={{ uri: inboundData.item.uri }}
+            uriPhoto={{ uri: inboundData.item.uriPhoto }}
+            id={inboundData.item.id}
+            onShowSelectedPost={this.onShowSelectedPost}
+          />
+        </FadeWrapper>
+      </SharedElementTransition>
     );
   };
 
@@ -123,6 +155,8 @@ class PostsFeed extends PureComponent<Props> {
             keyExtractor={this.getKeyExtractor}
             renderItem={this.renderItem}
             style={styles.flatList}
+            refreshing={fetching}
+            onRefresh={this.onRefresh}
           />
         )}
       </View>
@@ -134,8 +168,7 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     flex: 1,
-    padding: 20,
-    paddingTop: 10,
+    padding: 10,
     backgroundColor: SHADOW_COLOR
   },
   loader: {
@@ -143,6 +176,7 @@ const styles = StyleSheet.create({
   },
   header: {
     display: "flex",
+    width: "100%",
     flexDirection: "row",
     justifyContent: "space-between"
   },

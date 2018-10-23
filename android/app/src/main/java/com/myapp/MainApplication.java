@@ -19,6 +19,7 @@ import java.util.List;
 
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.auth.RNFirebaseAuthPackage;
+import io.invertase.firebase.database.RNFirebaseDatabasePackage;
 
 public class MainApplication extends NavigationApplication {
 
@@ -28,7 +29,6 @@ public class MainApplication extends NavigationApplication {
      }
 
      protected List<ReactPackage> getPackages() {
-
          return Arrays.<ReactPackage>asList(
          new VectorIconsPackage(),
          new LinearGradientPackage(),
@@ -36,6 +36,7 @@ public class MainApplication extends NavigationApplication {
          new RealmReactPackage(),
          new RNFirebasePackage(),
          new RNFirebaseAuthPackage(),
+         new RNFirebaseDatabasePackage(),
          new RNGoogleSigninPackage()
          );
      }

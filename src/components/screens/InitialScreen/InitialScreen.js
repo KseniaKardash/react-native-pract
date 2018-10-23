@@ -1,83 +1,38 @@
 /* @flow */
 import React, { PureComponent } from "react";
-import { View, StyleSheet, Text } from "react-native";
-import firebase from "react-native-firebase";
+import { View, StyleSheet, ActivityIndicator } from "react-native";
 import { GoogleSigninButton, GoogleSignin } from "react-native-google-signin";
+import firebase from "react-native-firebase";
 import ConfirmButton from "../../common/ConfirmButton";
+import AuthorizedUser from "../../../containers/AuthorizedUserContainer";
 import { BACKGROUND_COLOR, MAIN_COLOR } from "../../../constants/colors";
+import type { User } from "../../../types/types";
+
+// $FlowFixMe
+console.disableYellowBox = true;
 
 type Props = {
   navigator: Object,
-  userName: string,
-  userPhoto: string,
-  dayOfTheWeek: string,
-  setUserName: Function,
-  setUserPhoto: Function,
-  requestDayOfWeek: Function
+  authorizedUsers: Array<User>,
+  fetchingUser: boolean,
+  requestSignIn: Function
 };
 
 class InitialScreen extends PureComponent<Props> {
-  state = {
-    isAuthenticated: false
-  };
-
   componentDidMount() {
-    const {
-      userName,
-      setUserName,
-      userPhoto,
-      setUserPhoto,
-      requestDayOfWeek
-    } = this.props;
-    if (userName == "") {
-      setUserName("Ksenia Kardash");
-    }
-    if (userPhoto == "") {
-      setUserPhoto(
-        "https://i.pinimg.com/originals/61/d5/d3/61d5d36722b29bd95aaec4488f85884b.jpg"
-      );
-      requestDayOfWeek();
-    }
     GoogleSignin.configure({ offlineAccess: false });
+    const config = {
+      apiKey: "AIzaSyARKSbP6BFfP2RQXkPa4zWzv400w7znYPw",
+      authDomain: "react-native-1b2a0.firebaseapp.com",
+      databaseURL: `https://react-native-1b2a0.firebaseio.com/`,
+      projectId: "react-native-1b2a0",
+      storageBucket: "react-native-1b2a0.appspot.com",
+      messagingSenderId: "715039456545"
+    };
+    if (!firebase.apps.length) {
+      firebase.initializeApp(config);
+    }
   }
-
-  onLoginGoogle = () => {
-    GoogleSignin.signIn()
-      .then(data => {
-        const credential = firebase.auth.GoogleAuthProvider.credential(
-          data.idToken,
-          data.accessToken
-        );
-        return firebase.auth().signInWithCredential(credential);
-      })
-      .then(currentUser => {
-        this.setState({
-          isAuthenticated: true
-        });
-        console.tron(
-          `Google Login with user : ${JSON.stringify(currentUser.toJSON())}`
-        );
-      })
-      .catch(error => {
-        console.tron(`Login fail with error: ${error}`);
-      });
-  };
-
-  onLogOutGoogle = () => {
-    GoogleSignin.signOut()
-      .then(() => {
-        firebase.auth().signOut();
-      })
-      .then(() => {
-        this.setState({
-          isAuthenticated: false
-        });
-        console.tron(`OUT`);
-      })
-      .catch(error => {
-        console.tron(`Login fail with error: ${error}`);
-      });
-  };
 
   navigateToNextPage = () => {
     const { navigator } = this.props;
@@ -91,26 +46,42 @@ class InitialScreen extends PureComponent<Props> {
   };
 
   render() {
-    const { dayOfTheWeek } = this.props;
-    const { isAuthenticated } = this.state;
-    return (
-      <View style={styles.container}>
-        {isAuthenticated ? (
-          <View>
-            <ConfirmButton text="START" onPress={this.navigateToNextPage} />
-            <ConfirmButton text="SIGN OUT" onPress={this.onLogOutGoogle} />
-            <Text style={styles.dayOfTheWeek}>{dayOfTheWeek}</Text>
+    const { requestSignIn, authorizedUsers, fetchingUser } = this.props;
+    if (fetchingUser) {
+      return (
+        <View style={styles.container}>
+          <ActivityIndicator size="large" color={MAIN_COLOR} />
+        </View>
+      );
+    } else
+      return (
+        <View style={styles.container}>
+          <View style={styles.users}>
+            {authorizedUsers.map(user => {
+              return (
+                <AuthorizedUser
+                  userPhoto={{ uri: user.userInfo.photo }}
+                  user={user}
+                  key={user.userInfo.id}
+                />
+              );
+            })}
           </View>
-        ) : (
+          <View>
+            {authorizedUsers.length !== 0 ? (
+              <ConfirmButton text="START" onPress={this.navigateToNextPage} />
+            ) : (
+              <View />
+            )}
+          </View>
           <GoogleSigninButton
             style={styles.googleButton}
             size={GoogleSigninButton.Size.Standard}
             color={GoogleSigninButton.Color.Dark}
-            onPress={this.onLoginGoogle}
+            onPress={requestSignIn}
           />
-        )}
-      </View>
-    );
+        </View>
+      );
   }
 }
 
@@ -124,12 +95,21 @@ const styles = StyleSheet.create({
   },
   dayOfTheWeek: {
     color: MAIN_COLOR,
-    fontSize: 22,
-    marginBottom: 10
+    fontSize: 20,
+    marginBottom: 30,
+    alignSelf: "center"
   },
   googleButton: {
-    width: 230,
-    height: 50
+    width: 206,
+    height: 52,
+    marginTop: 20
+  },
+  users: {
+    width: "100%",
+    alignItems: "flex-start",
+    flexDirection: "row",
+    justifyContent: "center",
+    marginBottom: 80
   }
 });
 
